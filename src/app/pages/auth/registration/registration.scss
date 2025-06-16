@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+
+.flex-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: wrap;
+  margin: auto;
+}
+
+.mx-3 {
+  font-size: large;
+  font-weight: 700;
+  padding: 10px;
+
+}
+
+
+.Enterbutton {
+  background-color: #9735be;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.Enterbutton:hover {
+  background-color: aquamarine;
+  color: #9735be
+}
+
+
+.background-color {
+
+  color: aquamarine;
+  margin: auto;
+  clear: both;
+  text-align: center;
+}
+
+.m-auto {
+
+  display: inline-flex;
+  background-color: #c490d8;
+  flex-direction: column;
+  margin: auto;
+  padding: auto;
+  justify-content: center;
+  clear: both;
+  text-align: center;
+}
+
+.ml-2 {
+  color: aquamarine;
+  margin: auto;
+}
+
+span {
+  float: left;
+}
