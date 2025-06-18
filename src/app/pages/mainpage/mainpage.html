@@ -1,18 +1,10 @@
-
+<div class="container">
 <div class="main"><h2>Детский центр развлечений</h2>
 <div>
 <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
-    <ng-template #indicator>
-        <i class="pi pi-search"></i>
-    </ng-template>
-    <!-- <ng-template #image>
-        <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" width="250" />
-    </ng-template>
-   <ng-template #preview let-style="style" let-previewCallback="previewCallback">
-        <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
-    </ng-template>-->
 </p-image>
 
+<img ngSrc="img/ocean.jpg">
 <p-button [link]="true" />
 <a routerLink="/registration" class="p-button font-bold">
     Регистрация
@@ -21,4 +13,5 @@
 <a routerLink="/auth" class="p-button font-bold">
     Авторизация
 </a>
+</div>
 </div>

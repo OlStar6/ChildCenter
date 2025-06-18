@@ -1,1 +1,18 @@
-<p>header works!</p>
+<div class="layout-header">
+    <div class="layout-header__menu">
+    <p-menubar [model]="items">
+      <ng-template pTemplate="end">  
+        </ng-template>
+      </p-menubar>
+        <div class="d-flex">
+  
+          <div class="ms-2">
+            <div>{{time | date: 'HH:mm:ss'}}</div>
+            <p class="p-0 m-0">{{time | date: 'EEEE'}}</p>
+          </div>
+      
+ </div>
+      
+  
+</div>
+</div>

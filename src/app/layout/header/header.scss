@@ -1,0 +1,28 @@
+.layout-header {
+     display: block;
+
+}
+.d-flex {
+    display: flex;
+    flex-direction: column;
+  
+}
+
+
+
+.layout-header__menu {
+    display: flex;
+    justify-content:start;
+    gap: 8px;
+    background: #9735be;
+    color: aquamarine;
+    padding: 4px 10px;
+    }
+
+.p-menubar {
+     display: flex;
+    justify-content:start;
+}
+
+   
+

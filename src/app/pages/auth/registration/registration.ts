@@ -5,7 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { Checkbox } from 'primeng/checkbox';
 import { UserService } from '../../../services/user-service';
 import { MessageService } from 'primeng/api';
-import { IUserRegister } from '../../../models/interfaces';
+import { IUser, IUserRegister, ServerError } from '../../../models/interfaces';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -22,29 +23,32 @@ repeatPassword?: string;
 email: string;
 isRemember: boolean = false;
 labelText = "Сохранить пользователя в хранилище";
-constructor() {}
+constructor(private messageService: MessageService, private http: HttpClient) {}
 
 ngOnInit(): void {
 
   }
  
- onAuth(ev:Event) {
+ onAuth(ev: Event):void | boolean {
 
-console.log('ev', ev);
-/*const postObj= {login: this.login, password: this.password} as IUserRegister;
-this.userService.registerUser(postObj)
-.subscribe(
-  ()=>{
-    this.initToast('success', 'Регистрация прошла успешно');
-  },
- ()=>{
-  this.initToast('error', 'Ошибка');
-}
-)
+    if (this.psw !== this.repeatPsw) {
+       this.messageService.add({severity: 'error', summary: 'Пароли не совпадают', life: 2001})
+       return false;
+    }
 
+    const userObj: IUser = {
+      psw: this.password,
+      login: this.login,
+      email: this.email
+    }
+    this.http.post('http://localhost:3001/users/'+userObj.login, userObj).subscribe(
+      (data)=>{this.messageService.add({severity:'success', summary:'Регистрация прошла успешно'});
+ 
+  }, );
 }
-initToast(type: 'error' | 'success', text: string):void {
-  this.messageService.add({ severity: type, detail: text, life: 3000}) 
-}*/
- }
 }
+/*(err:HttpErrorResponse)=> {
+    console.log('err', err)
+    const ServerError = <ServerError>err.error;
+    this.messageService.add({severity:'warn', summary:ServerError.errorText});
+  }*/

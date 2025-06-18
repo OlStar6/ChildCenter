@@ -1,4 +1,5 @@
 //import { NgClass } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -7,7 +8,7 @@ import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-mainpage',
-  imports: [ButtonModule, RouterModule, ImageModule],
+  imports: [ButtonModule, RouterModule, ImageModule, NgOptimizedImage],
   templateUrl: './mainpage.html',
   styleUrl: './mainpage.scss'
 })

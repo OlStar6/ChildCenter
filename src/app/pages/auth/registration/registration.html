@@ -3,12 +3,14 @@
     <div class="background-color">
         <h3>Регистрация</h3>
     </div>
+
+  
     <div class="flex flex-column m-auto">
         <div class="flex justify-content-between align-items-center flex-wrap background-color">
             <span class="mx-3 ">Логин</span>
             <input type="text" pInputText [ngClass]="{'input-error': !login || login.length<3}" [(ngModel)]="login">
 
-        </div>
+</div>
 
         <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
             <span class="mx-3">Пароль</span>
@@ -24,12 +26,13 @@
 
         </div>
 
+    
         <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
-            <span class="mx-3">Email</span>
-            <input type="email" pInputText [(ngModel)]="email">
+           <span class="mx-3">Email</span>
+             <input type="email" pInputText [(ngModel)]="email">
         </div>
 
-
+</div>
         <div class="mt-3">
             <p-checkbox InputId="saveInStore" [binary]="true" [(ngModel)]="isRemember">
             </p-checkbox>
@@ -44,5 +47,3 @@
         </div>
 
     </div>
-</div>
-<!-- -->
