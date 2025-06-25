@@ -1,15 +1,4 @@
-.container {
-height:700px;
+:host {
+  display: block;
 }
-.overflow-hidden {
-    display: flex;
-    flex:1;
-    padding: 3px;
-    overflow: hidden;
-    
-}
-.p-component {
-    display: flex;
-    flex: 1;
-    overflow: auto;
-}
+

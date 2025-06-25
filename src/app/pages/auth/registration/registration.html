@@ -1,49 +1,47 @@
+<div class="flex justify-content-center">
+    <h3>Регистрация</h3>
 
- <div class="flex flex-column m-auto">
-    <div class="background-color">
-        <h3>Регистрация</h3>
-    </div>
 
-  
-    <div class="flex flex-column m-auto">
-        <div class="flex justify-content-between align-items-center flex-wrap background-color">
-            <span class="mx-3 ">Логин</span>
-            <input type="text" pInputText [ngClass]="{'input-error': !login || login.length<3}" [(ngModel)]="login">
 
-</div>
-
-        <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
-            <span class="mx-3">Пароль</span>
-            <input type="password" pInputText [ngClass]="{'input-error': !psw || psw.length<3}"
-                [(ngModel)]="psw">
-
-        </div>
-
-        <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
-            <span class="mx-3">Повторить пароль</span>
-            <input type="password" pInputText [ngClass]="{'input-error': psw !==  repeatPsw}"
-                [(ngModel)]="repeatPsw">
-
-        </div>
-
-    
-        <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
-           <span class="mx-3">Email</span>
-             <input type="email" pInputText [(ngModel)]="email">
-        </div>
-
-</div>
-        <div class="mt-3">
-            <p-checkbox InputId="saveInStore" [binary]="true" [(ngModel)]="isRemember">
-            </p-checkbox>
-            <label for="saveInStore" class="ml-2"> {{labelText}} </label>
-        </div>
-
-        <div class="mt-3 flex justify-content-between align-items-center flex-wrap">
-            <p-button class="Enterbutton" label="Зарегистрироваться"
-                [disabled]="login.length < 3 || psw.length < 3 || psw != repeatPsw"
-                (click)="onAuth($event)">
-                </p-button>
-        </div>
+<div class="flex flex-column m-auto">
+    <div class="flex justify-content-between align-items-center flex-wrap background-color">
+        <span class="mx-3 ">Логин</span>
+        <input type="text" pInputText [ngClass]="{'input-error': !login || login.length < 3}" [(ngModel)]="login">
 
     </div>
+
+    <div class="mt-3 flex justify-content-between align-items-center flex-wrap">
+        <span class="mx-3">Пароль</span>
+        <input type="password" pInputText [ngClass]="{'input-error': !psw || psw.length < 3}" [(ngModel)]="psw">
+
+    </div>
+
+    <div class="mt-3 flex justify-content-between align-items-center flex-wrap">
+        <span class="mx-3">Повторить пароль</span>
+        <input type="psw" pInputText [ngClass]="{'input-error': psw !==  repeatPsw}" [(ngModel)]="repeatPsw">
+
+    </div>
+
+
+    <div class="mt-3 flex justify-content-between align-items-center flex-wrap">
+        <span class="mx-3">Email</span>
+        <input type="email" pInputText [(ngModel)]="email">
+    </div>
+
+</div>
+<div class="mt-3">
+    <p-checkbox InputId="saveInStore" [binary]="true" [(ngModel)]="isRemember">
+    </p-checkbox>
+    <label for="saveInStore" class="ml-2"> {{labelText}} </label>
+</div>
+<div class="mt-3 flex justify-content-between align-items-center flex-wrap">
+   <div class="card flex justify-center gap-4">
+    <p-button 
+   
+        (click)="onAuth($event)"
+     >Зарегистрироваться
+    </p-button>
+</div>
+
+
+</div>

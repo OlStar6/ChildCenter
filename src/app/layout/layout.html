@@ -1,19 +1,19 @@
-<div class="container">
 <div class="flex flex-column h-full">
-  
-   <header>
-      <app-header></app-header>
-   </header>
-   <div class="main-content flex flex-1 p-3 overflow-hidden">
-<div class="flex-grow-1 overflow-auto">
-    <router-outlet></router-outlet>
-    </div> 
-      <app-aside></app-aside>
-</div>
-  
-   <footer>
-      <app-footer></app-footer>
-   </footer>
-   
-</div>
+    <header>
+        <app-header></app-header>
+    </header>
+    <div class="main-content flex flex-1 p-3 overflow-hidden">
+        <div class="flex-grow-1 overflow-auto">
+            <router-outlet></router-outlet>
+        </div>
+        @if (showAside) {
+            <aside> 
+                <app-aside></app-aside>
+            </aside>
+        }
+       
+    </div>
+    <footer>
+        <app-footer></app-footer>
+    </footer>
 </div>

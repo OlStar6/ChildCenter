@@ -59,20 +59,20 @@ export class Header implements OnInit, OnDestroy {
     return [
       {
         label: 'Каталог',
-        routerLink: ['entertainment-list']
+        routerLink: ['']
+      },
+      {
+        label: 'Запись',
+        routerLink: ['order'],
       },
       {
         label: 'Настройки',
-        routerLink: ['/entertainment/settings'],
-      },
-      {
-        label: 'Об организации',
-        routerLink: ['/entertainment/blog'],
+        routerLink: ['/settings'],
       },
 
       {
         label: 'Выйти',
-        routerLink: ['']
+        routerLink: ['auth']
       },
     ];
   }

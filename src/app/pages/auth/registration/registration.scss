@@ -2,7 +2,7 @@
   display: block;
 }
 
-.flex-wrap {
+/*.flex-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,34 +16,7 @@
   padding: 10px;
 
 }
-
-
-.Enterbutton {
-  background-color: #9735be;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-.Enterbutton:hover {
-  background-color: aquamarine;
-  color: #9735be
-}
-
-
-.background-color {
-
-  color: aquamarine;
-  margin: auto;
-  clear: both;
-  text-align: center;
-}
-
-.m-auto {
+ .m-auto {
 
   display: inline-flex;
   background-color: #c490d8;
@@ -63,3 +36,33 @@
 span {
   float: left;
 }
+.Enterbutton {
+
+  border: none;
+  color: #9735be;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.Enterbutton:hover {
+  background-color: aquamarine;
+  color: #9735be
+}
+
+
+.background-color {
+
+  color: aquamarine;
+
+  margin: auto;
+  clear: both;
+  text-align: center;
+}
+
+
+
+
+*/

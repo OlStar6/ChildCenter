@@ -1,0 +1,44 @@
+<div>
+<p-button 
+label="Назад"
+styleClass="p-button-link"
+routerLink="/"
+></p-button>
+
+<div class="flex flex-1">
+  @if(enter) {
+<div>
+   <p-card
+
+     header="{{enter.name}}"
+     subheader="{{enter.price}}"  
+     styleClass="p-card-shadow col-10 overflow-hidden"
+      >
+      <p>{{enter.description}}</p>
+     <ng-template pTemplate="header">
+     <img alt="park" class="w-full" src="/img/{{enter.img}}">
+    </ng-template>
+   
+ </p-card>
+</div>
+  }
+
+<div class="nearest-enter">
+   </div>
+</div> 
+<p-button 
+label="Записаться на сеанс"
+styleClass="my-3"
+(click)='initOrder($event)'
+></p-button>
+
+</div>
+ 
+
+
+
+
+
+
+
+

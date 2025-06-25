@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+input.input-error{
+    border: 1px solid red;
+}
+
+aside {
+  padding: 20px;
+  border-left: 3px solid #ccc;
+   width: 30%;
+   float: right;
+   scrollbar-width: 5px;
+}
+
