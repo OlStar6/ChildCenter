@@ -1,0 +1,63 @@
+.session-booking {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.date-picker {
+  margin-bottom: 20px;
+}
+
+.date-picker input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sessions-list {
+  margin-top: 20px;
+}
+
+.session-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items:end;
+}
+
+.session-time {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.book-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.book-button:hover {
+  background-color: #45a049;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  color: #a94442;
+}

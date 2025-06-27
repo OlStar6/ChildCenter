@@ -1,74 +1,71 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MessageService} from "primeng/api";
-import { HttpClient } from '@angular/common/http';
 import { EntertainmentService } from '../../services/entertainment-service';
 import { IEnterTypeSelect, IMenuType } from '../../models/interfaces';
+import { DatePickerModule } from 'primeng/datepicker';
+import { FormsModule } from '@angular/forms';
+import { SelectChangeEvent, SelectModule } from 'primeng/select';
 @Component({
   selector: 'app-aside',
-  imports: [],
+  imports: [
+    DatePickerModule, 
+    FormsModule, 
+    SelectModule,
+    ],
   templateUrl: './aside.html',
   styleUrl: './aside.scss'
 })
 export class Aside implements OnInit{
- 
-  menuTypes: IMenuType[];
-  selectedMenuType: IMenuType
+  date: Date = null;
+  selectedType: IEnterTypeSelect=null;
 
   enterTypes: IEnterTypeSelect[] = [
-    {label: 'Все', value: 'all'},
-    {label: 'до 5 лет', value: 'under-five'},
-    {label: 'от 6 до 10 лет', value: 'from-six-to-ten'},
-    {label: 'от 11 до 15 лет', value: 'from-11en-to-15en'},
-    {label: 'старше 15 лет', value: 'over-fifteen'}
+    {key:'Все', label: 'Все' },
+    {key: 'от 4 лет', label: 'от 4 лет'},
+    {key: 'от 6 лет', label: 'от 6 лет'}
   ]
+
 
   constructor(
     private EntertainmentService:EntertainmentService,
-     private messageService: MessageService,
-    private http: HttpClient
+  
       
     
   ) {}
   
 
-  @Output() updateMenuType: EventEmitter<IMenuType> = new EventEmitter()
+
 
   ngOnInit(): void {
-    this.menuTypes = [
-      {type: 'custom', label: 'Обычное'},
-      {type: 'extended', label: 'Расширенное'}
-    ]
+   this.selectedType = this.enterTypes.find((type)=> type.key === 'Все');
   }
 
-  onChangeType(ev: { ev: Event, value: IMenuType }): void {
-    this.updateMenuType.emit(ev.value);
+   changeEnterType(ev: SelectChangeEvent): void {
+   this.EntertainmentService.initChangeEnterType(this.selectedType); 
+   console.log('selectedType', this.selectedType)
   }
-
-  /*changeEnterType(ev: { ev: Event, value: ITourTypeSelect }): void {
-    this.EntertainmentService.updateEnter(ev.value)
-  }
-  initUserInfo(): void {
-    this.userService.initUserToSubject();
-  }
-
-  addBasket(): void {
-    this.userService.addBasketToSubject();
-  }
-  selectDate(ev: Date | PointerEvent) {
-    const selected = ev instanceof PointerEvent ? undefined : ev
-    this.EntertainmentService.updateEnter({date: selected})
-  }
-
-  
-  initEnters(): void{
-this.http.post('http://localhost:3000/tours/', {}).subscribe((data: any)=>{
-  this.EntertainmentService.updateTicketList(data);
-})
-  }
-
-  deleteEnters():void {
-this.http.delete('http://localhost:3000/tours/').subscribe((data: any)=>{
-  this.EntertainmentService.updateTicketList(data)
-})
-  }*/
+changeDate(ev:Date): void {
+  console.log('ev', ev)
+   this.EntertainmentService.initChangeEnterDate(ev);
 }
+
+clearDate(ev: Date): void {
+console.log('oi', ev)
+
+  this.EntertainmentService.initChangeEnterType(this.selectedType);
+}
+}
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+ 
+   
+ 

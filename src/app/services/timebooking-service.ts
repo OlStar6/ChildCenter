@@ -8,7 +8,7 @@ import { Appointment, TimeSlot } from '../models/interfaces';
   providedIn: 'root'
 })
 export class TimebookingService {
-  private apiUrl = 'http://localhost:3002/enter';
+  private apiUrl = 'http://localhost:3002/enters';
   constructor(private http: HttpClient) { }
 
 

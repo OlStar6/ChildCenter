@@ -17,8 +17,12 @@ export interface Ienters {
   img: string;
   description: string;
   price: string; 
-   id: string;
+   id?: string;
   _id?:number;
+  age: string;
+  type?: string;
+  key?:string;
+   date?: string;
 }
 
 export interface Ientertanment {
@@ -26,12 +30,19 @@ export interface Ientertanment {
   img: string;
   description: string;
   price: string;
+  age: string;
 }
 
 export interface IEnterTypeSelect {
   label: string;
-  value: string;
+  key: string;    
+  date?: Date;
 }
+
+ export interface IFilterTypeLogic {
+    key: 'Все' | 'от 4 лет' | 'от 6 лет';
+    label?: string
+ }
  
  
  export interface ServerError{
@@ -72,4 +83,15 @@ export interface Appointment {
   timeSlotId: number;
   clientName: string;
   date: Date;
+}
+
+
+  export interface Session {
+  id: number;
+  startTime: string;
+  endTime: string;
+  date: Date;
+  availableSlots: number;
+  maxSlots: number;
+  isAvailable: boolean;
 }

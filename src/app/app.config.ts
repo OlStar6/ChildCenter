@@ -7,6 +7,7 @@ import { provideHttpClient } from '@angular/common/http';
 import Aura from '@primeng/themes/aura';
 import { MessageService } from 'primeng/api';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     provideHttpClient(),
-    MessageService
+        MessageService
+
   ]
 };

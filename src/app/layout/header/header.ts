@@ -26,7 +26,7 @@ export class Header implements OnInit, OnDestroy {
   };
 
   items: MenuItem[];
-  time: Date;
+  datetime: Date;
   private timer: number;
   private settingsActive: boolean = false;
 ;
@@ -38,7 +38,7 @@ export class Header implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.items = this.initMenuItems();
     this.timer = window.setInterval(() => {
-      this.time = new Date();
+      this.datetime = new Date();
     }, 1000)
   }
 
@@ -70,10 +70,7 @@ export class Header implements OnInit, OnDestroy {
         routerLink: ['/settings'],
       },
 
-      {
-        label: 'Выйти',
-        routerLink: ['auth']
-      },
+     
     ];
   }
 

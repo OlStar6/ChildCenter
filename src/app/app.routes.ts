@@ -15,8 +15,7 @@ import { Timebooking } from './pages/timebooking/timebooking';
 export const routes: Routes = [
     { path: 'register', component: Registration },
     { path: 'auth', component: Authorization },
-    { path: 'order', component: Order },
-
+    { path: 'order', component: Order},
     {
         path: '', component: Layout,
         children: [
@@ -24,11 +23,8 @@ export const routes: Routes = [
 
             { path: 'enter', redirectTo: '', pathMatch: 'full' },
 
-            { path: 'enter/:id', component: ItemEnter,
-                children: [
-                    {path: 'book', component: Timebooking}
-                ]
-             },
+            { path: 'enter/:id', component: ItemEnter},
+            
             {
                 path: 'settings',
                 component: Settings,

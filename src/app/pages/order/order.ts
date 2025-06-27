@@ -1,6 +1,6 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {  FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -17,7 +17,10 @@ import { Ienters } from '../../models/interfaces';
     InputTextModule, 
     DatePickerModule, 
     ButtonModule,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    FormsModule,
+    CommonModule
+
   ],
   templateUrl: './order.html',
   styleUrl: './order.scss'

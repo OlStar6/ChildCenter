@@ -1,0 +1,38 @@
+<div class="session-booking">
+  <h2>Запись на сеанс</h2>
+  
+  <div class="date-picker">
+    <label for="booking-date">Выберите дату:</label>
+    <input type="date" id="booking-date" 
+           [value]="selectedDate | date:'yyyy-MM-dd'"
+           (change)="onDateChange($event)">
+  </div>
+
+  <div *ngIf="bookingSuccess" class="alert alert-success">
+    Вы успешно записаны на сеанс!
+  </div>
+
+  <div *ngIf="bookingError" class="alert alert-danger">
+    Не удалось выполнить запись. Возможно, сеанс уже заполнен.
+  </div>
+
+  <div class="sessions-list" *ngIf="availableSessions.length > 0; else noSessions">
+    <h3>Доступные сеансы на {{selectedDate | date:'dd.MM.yyyy'}}</h3>
+    
+    <div class="session-card" *ngFor="let session of availableSessions">
+      <div class="session-time">
+        {{session.startTime}} - {{session.endTime}}
+      </div>
+      <div class="session-slots">
+        Свободных мест: {{session.availableSlots}} / {{session.maxSlots}}
+      </div>
+      <button (click)="bookSession(session.id)" class="book-button">
+        Записаться
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noSessions>
+    <p>На выбранную дату нет доступных сеансов.</p>
+  </ng-template>
+</div>

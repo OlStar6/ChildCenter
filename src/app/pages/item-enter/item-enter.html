@@ -15,15 +15,18 @@ routerLink="/"
      styleClass="p-card-shadow col-10 overflow-hidden"
       >
       <p>{{enter.description}}</p>
+      <p>{{enter.age}}</p>
      <ng-template pTemplate="header">
      <img alt="park" class="w-full" src="/img/{{enter.img}}">
     </ng-template>
-   
+
+   <app-session-booking/>
  </p-card>
 </div>
   }
 
 <div class="nearest-enter">
+
    </div>
 </div> 
 <p-button 
