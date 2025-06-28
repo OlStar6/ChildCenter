@@ -39,6 +39,6 @@ export const routes: Routes = [
     },
 
 
-    { path: '**', redirectTo: '/', pathMatch: 'full' }
+    { path: '**', redirectTo: '/auth', pathMatch: 'full' }
 
 ];

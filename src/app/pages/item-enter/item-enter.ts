@@ -50,7 +50,7 @@ export class ItemEnter implements OnInit {
  */
 
   initOrder(ev: Event): void {
-    this.router.navigate(['auth'], { relativeTo: this.route });
+    this.router.navigate(['order'], { relativeTo: this.route });
   }
 
 

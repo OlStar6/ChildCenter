@@ -4,7 +4,7 @@ import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { Ienters, Ientertanment, IFilterTypeLogic } from '../../models/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { isValid } from 'date-fns';
 
 
@@ -20,6 +20,7 @@ export class Entertainment implements OnInit {
   typeEnterFilter:IFilterTypeLogic = {key: 'Все'};
   entersStore:Ienters[]=[];
   subscription: Subscription;
+  destroyer= new Subject<boolean>();;
   constructor(
     private entertainmentService: EntertainmentService,
     private router: Router,
@@ -95,8 +96,8 @@ export class Entertainment implements OnInit {
   
   }
 
-   goToEnter(item: any): void {
-    this.router.navigate(['enter', item._id]);
+   goToEnter(item: Ienters): void {
+    this.router.navigate(['enter', item._id], {relativeTo:this.route});
   }
 
 
@@ -117,6 +118,11 @@ export class Entertainment implements OnInit {
         }
       }
     }
+    ngOnDestroy(): void {
+  this.destroyer.next(true);
+  this.destroyer.complete();
+
+}
 }
 
 
