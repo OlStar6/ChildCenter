@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { EntertainmentService } from '../../services/entertainment-service';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { Ienters, Ientertanment, IFilterTypeLogic } from '../../models/interfaces';
+import { Ienters, IEnterSelect, Ientertanment, IFilterTypeLogic } from '../../models/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { isValid } from 'date-fns';
+import { SelectModule } from 'primeng/select';
 
 
 
 @Component({
   selector: 'app-entertainment',
-  imports: [CardModule, CommonModule],
+  imports: [CardModule, CommonModule, SelectModule],
   templateUrl: './entertainment.html',
   styleUrl: './entertainment.scss'
 })
@@ -19,6 +20,7 @@ export class Entertainment implements OnInit {
   enters: any = [];
   typeEnterFilter:IFilterTypeLogic = {key: 'Все'};
   entersStore:Ienters[]=[];
+  entertainmentStore:IEnterSelect[]=[];
   subscription: Subscription;
   destroyer= new Subject<boolean>();;
   constructor(
@@ -46,6 +48,10 @@ export class Entertainment implements OnInit {
           }
         
       });
+
+     
+
+   
     //this.typeTourFilter = tour;
     //this.initTourFilterLogic();
 
@@ -65,11 +71,11 @@ export class Entertainment implements OnInit {
 
        else if (isValid (new Date(enter.date))) {
 
-          const tourDate = new Date(enter.date).setHours(0, 0, 0, 0);
-          console.log('****tourDate', tourDate)
+          const enterDate = new Date(enter.date).setHours(0, 0, 0, 0);
+          console.log('****tourDate', enterDate)
           const calendarDate = new Date(date).setHours(0, 0, 0);
           console.log('****calendarDate', calendarDate)
-          return tourDate === calendarDate;
+          return enterDate === calendarDate;
         }else {
           return false;
         }
@@ -97,6 +103,7 @@ export class Entertainment implements OnInit {
   }
 
    goToEnter(item: Ienters): void {
+   
     this.router.navigate(['enter', item._id], {relativeTo:this.route});
   }
 

@@ -7,32 +7,37 @@ routerLink="/"
 
 <div class="flex flex-1">
   @if(enter) {
-<div>
-   <p-card
-
-     header="{{enter.name}}"
-     subheader="{{enter.price}}"  
-     styleClass="p-card-shadow col-10 overflow-hidden"
-      >
+<div class="flex">
+   <span class="item-enter">
+    <div class="card">
+      <img alt="park" class="w-full" src="/img/{{enter.img}}">
+      <p>{{enter.name}}</p>
+        <p>{{enter.price}}</p>
       <p>{{enter.description}}</p>
       <p>{{enter.age}}</p>
-     <ng-template pTemplate="header">
-     <img alt="park" class="w-full" src="/img/{{enter.img}}">
-    </ng-template>
+    
+    </div>
 
-   <app-session-booking/>
- </p-card>
+ <div class="session-book"><app-session-booking/></div>
+
+   </span>
 </div>
+  
   }
-
+</div> 
 <div class="nearest-enter">
 
    </div>
-</div> 
+
 <p-button 
-label="Записаться на сеанс"
+label="Авторизация"
 styleClass="my-3"
-(click)='initOrder($event)'
+(click)='initAuth($event)'
+></p-button>
+<p-button 
+label="Регистрация"
+styleClass="my-3"
+(click)='initReg($event)'
 ></p-button>
 
 </div>

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import { EntertainmentService } from '../../services/entertainment-service';
-import { IEnterTypeSelect, IMenuType } from '../../models/interfaces';
+import { IEnterTypeSelect } from '../../models/interfaces';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
@@ -8,8 +8,9 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
   selector: 'app-aside',
   imports: [
     DatePickerModule, 
-    FormsModule, 
-    SelectModule,
+        FormsModule, 
+    SelectModule
+
     ],
   templateUrl: './aside.html',
   styleUrl: './aside.scss'
@@ -23,7 +24,6 @@ export class Aside implements OnInit{
     {key: 'от 4 лет', label: 'от 4 лет'},
     {key: 'от 6 лет', label: 'от 6 лет'}
   ]
-
 
   constructor(
     private EntertainmentService:EntertainmentService,

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Session } from '../models/interfaces';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -8,8 +10,16 @@ import { Session } from '../models/interfaces';
 })
 export class SessionService {
   private sessions: Session[] = [];
+  id: number;
+  startTime: string;
+  endTime: string;
+  date: Date;
+  availableSlots: number;
+  maxSlots: number;
+  isAvailable: boolean;
+  enterId:string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.generateSampleSessions();
   }
 
@@ -17,7 +27,7 @@ export class SessionService {
     // Генерация тестовых сеансов
     const today = new Date();
     
-    this.sessions = [
+   /* this.sessions = [
       {
         id: 1,
         startTime: '09:00',
@@ -37,9 +47,24 @@ export class SessionService {
         isAvailable: false
       },
       // Добавьте больше сеансов по необходимости
-    ];
+    ];*/
   }
 
+
+  getSession(): Observable<Session[]> {
+  const session: Session = {
+  startTime: this.startTime,
+  endTime: this.endTime,
+  date: this.date,
+  availableSlots: this.availableSlots,
+  maxSlots: this.maxSlots,
+  isAvailable: this.isAvailable,
+  enterId:this.enterId
+  }
+    
+      return this.http.get<Session[]>('http://localhost:3002/session/');
+    
+  }
   getAvailableSessions(date: Date): Session[] {
     return this.sessions.filter(session => 
       session.date.toDateString() === date.toDateString() && 

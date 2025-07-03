@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Appointment, TimeSlot } from '../models/interfaces';
+import { TimeSlot } from '../models/order';
+import { Appointment } from '../models/interfaces';
+
 
 
 @Injectable({
@@ -12,7 +14,7 @@ export class TimebookingService {
   constructor(private http: HttpClient) { }
 
 
-  getAvailableSlots(enterId:number, date:Date): Observable<TimeSlot[]> {
+  getAvailableSlots(enterId:string, date:Date): Observable<TimeSlot[]> {
     const dateStr = date.toISOString().split('T')[0];
     return this.http.get<TimeSlot[]>(
       '${this.apiUrl}/enterId&date=${dateStr}'

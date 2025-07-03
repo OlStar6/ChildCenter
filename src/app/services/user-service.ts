@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../models/interfaces';
+import { IUser, UserStorageKey } from '../models/interfaces';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -19,6 +21,7 @@ export class UserService {
  
   constructor(
     private router: Router,
+    private http:HttpClient
 
  
     ) {
@@ -33,7 +36,15 @@ export class UserService {
 getUser(login: string): IUser | null {
     return this.userStorage.find((user) => login === user.login) || null;
   }
-
+getUsersStorage(): IUser {
+    const userFromStorage = sessionStorage.getItem(UserStorageKey);
+/*
+  if (!this.currentUser) {
+    this.userFromStorage()
+   */ 
+    return this.currentUser || JSON.parse(userFromStorage);
+  
+}
   private auth(user: IUser, isRememberMe?: boolean) {
     console.log('user', user)
     this.currentUser = user;
@@ -45,7 +56,6 @@ getUser(login: string): IUser | null {
 
    setUser(user: IUser): void {
     this.currentUser = user;
-   
     sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({login: user.login}));    
  }
 
@@ -105,6 +115,7 @@ this.token = null;
 window.localStorage.removeItem('usertoken')
   }
 
+
   authUser(login: string, psw: string, isRememberMe: boolean): true | string {
     const user = this.getUser(login);
     if (!user) {
@@ -134,7 +145,14 @@ window.localStorage.removeItem('usertoken')
     localStorage.removeItem(LOCAL_STORAGE_NAME);
     this.router.navigate(['/']);
   }
-
+  changePassword(password: string) {
+    if (!this.currentUser) {
+      return
+    }
+    this.currentUser.psw = password;
+    const dbUser = this.userStorage.find(({login}) => login === this.currentUser?.login)!;
+    dbUser.psw = password
+  }
   }
 
 

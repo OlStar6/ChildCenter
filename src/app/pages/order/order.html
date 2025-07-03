@@ -1,111 +1,82 @@
-<div class="ticket-info-wrap col-6">
-<div>
-    <a routerLink="/">Назад</a>
+<div class="container mt-5">
+<p-button 
+label="Назад"
+styleClass="p-button-link"
+routerLink="/"
+></p-button>
+  <h2 class="text-center mb-4">Запись на развлекательный сеанс</h2>
 
-<div class="mt-3">
-    <h2></h2>
+  <form [formGroup]="orderForm" (ngSubmit)="initOrder()" novalidate>
+
+    <div class="card flex justify-center">
+      <label for="clientName">ФИО</label>
+      <input type="text" pInputText id="clientName" formControlName="clientName" class="form-control">
+    </div>
+      <div class="card flex justify-center">
+    <label for="childName"> Имя ребенка</label>
+    <input type="text" pInputText id="childName" formControlName="childName" class="form-control">
+</div>
+  <div class="card flex justify-center">
+    <label for="age">Возраст ребенка</label>
+    <input type="text" pInputText id="age" formControlName="age" class="form-control">
+</div>
+  <div class="my-3">
+       <label for="birthDate">День рождения ребенка</label>
+    <input type="date" pInputText id="birthDate" formControlName="birthDate" class="form-control">
+
+  </div>
+   <div class="my-3">
+    <p>Выберите развлечениe</p>
+      <p-select [options]="enterId" [(ngModel)]="selectedEnter" optionLabel="name"
+        placeholder="Выберите вид развлечения" formControlName="enterId" />
+    </div>
+
+ <div class="my-3">
+       <label for="date">Дата сеанса</label>
+    <input type="date" pInputText id="date" formControlName="date" [min]="minDate" class="form-control">
+
+  </div>
+   
+  
+    <div>
+      <label for="session" formControlName = "session">Время сеанса</label>
+       <input type="text" pInputText id="session" formControlName="session" class="form-control">
+       @for (item of sessionId; track item.id) {
+      <select  [class.btn-primary]="orderForm.get('sessionId')?.value?.startTime === item.startTime"
+          [class.btn-outline-secondary]="orderForm.get('sessionId')?.value?.startTime !== item.startTime"
+          [disabled]="!item.isAvailable" (click)="orderForm.get('session')?.setValue(item)" class="btn btn-sm m-1">
+        {{item.startTime}}-{{item.endTime}}
+   ></select>
+       }
  
-    </div>
-    <div class="mt-3">
-    <h2>Запись на сеанс</h2>
-   
-    <form>
-        <div class="mt-3 user-info" [formGroup]="userForm">
-            @for (fieldObj of userFormFiledsArr; track fieldObj.control) {
-                <ng-container
-                    [ngTemplateOutlet] = 'FormFiled'
-                    [ngTemplateOutletContext] = 'fieldObj'
-                  />
-            }
-           <div class="form-group mt-3">
-                <label for="name" class="mx-3">Имя</label>
-                <input type="text" 
-                class="form-control mt-3"
-                id="name"
-                pInputText
-                formControlName="firstName"
-                placeholder="Введите имя">
-            </div>
-            <div class="form-group mt-3">
-                <label for="surname" class="mx-3">Фамилия</label>
-                <input type="text" 
-                class="form-control mt-3"
-                id="surname"
-                pInputText
-                formControlName="lastName"
-                placeholder="Введите фамилию">
-            </div>
-            <div class="form-group mt-3">
-                <label for="childName">Имя ребенка</label>
-                <input type="text" 
-                class="form-control mt-3"
-                id="childName"
-                pInputText
-                formControlName="childName"
-                placeholder="Введите имя ребенка">
-            </div>
-            <div class="form-group mt-3">
-                <label class="mx-3">Возраст ребенка</label>
-                <p-input-number  
-                name="age"
-               formControlName="age"
-                [showButtons]="true"
-                [min]="0"
-                class="form-control mt-3">
-            </p-input-number>
-        </div>
-            <div class="form-group mt-3">
-                <label class="mx-3">День рождения ребенка</label>
-               <p-datepicker 
-               name="date"
-                formControlName="birthDate"
-                class="form-control mt-3">
-                </p-datepicker>
-            </div>
-        <div class="form-group mt-3">
-                <label for="cardNumber" class="mx-3">Номер карты</label>
-                <input type="text" 
-                class="form-control mt-3"
-                id="cardNumber"
-                pInputText
-                formControlName="cardNumber"
-                placeholder="Введите номер карты">
-            </div>
-            <div class="form-group mt-3">
-                <p-button 
-             
-                class="btn btn-primary"
-                [disabled]="!userForm.valid"
-                         (click)="initOrder()" 
-                >Записаться на сеанс</p-button>
-           
 
-            </div>
-        </div>
-    </form>
 
+      
 </div>
-</div>
-</div>
+      <!-- <button type="button" formControlName = "session" *ngFor="let slot of availableTimeSlots"
+          [class.btn-primary]="orderForm.get('sessionId')?.value?.startTime === slot.startTime"
+          [class.btn-outline-secondary]="orderForm.get('sessionId')?.value?.startTime !== slot.startTime"
+          [disabled]="!slot.isAvailable" (click)="orderForm.get('timeSlot')?.setValue(slot)" class="btn btn-sm m-1">
+          {{slot.startTime}} - {{slot.endTime}}
+          <span *ngIf="!slot.isAvailable" class="badge badge-danger ml-1">Занято</span>
+        </button>--> 
+ 
+ 
 
- <ng-template #FormFiled let-control="control" let-placeHolder = 'placeHolder' let-label = 'label'>
-    <div [formGroup] = 'userForm' class="form-group mt-3"> 
-        <label [attr.for]="control" class = 'mx-3'>{{label}}</label>
-        <input type="text" 
-        class="form-control mt-3"
-        [id]="control"
-        pInputText
-        [formControlName]="control"
-        [placeholder]="placeHolder"
-      >
-     <p-input-number  
-              
-                [formControlName]="control"
-                [placeholder]="placeHolder"
-                [showButtons]="true"
-                [min]="0"
-                class="form-control mt-3">
-        </p-input-number>
-           
-   
-    </div>
+
+    <label for="participants">Количество участников</label>
+    <input type="number" pInputText id="participants" formControlName="participants" min="1" class="form-control">
+
+
+
+    <p-button type="submit" class="btn btn-primary btn-lg" (click)="initOrder()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Забронировать
+    </p-button>
+
+
+
+
+
+  </form>
+</div>

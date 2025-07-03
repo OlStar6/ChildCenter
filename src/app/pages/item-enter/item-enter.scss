@@ -1,7 +1,15 @@
 
 
-
+.card {
+    display: flex;
+    flex-direction: column;
+}
 img {
-    width: 30%;
+
     height:150px;
+}
+.item-enter {
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
 }

@@ -3,7 +3,8 @@ export interface IUser {
     psw?: string;
     repeatPsw?: string;
     email?:string
-//    role: 'admin' | 'user';
+    role?: 'admin' | 'user';
+    id?:string;
 }
  export interface IUserRegister {
     login: string;
@@ -18,11 +19,9 @@ export interface Ienters {
   description: string;
   price: string; 
    id?: string;
-  _id?:number;
+  _id?:string;
   age: string;
-  type?: string;
-  key?:string;
-   date?: string;
+    date?: string;
 }
 
 export interface Ientertanment {
@@ -36,6 +35,11 @@ export interface Ientertanment {
 export interface IEnterTypeSelect {
   label: string;
   key: string;    
+  date?: Date;
+}
+export interface IEnterSelect {
+  name: string;
+  value: string;    
   date?: Date;
 }
 
@@ -67,19 +71,11 @@ export interface IMenuType {
     
  }
 
- 
-export interface TimeSlot {
-  id: number;
-  date: Date;
-  startTime: string; // Формат "HH:mm"
-  endTime: string;
-  isAvailable: boolean;
-  enterId: number;
-}
+
 
 export interface Appointment {
   id?: number;
-  enterId: number;
+  enterId: string;
   timeSlotId: number;
   clientName: string;
   date: Date;
@@ -87,11 +83,26 @@ export interface Appointment {
 
 
   export interface Session {
-  id: number;
+  id?: number;
   startTime: string;
   endTime: string;
-  date: Date;
-  availableSlots: number;
-  maxSlots: number;
+  date?: Date;
+  availableSlots?: number;
+  maxSlots?: number;
   isAvailable: boolean;
+  enterId: string;
 }
+
+
+
+export interface ICustomStatisticUser {
+  login: string,
+  email: string,
+  }
+export interface IStatisticUser {
+  login: string,
+  email:string
+
+  }
+
+

@@ -1,4 +1,25 @@
-<div class="session-booking">
+<div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
+@for (item of session; track item.id) {
+ 
+  @if (bookingSuccess)  { <div>class="alert alert-success">
+    Вы успешно записаны на сеанс!
+</div>
+<div class="session-time">
+{{item.startTime}}-{{item.endTime}}
+</div>
+<p-button (click)="bookSession(session.id)">Записаться</p-button>
+  }
+ @if (item.availableSlots.length> 0) { 
+    <h3>Доступные сеансы на {{selectedDate | date:'dd.MM.yyyy'}}</h3> 
+    }
+
+}
+
+
+
+ 
+
+<!--<div class="session-booking">
   <h2>Запись на сеанс</h2>
   
   <div class="date-picker">
@@ -35,4 +56,4 @@
   <ng-template #noSessions>
     <p>На выбранную дату нет доступных сеансов.</p>
   </ng-template>
-</div>
+</div>-->

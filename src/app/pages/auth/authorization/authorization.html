@@ -29,6 +29,11 @@
     [disabled]="!login || !psw || login.length < 3 || psw.length < 3" 
     (click)="onAuth($event)" 
     ></p-button>
+    <p-button 
+label="Регистрация"
+styleClass="my-3"
+routerLink="/register"
+></p-button>
 
 </div>
 </div>

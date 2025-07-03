@@ -1,0 +1,86 @@
+{
+    "session": [
+        {
+                "id": 1,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+        "enterId":"685c60aad8810aa93c3389ca"
+        },
+
+ {
+                "id": 2,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        },
+        {
+                "id": 3,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        },
+          {
+                "id": 4,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        },
+          {
+                "id": 5,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+        "enterId":"685c60aad8810aa93c3389ca"
+        },
+
+ {
+                "id": 6,
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        },
+        {
+                "id": 7,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        },
+          {
+                "id": 8,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60aad8810aa93c3389ca"
+        }
+    ]
+}

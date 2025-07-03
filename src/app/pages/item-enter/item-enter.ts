@@ -3,11 +3,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { Ienters } from '../../models/interfaces';
+import { Ienters, IEnterSelect } from '../../models/interfaces';
 import { EntertainmentService } from '../../services/entertainment-service';
 
 import { FormsModule } from '@angular/forms';
 import { SessionBookingComponent } from './session-booking/session-booking';
+import { UserService } from '../../services/user-service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -21,8 +23,11 @@ export class ItemEnter implements OnInit {
   value!: number;
   enterId: string = null;
   enter: Ienters;
-  entersStore: Ienters[] = [];
+  entertainment:any = [];
+
+
   @Input() session: any;
+  subscription: Subscription;
 
   constructor(
     private enterService: EntertainmentService,
@@ -38,7 +43,7 @@ export class ItemEnter implements OnInit {
       this.enter = enter;
 
     })
-
+   
   }
   /* onEnterChanges(ev: Ienters):void {
      this.enter = ev;
@@ -49,11 +54,13 @@ export class ItemEnter implements OnInit {
    }
  */
 
-  initOrder(ev: Event): void {
-    this.router.navigate(['order'], { relativeTo: this.route });
+  initAuth(ev: Event): void {
+    this.router.navigate(['/auth'], { relativeTo: this.route });
   }
 
-
+initReg(ev: Event): void {
+    this.router.navigate(['/register'], { relativeTo: this.route });
+  }
 
 
 }

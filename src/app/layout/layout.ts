@@ -9,36 +9,35 @@ import { encapsulateStyle } from '@angular/compiler';
 
 @Component({
   selector: 'app-layout',
-  imports: [ RouterModule, Footer, Header, Aside],
+  imports: [RouterModule, Footer, Header, Aside],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
-  encapsulation:ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
-export class Layout implements OnInit, OnDestroy{
-  showAside=false;
+export class Layout implements OnInit, OnDestroy {
+  showAside = false;
   subscription: Subscription;
-  constructor(private router:Router, private activatedRoute:ActivatedRoute) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.showAside=this.recursFindChildData(this.activatedRoute.snapshot, 'showAside');
+    this.showAside = this.recursFindChildData(this.activatedRoute.snapshot, 'showAside');
     this.subscription = this.router.events.pipe(
-      filter((router)=> router instanceof ActivationEnd),
-      map((data)=> data.snapshot)
-    ).subscribe((data)=>{
+      filter((router) => router instanceof ActivationEnd),
+      map((data) => data.snapshot)
+    ).subscribe((data) => {
       this.showAside = this.recursFindChildData(data, 'showAside');
     });
   }
-  recursFindChildData(children:ActivatedRouteSnapshot, prop: string): boolean {
-  console.log('children', children)
-  if (!children.data[prop] && children.firstChild) {
-    return this.recursFindChildData(children.firstChild, prop);
-  } else {
-    return !!children.data[prop];
-  }
+  recursFindChildData(children: ActivatedRouteSnapshot, prop: string): boolean {
+    console.log('children', children)
+    if (!children.data[prop] && children.firstChild) {
+      return this.recursFindChildData(children.firstChild, prop);
+    } else {
+      return !!children.data[prop];
+    }
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    
   }
 }

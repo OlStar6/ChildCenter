@@ -2,13 +2,17 @@
   display: block;
 }
 
-.flex-wrap {
+h3{
+  text-align: center;
+  
+}
+/*.flex-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex: wrap;
   margin: auto;
-}
+}*/
 
 .mx-3 {
   font-size: large;
@@ -47,7 +51,11 @@
   display: inline-flex;
   background-color: #c490d8;
   flex-direction: column;
-  margin: auto;
-  justify-content:center;
+  margin: 50px 300px;
 
+
+
+}
+input{
+    display: table;
 }

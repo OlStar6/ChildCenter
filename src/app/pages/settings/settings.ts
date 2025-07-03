@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { IUser } from '../../models/interfaces';
 
 @Component({
   selector: 'app-settings',
@@ -9,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './settings.scss'
 })
 export class Settings {
+  user:IUser;
+  
 menuItems = [
   {
     path: 'statistic',

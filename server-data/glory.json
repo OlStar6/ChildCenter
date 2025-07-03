@@ -1,0 +1,24 @@
+{
+    "glory": [
+        {
+            "id":"1",
+         "image":"glory4.jpg",
+         "description":"Юный верхолаз"   
+        },
+           {
+               "id":"2",
+         "image":"glory1.jpg",
+         "description":"Выше птиц"   
+        },
+          {
+               "id":"3",
+         "image":"glory3.jpg",
+         "description":"Покоритель веревочных трасс"   
+        },
+           {
+               "id":"4",
+         "image":"lasergun.jpg",
+         "description":"Меткий глаз"   
+        }
+    ]
+}
