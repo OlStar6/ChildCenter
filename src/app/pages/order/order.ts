@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BookingService } from '../../services/Booking-service';
-import { Ienters, IEnterSelect, Session } from '../../models/interfaces';
+import { IEnterSelect, Session } from '../../models/interfaces';
 import { IPostorder, TimeSlot } from '../../models/order';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user-service';
 import { EntertainmentService } from '../../services/entertainment-service';
-import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import { CardModule } from 'primeng/card';
 import { Subscription } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
-import { DatePickerClasses, DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
+
+import { RouterLink } from '@angular/router';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
@@ -27,129 +27,126 @@ import { ButtonModule } from 'primeng/button';
     SelectModule,
     CardModule,
     FormsModule,
-     InputTextModule,
-   DatePickerModule,
-   ButtonModule 
+    InputTextModule,
+    DatePickerModule,
+    ButtonModule,
+    RouterLink,
+     InputNumberModule, 
+  
 
   ],
 })
 export class Order implements OnInit {
+  clientName:string;
+  childName:string;
+  age:number;
+  birthDate:Date;
+  date:Date;
+participants:number;
   orderForm: FormGroup;
-  enterId:IEnterSelect[] | undefined;
-  sessionId: Session[] = [];
+  enterChoice: IEnterSelect[] | undefined;
+  sessionChoice: Session[] = [];
   loading = false;
   selectedEnter: IEnterSelect | undefined;
   minDate: string;
- subscription: Subscription;
-entersStore: IEnterSelect[] = [];
- orderFormArr = 
-  [{label: 'ФИО',  placeHolder: 'Введите ФИО', control: 'clientName'},
-    {label: 'Имя ребенка',  placeHolder: 'Введите имя ребенка', control: 'childName'},
-    {label: 'Номер карты',  placeHolder: 'Введите номер карты', control: 'cardNumber'},
-    {label: 'Возраст',  placeHolder: 'Введите возраст', control: 'age'},
-    {label: 'День рождения',  placeHolder: 'Введите День рождения', control: 'birthDate'},
-    {label: 'Выберите развлечение',  placeHolder: 'Выберите развлечение', control: 'enterId'},
-    {label: 'Дата сеанса',  placeHolder: 'Выберите дату', control: 'date'},
-    {label: 'Время сеанса',  placeHolder: 'Выберите время', control: 'session'},
-    {label: 'Количество участников',  placeHolder: 'Количество участников', control: 'participants'}
-   ]
+  subscription: Subscription;
+  entersStore: IEnterSelect[] = [];
+ /* orderFormArr =
+    [{ label: 'ФИО родителя', placeHolder: 'Введите ФИО', control: 'clientName' },
+    { label: 'Имя ребенка', placeHolder: 'Введите имя ребенка', control: 'childName' },
+    { label: 'Номер карты', placeHolder: 'Введите номер карты', control: 'cardNumber' },
+    { label: 'Возраст', placeHolder: 'Введите возраст', control: 'age' },
+    { label: 'День рождения', placeHolder: 'Введите День рождения', control: 'birthDate' },
+    { label: 'Выберите развлечение', placeHolder: 'Выберите развлечение', control: 'enterChoice' },
+    { label: 'Дата сеанса', placeHolder: 'Выберите дату', control: 'date' },
+    { label: 'Время сеанса', placeHolder: 'Выберите время', control: 'sessionChoice' },
+    { label: 'Количество участников', placeHolder: 'Количество участников', control: 'participants' }
+    ]*/
   constructor(
-    
+
     private userService: UserService,
     private enterService: EntertainmentService,
+   
   ) {
     this.minDate = new Date().toISOString().split('T')[0];
-    this.createForm();
+
   }
 
   ngOnInit() {
-    
-   this.enterId = [
-{value: 'Лазертаг', name: 'Лазертаг'},
-{value: 'Веселые батуты', name: 'Веселые батуты'},
-{value: 'Веревочный парк', name: 'Веревочный парк'},
-{value: 'Скалодром', name: 'Скалодром'}
-  ];
-      
-      this.orderForm = new FormGroup({
-      clientName: new FormControl('', {validators: Validators.required}),
-      childName: new FormControl('', {validators: Validators.required}),
-      cardNumber: new FormControl(''),
-      age: new FormControl(''),
-      birthDate: new FormControl(''),
-      date:new FormControl('', {validators: Validators.required}),
-      enterId: new FormControl('', {validators: Validators.required}),
-      sessionId: new FormControl('', {validators: Validators.required}),
-      participants: new FormControl([1, [Validators.required, Validators.min(1)]]),
 
-    });   
-     
-  } 
-   
-  
+    this.enterChoice = [
+      { value: 'Лазертаг', name: 'Лазертаг' },
+      { value: 'Веселые батуты', name: 'Веселые батуты' },
+      { value: 'Веревочный парк', name: 'Веревочный парк' },
+      { value: 'Скалодром', name: 'Скалодром' }
+    ];
 
- 
-  createForm() {
     this.orderForm = new FormGroup({
-      clientName: new FormControl('', {validators: Validators.required}),
-      childName: new FormControl('', {validators: Validators.required}),
+      clientName: new FormControl('', { validators: Validators.required }),
+      childName: new FormControl('', { validators: Validators.required }),
       cardNumber: new FormControl(''),
       age: new FormControl(''),
       birthDate: new FormControl(''),
-      date:new FormControl('', {validators: Validators.required}),
-      enterId: new FormControl('', {validators: Validators.required}),
-      sessionId: new FormControl('', {validators: Validators.required}),
+      date: new FormControl('', { validators: Validators.required }),
+      enterChoice: new FormControl('', { validators: Validators.required }),
+      sessionChoice: new FormControl('', { validators: Validators.required }),
       participants: new FormControl([1, [Validators.required, Validators.min(1)]]),
 
-    });   
-  }
-  
-  initOrder(): void {
-       
-    const userData = this.orderForm.getRawValue();
-    const postData = { ...this.enterId, ...userData }
-    const userId = this.userService.getUsersStorage()?.id || null;
+    });
 
-     const postObj: IPostorder = {
+  }
+
+
+
+
+  initOrder(): void {
+
+    const userData = this.orderForm.getRawValue();
+      const postData = { ...this.enterChoice, ...userData}
+    const userId = this.userService.getUsersStorage()?.id || null;
+   
+    const postObj: IPostorder = {
       clientName: postData.clearName,
       childName: postData.childName,
-      cardNumber: postData.cardNumber,
       age: postData.age,
       birthDate: postData.birthDate,
-      enterId: postData._id,
-      sessionId: postData.sessionId,
+      enterChoice: postData._id,
+      sessionChoice: postData._id,
       date: postData.date,
-      TimeSlot: postData.TimeSlot,
       participants: postData.participants,
-        userId: userId,
+      userId: userId,
+      //enterId: enterId,
+    //  sessionId: sessionId
     }
-    this.enterService.postOrder(postObj);
+    // const enterId = this.enterService.EntersAll() || null;
+    //const sessionId = this.sessionService.getSession() || null;
+    this.enterService.postOrder(postObj).subscribe();
   }
 
   loadEntertainments() {
 
   }
 
- /* setupFormListeners() {
-    this.orderForm.get('enterId')?.valueChanges.subscribe(id => {
-      this.selectedEnter = this.enterId.find(e => e.value === id) || null;
-    });
-
-    this.orderForm.get('date')?.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-
-    ).subscribe(
-      slots => {
-        this.availableTimeSlots = slots;
-        this.loading = false;
-      },
-      error => {
-        console.error('Error loading time slots', error);
-        this.loading = false;
-      }
-    );
-  }*/
+  /* setupFormListeners() {
+     this.orderForm.get('enterId')?.valueChanges.subscribe(id => {
+       this.selectedEnter = this.enterId.find(e => e.value === id) || null;
+     });
+ 
+     this.orderForm.get('date')?.valueChanges.pipe(
+       debounceTime(300),
+       distinctUntilChanged(),
+ 
+     ).subscribe(
+       slots => {
+         this.availableTimeSlots = slots;
+         this.loading = false;
+       },
+       error => {
+         console.error('Error loading time slots', error);
+         this.loading = false;
+       }
+     );
+   }*/
 }
 
 

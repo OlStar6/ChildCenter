@@ -1,9 +1,25 @@
 input {
     display: table;
 }
-select {
-    display: table;
+.form-control{
+   display: table;
 }
 .mt-5{
     height: 600px;
 }
+
+.container mt-5 {
+    
+}
+.left{
+  float: right;
+}
+.clear{
+  clear: both;
+}
+.clearfix::after{
+  content: "";
+  display: table;
+  clear: both;
+}
+    

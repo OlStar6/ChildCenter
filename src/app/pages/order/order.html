@@ -6,42 +6,84 @@ routerLink="/"
 ></p-button>
   <h2 class="text-center mb-4">Запись на развлекательный сеанс</h2>
 
-  <form [formGroup]="orderForm" (ngSubmit)="initOrder()" novalidate>
-
-    <div class="card flex justify-center">
-      <label for="clientName">ФИО</label>
-      <input type="text" pInputText id="clientName" formControlName="clientName" class="form-control">
+  <form [formGroup]="orderForm" novalidate>
+   <!-- @for (fieldObj of orderFormArr; track fieldObj.control) {
+                <ng-container
+                    [ngTemplateOutlet] = ''
+                    [ngTemplateOutletContext] = 'fieldObj'
+                  
+     }-->
+  <div class="form-group mt-3">
+      <label for="clientName">ФИО родителя</label>
+      <input type="text"
+       pInputText
+        id="clientName"
+         formControlName="clientName"
+         class="form-control mt-3"
+         [(ngModel)]="clientName"/>
     </div>
-      <div class="card flex justify-center">
+    <div class="form-group mt-3">
     <label for="childName"> Имя ребенка</label>
-    <input type="text" pInputText id="childName" formControlName="childName" class="form-control">
+    <input type="text"
+     pInputText
+      id="childName"
+       formControlName="childName"
+        class="form-control"
+         [(ngModel)]="childName"/>
 </div>
-  <div class="card flex justify-center">
-    <label for="age">Возраст ребенка</label>
-    <input type="text" pInputText id="age" formControlName="age" class="form-control">
+  <div class="form-group mt-3">
+    <label >Возраст ребенка</label>
+     <p-input-number  
+                name="age"
+               formControlName="age"
+                [showButtons]="true"
+                [min]="0"
+                class="form-control mt-3">
+              </p-input-number>
 </div>
-  <div class="my-3">
-       <label for="birthDate">День рождения ребенка</label>
-    <input type="date" pInputText id="birthDate" formControlName="birthDate" class="form-control">
+   <div class="form-group mt-3">
+       <label>День рождения ребенка</label>
+    <p-datepicker 
+     [showIcon]="true"
+               name="birthDate"
+                formControlName="birthDate"
+                class="form-control mt-3">
+                </p-datepicker>
 
   </div>
-   <div class="my-3">
-    <p>Выберите развлечениe</p>
-      <p-select [options]="enterId" [(ngModel)]="selectedEnter" optionLabel="name"
-        placeholder="Выберите вид развлечения" formControlName="enterId" />
+ <div class="form-group mt-3">
+    <label>Выберите развлечения</label>
+      <p-select
+       [options]="enterChoice"
+        [(ngModel)]="enterChoice"
+         optionLabel="name"
+         class="form-control mt-3"
+        placeholder="Выберите вид развлечения" 
+        formControlName="enterChoice" >
+      </p-select>
     </div>
 
- <div class="my-3">
-       <label for="date">Дата сеанса</label>
-    <input type="date" pInputText id="date" formControlName="date" [min]="minDate" class="form-control">
+ <div class="form-group mt-3">
+       <label  class="mx-3">Дата сеанса</label>
+     <p-datepicker 
+      [showIcon]="true"
+               name="date"
+                formControlName="date"
+                class="form-control mt-3">
+                </p-datepicker>
 
   </div>
    
   
-    <div>
-      <label for="session" formControlName = "session">Время сеанса</label>
-       <input type="text" pInputText id="session" formControlName="session" class="form-control">
-       @for (item of sessionId; track item.id) {
+  <div class="form-group mt-3">
+      <label for="session">Время сеанса</label>
+       <input type="text"
+        pInputText 
+        id="session" 
+        formControlName="session"
+         class="form-control mt-3"
+         [(ngModel)]="sessionChoice"/>
+       @for (item of sessionChoice; track item.id) {
       <select  [class.btn-primary]="orderForm.get('sessionId')?.value?.startTime === item.startTime"
           [class.btn-outline-secondary]="orderForm.get('sessionId')?.value?.startTime !== item.startTime"
           [disabled]="!item.isAvailable" (click)="orderForm.get('session')?.setValue(item)" class="btn btn-sm m-1">
@@ -63,20 +105,48 @@ routerLink="/"
  
  
 
+ <div class="form-group mt-3">
+    <label>Количество участников</label>
+    <p-input-number type="number" 
+    id="participants" 
+    formControlName="participants"
+     [showButtons]="true"
+     min="1" 
+    [(ngModel)]="participants"
+     class="form-control">
+     </p-input-number>
+</div>
 
-    <label for="participants">Количество участников</label>
-    <input type="number" pInputText id="participants" formControlName="participants" min="1" class="form-control">
 
+    <p-button type="submit" 
+    class="btn btn-primary btn-lg" 
+    [disabled]="!clientName || !age || !enterChoice || !sessionChoice || participants > 10"
+    label="Забронировать"
+      (click)="initOrder()">
+    
 
-
-    <p-button type="submit" class="btn btn-primary btn-lg" (click)="initOrder()">
-      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Забронировать
     </p-button>
 
 
-
-
-
+   <!-- <span *ngIf="loading" 
+      class="spinner-border spinner-border-sm" 
+      role="status" 
+      aria-hidden="true">
+    </span>
+-->
   </form>
-</div>
+
+
+   <!--</p-button> [disabled]="selectedEnter"-->
+  <!--<ng-template #FormFiled let-control="control" let-placeHolder = 'placeHolder' let-label = 'label'>
+    <div [formGroup] = 'orderForm' class="form-group mt-3"> 
+        <label [attr.for]="control" class = 'mx-3'>{{label}}</label>
+        <input type="text" 
+        class="form-control mt-3"
+        [id]="control"
+        pInputText
+        [formControlName]="control"
+        [placeholder]="placeHolder"
+      >
+  </div>
+</ng-template>-->

@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '../shared/api';
-import { Observable, Subject } from 'rxjs';
+import { delay, Observable, Subject, tap } from 'rxjs';
 import { Ienters, IEnterSelect, Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
 import { IOrder, IOrderPerson, IPostorder } from '../models/order';
 import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
+import { LoaderService } from './loader-service';
 
 
 @Injectable({
@@ -41,19 +42,26 @@ export class EntertainmentService {
 
 
   constructor(private http: HttpClient,
-    private router:Router
+    private router:Router,
+    
   ) { }
 
    EntersAll(): Observable<Ientertanment[]> {
+     
+
    const enters: Ientertanment = {
     name:this.name,
     description: this.description,
     price:this.price,
     img:this.img,
     age: this.age
-   }
+   };
+   
     return this.http.get<Ientertanment[]>('http://localhost:3002/enters/');
   }
+    
+
+  
 
   getEnterById(id:string): Observable<Ienters>{ 
     const path = 'http://localhost:3002/enters';
@@ -71,6 +79,7 @@ export class EntertainmentService {
 
 initChangeEnterType(val:IEnterTypeSelect): void {
   this.enterTypeSubject.next(val);
+  
 
 }
 
@@ -81,13 +90,8 @@ initChangeEnterDate(val:Date): void{
 initChangeSession(val:Session):void{
   this.enterAllSubject.next(val);
 }
-postOrder(orderBody: IPostorder): void {
-  const orderObj = {
-      userLogin: this.userLogin,
-    enterId:this.enterId,
-    personalData:this.personalData,
-  }
-  this.http.post<any>('http://localhost:3002/order', orderObj).subscribe(()=> {})
+postOrder(data:any): Observable<any> {
+  return this.http.post<any>('http://localhost:3002/order', data)
 }
     
     

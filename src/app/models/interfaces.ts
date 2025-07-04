@@ -25,6 +25,7 @@ export interface Ienters {
 }
 
 export interface Ientertanment {
+     id?: string;
   name: string;
   img: string;
   description: string;
@@ -90,7 +91,7 @@ export interface Appointment {
   availableSlots?: number;
   maxSlots?: number;
   isAvailable: boolean;
-  enterId: string;
+  enterId?: string;
 }
 
 

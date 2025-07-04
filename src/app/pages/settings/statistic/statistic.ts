@@ -3,6 +3,7 @@ import { ICustomStatisticUser, IStatisticUser } from '../../../models/interfaces
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { StatisticService } from '../../../services/statistic-service';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-statistic',
@@ -20,7 +21,8 @@ export class Statistic {
   usersStore:ICustomStatisticUser[]=[];
 
   constructor(
-    private statisticService: StatisticService
+    private statisticService: StatisticService,
+    private userService:UserService
   ) {
   }
 
@@ -31,5 +33,7 @@ export class Statistic {
     this.usersStore=[...data];
     })
   }
-
+isAdmin() {
+  this.userService.isAdmin();
+}
 }

@@ -3,11 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { IUser, ServerError } from '../../../models/interfaces';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IUser } from '../../../models/interfaces';
+import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user-service';
-import { MessageService } from 'primeng/api';
+//import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-authorization',
@@ -24,7 +24,7 @@ id:string
 constructor(private http:HttpClient, 
   private router: Router, 
   private userService:UserService, 
-  private messageService:MessageService
+
 ) {}
 ngOnInit(): void {
   
@@ -45,12 +45,12 @@ const user: IUser = {
   const token: string = data.access_token;
   this.userService.setToken(token);
   this.userService.setToStore(token);
-  this.router.navigate(['enter']);
+  this.router.navigate(['/']);
  },
- (err:HttpErrorResponse)=>{
+ /*(err:HttpErrorResponse)=>{
   const ServerError = <ServerError>err.error;
   this.messageService.add({severity:'warn', summary:ServerError.errorText});
- }
+ }*/
 );
 
 }

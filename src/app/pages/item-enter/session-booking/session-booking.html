@@ -1,18 +1,25 @@
 <div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
-@for (item of session; track item.id) {
+
+  <div class="session-booking">
+  <h2>Запись на сеанс</h2>
+  
  
-  @if (bookingSuccess)  { <div>class="alert alert-success">
+  <div *ngIf="bookingSuccess" class="alert alert-success">
     Вы успешно записаны на сеанс!
-</div>
-<div class="session-time">
+  </div>
+
+  <div *ngIf="bookingError" class="alert alert-danger">
+    Не удалось выполнить запись. Возможно, сеанс уже заполнен.
+  </div>
+@for (item of session; track item.id) {
+     <h3>Доступные сеансы </h3>
+  
+ <div class="session-time">
 {{item.startTime}}-{{item.endTime}}
 </div>
 <p-button (click)="bookSession(session.id)">Записаться</p-button>
-  }
- @if (item.availableSlots.length> 0) { 
-    <h3>Доступные сеансы на {{selectedDate | date:'dd.MM.yyyy'}}</h3> 
-    }
-
+  
+ 
 }
 
 

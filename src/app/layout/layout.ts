@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, ActivationEnd, Router, RouterModule } from '@angular/router';
 import { Header } from './header/header';
 import { Aside } from './aside/aside';
@@ -6,6 +6,8 @@ import { Footer } from './footer/footer';
 import { Entertainment } from '../pages/entertainment/entertainment';
 import { filter, map, Subscription } from 'rxjs';
 import { encapsulateStyle } from '@angular/compiler';
+
+
 
 @Component({
   selector: 'app-layout',
@@ -15,6 +17,7 @@ import { encapsulateStyle } from '@angular/compiler';
   encapsulation: ViewEncapsulation.None
 })
 export class Layout implements OnInit, OnDestroy {
+ 
   showAside = false;
   subscription: Subscription;
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }

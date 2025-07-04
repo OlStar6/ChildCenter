@@ -19,16 +19,15 @@ export interface IPostorder {
 
   clientName: string | null;
   childName: string  | null;
-  cardNumber: string  | null;
   age: string  | null;
   birthDate: string  | null;
   userId: string  | null;
-  enterId: string  | null;
-  sessionId: string  | null;
+  //enterId: string  | null;
+ // sessionId: string  | null;
   date: string  | null;
-  TimeSlot: string  | null;
   participants: string  | null;
-
+enterChoice: string  | null;
+      sessionChoice: string  | null;
 }
 export interface TimeSlot {
   startTime: string;

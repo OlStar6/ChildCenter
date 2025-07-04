@@ -15,6 +15,7 @@ export const LOCAL_STORAGE_NAME = 'currentUser';
 export class UserService {
   private userStorage: IUser[] = [];
   private currentUser: IUser | null = null;
+  private currentUserRole: string = 'guest';
 
 
   token: string | null;
@@ -52,6 +53,14 @@ getUsersStorage(): IUser {
 
     localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(user));
 
+   }
+
+   login(user: {login:string, psw: string}) {
+if (user.login === 'login') {
+  this.currentUserRole === 'admin';
+  return true;
+}
+return false;
    }
 
    setUser(user: IUser): void {
@@ -143,15 +152,21 @@ window.localStorage.removeItem('usertoken')
     this.userStorage = this.userStorage.filter(({login}) => login === this.currentUser?.login);
     this.currentUser = null;
     localStorage.removeItem(LOCAL_STORAGE_NAME);
-    this.router.navigate(['/']);
+     this.router.navigate(['/']);
   }
-  changePassword(password: string) {
+  getRole():string {
+    return this.currentUserRole;
+  }
+ isAdmin() {
+this.currentUserRole === 'admin';
+  }
+  changePassword(psw: string) {
     if (!this.currentUser) {
       return
     }
-    this.currentUser.psw = password;
+    this.currentUser.psw = psw;
     const dbUser = this.userStorage.find(({login}) => login === this.currentUser?.login)!;
-    dbUser.psw = password
+    dbUser.psw = psw
   }
   }
 

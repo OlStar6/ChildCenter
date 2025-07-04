@@ -1,16 +1,5 @@
 <div class="aside m-3">
-  <div>
-
-    <p>Выберите возрастную категорию</p>
-
-<p-select
-    [options]="enterTypes" 
-    [(ngModel)]="selectedType" 
-    (onChange)="changeEnterType($event)"
-    optionLabel="label" 
-    placeholder="Выберите возрастную категорию"
-   class="w-full md:w-56" />
-</div>
+ 
   <div class="my-3">
     <p-datepicker 
     [showIcon]="true"
@@ -22,7 +11,18 @@
   </p-datepicker> 
   </div>
 
-  
+   <div>
+
+    <p>Выберите возрастную категорию</p>
+
+<p-select
+    [options]="enterTypes" 
+    [(ngModel)]="selectedType" 
+    (onChange)="changeEnterType($event)"
+    optionLabel="label" 
+    placeholder="Выберите возрастную категорию"
+   class="w-full md:w-56" />
+</div>
   
 
 

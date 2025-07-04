@@ -104,15 +104,15 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
     this.router.navigate(["order"])
     console.log('success', success)
   }
-  }
+  
   /*  
  
  
   loadSessions(): void {
     this.SessionStore = this.sessionService.getAvailableSessions(this.selectedDate);
-  }
+  }*/
 
-  /*onDateChange(event: Event): void {
+  onDateChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const date = input.valueAsDate;
     
@@ -125,4 +125,4 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
   }
 
   
-}*/
+}

@@ -82,9 +82,8 @@ export class Header implements OnInit, OnDestroy {
 
   onLogout() {
     this.router.navigate(['auth']);
-    command:()=>{
-      this.userService.removeUser();
-    }
+    this.userService.removeUser();
+    
   }
 }
 
