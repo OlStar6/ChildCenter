@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Session } from '../../../models/interfaces';
+import { Ienters, Session } from '../../../models/interfaces';
 import { SessionService } from '../../../services/session-service';
 import { CardModule } from 'primeng/card';
 import { EntertainmentService } from '../../../services/entertainment-service';
@@ -29,12 +29,14 @@ export class SessionBookingComponent implements OnInit {
   bookingSuccess = false;
   bookingError = false;
   subscription: Subscription;
-
+  enterId:string;
+   enter: Ienters;
   constructor(private sessionService: SessionService, 
     private entersService:EntertainmentService,
   private router:Router) {}
 
   ngOnInit(): void {
+     
     this.loadSessions();
       this.sessionService.getSession().subscribe((data) => {
       if (Array.isArray(data)) {
@@ -42,9 +44,9 @@ export class SessionBookingComponent implements OnInit {
         this.sessionStore = [...data];
       }
     });
-this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
+/*this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
      
-      switch (enter.enterId) {
+      switch (enter._id) {
 
         case '685c60aad8810aa93c3389ca':
             this.session = this.sessionStore.filter((el) => el.enterId === '685c60aad8810aa93c3389ca')
@@ -58,12 +60,10 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
         case '685c60d7d8810aa93c3389d0':
             this.session = this.sessionStore.filter((el) => el.enterId === '685c60d7d8810aa93c3389d0')
         break;
-        case 'Все':
-          this.session = [...this.sessionStore];
-        break;
+        
           }
 }
-)
+)*/
   this.entersService.sessionDate$.subscribe((date) => {
 
       console.log('****date', date);
@@ -86,8 +86,9 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
   }
 );})
   }
+
   loadSessions(): void {
-    this.sessionStore = this.sessionService.getAvailableSessions(this.selectedDate);
+    this.session = this.sessionService.getAvailableSessions(this.selectedDate);
   }
 
   bookSession(sessionId: number): void {
@@ -100,17 +101,12 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
     } else {
       this.bookingError = true;
       setTimeout(() => this.bookingError = false, 1000);
-    }
-    this.router.navigate(["order"])
+    };
+    this.router.navigate([['enters/order', this.enter._id]])
     console.log('success', success)
   }
   
-  /*  
- 
- 
-  loadSessions(): void {
-    this.SessionStore = this.sessionService.getAvailableSessions(this.selectedDate);
-  }*/
+    
 
   onDateChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -124,5 +120,7 @@ this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
     }
   }
 
-  
+  getSessionIdEnter(enterid:string) {
+    this.sessionService.getSessionIdEnter(enterid);
+  }
 }

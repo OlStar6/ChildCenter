@@ -3,13 +3,15 @@ input {
 }
 .form-control{
    display: table;
+   margin: 5px;
 }
 .mt-5{
     height: 600px;
 }
 
-.container mt-5 {
-    
+.container {
+    margin-bottom: 5px;
+    padding: 5px;
 }
 .left{
   float: right;
@@ -22,4 +24,16 @@ input {
   display: table;
   clear: both;
 }
-    
+h3,
+h2 {
+color:blue;
+margin: 8px;
+}
+
+.p-button{
+  color:blue;
+}
+label,
+.orderbutton{
+  margin: 8px;
+}

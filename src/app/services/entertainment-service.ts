@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API } from '../shared/api';
-import { delay, Observable, Subject, tap } from 'rxjs';
-import { Ienters, IEnterSelect, Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
+import { BehaviorSubject, delay, Observable, Subject, tap } from 'rxjs';
+import { IEnterIdSelect, Ienters,  Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
 import { IOrder, IOrderPerson, IPostorder } from '../models/order';
 import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
@@ -13,17 +13,20 @@ import { LoaderService } from './loader-service';
   providedIn: 'root'
 })
 export class EntertainmentService {
-    private enterTypeSubject = new Subject<IEnterTypeSelect>();
+  private enterTypeSubject = new Subject<IEnterTypeSelect>();
   readonly enterType$ = this.enterTypeSubject.asObservable();
 
   private enterDateSubject = new Subject<Date>();
   readonly enterDate$ = this.enterDateSubject.asObservable();
 
-   private sessionDateSubject = new Subject<Date>();
+  private sessionDateSubject = new Subject<Date>();
   readonly sessionDate$ = this.sessionDateSubject.asObservable();
 
   private enterAllSubject = new Subject<Session>();
   readonly enterEnter$ = this.enterAllSubject.asObservable();
+
+  private enterIdSubject = new Subject<IEnterIdSelect>();
+  readonly enterIdEnter$ = this.enterIdSubject.asObservable();
 
   private clearSubject = new Subject<void>();
   readonly clearEnter$ = this.clearSubject.asObservable();
@@ -33,12 +36,21 @@ export class EntertainmentService {
   price: string;
   img: string;
   id: string;
-  _id:number;
+  _id:string;
   age: string;
   userLogin: string  | null;
   enterId: Ienters;
    personalData: IPostorder;
    image:string;
+
+  startTime: string;
+  endTime: string;
+  date: Date;
+  availableSlots: number;
+  maxSlots: number;
+  isAvailable: boolean;
+
+
 
 
   constructor(private http: HttpClient,
@@ -77,8 +89,19 @@ export class EntertainmentService {
   
   }
 
+ getSession(): Observable<Session[]> {
+    const path = 'http://localhost:3002/session/'
+          return this.http.get<Session[]>(path);
+    
+}
+
 initChangeEnterType(val:IEnterTypeSelect): void {
   this.enterTypeSubject.next(val);
+  
+
+}
+initChangeEnterId(val:IEnterIdSelect): void {
+  this.enterIdSubject.next(val);
   
 
 }

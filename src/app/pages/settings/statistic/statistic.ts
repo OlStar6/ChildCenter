@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICustomStatisticUser, IStatisticUser } from '../../../models/interfaces';
+import { ICustomStatisticUser } from '../../../models/interfaces';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { StatisticService } from '../../../services/statistic-service';

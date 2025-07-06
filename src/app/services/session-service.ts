@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Session } from '../models/interfaces';
+import { Injectable, OnInit } from '@angular/core';
+import { Ienters, Session } from '../models/interfaces';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,9 +8,9 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class SessionService {
+export class SessionService implements OnInit {
   private sessions: Session[] = [];
-  id: number;
+  id: string;
   startTime: string;
   endTime: string;
   date: Date;
@@ -22,7 +22,9 @@ export class SessionService {
   constructor(private http: HttpClient) {
     this.generateSampleSessions();
   }
-
+ngOnInit(): void {
+  
+}
   private generateSampleSessions(): void {
     // Генерация тестовых сеансов
     const today = new Date();
@@ -46,12 +48,13 @@ export class SessionService {
         maxSlots: 10,
         isAvailable: false
       },
-      // Добавьте больше сеансов по необходимости
+   
     ];*/
   }
 
 
   getSession(): Observable<Session[]> {
+    const path = 'http://localhost:3002/session/'
   const session: Session = {
   startTime: this.startTime,
   endTime: this.endTime,
@@ -60,10 +63,43 @@ export class SessionService {
   maxSlots: this.maxSlots,
   isAvailable: this.isAvailable,
   enterId:this.enterId
+  };
+    
+      return this.http.get<Session[]>(path);
+    
   }
-    
-      return this.http.get<Session[]>('http://localhost:3002/session/');
-    
+  getSessionById(id:string): Observable<Session> {
+    const path = 'http://localhost:3002/session';
+  const sessionId: Session = {
+    id:this.id,
+  startTime: this.startTime,
+  endTime: this.endTime,
+  date: this.date,
+  availableSlots: this.availableSlots,
+  maxSlots: this.maxSlots,
+  isAvailable: this.isAvailable,
+  enterId:this.enterId
+  }
+    console.log('session',sessionId._id);
+      return this.http.get<Session>(`${path}/${id}`)
+      
+  }
+
+   getSessionIdEnter(enterId:string): Observable<Session[]> {
+    const path = 'http://localhost:3002/session';
+  const sessionId: Session = {
+    id:this.id,
+  startTime: this.startTime,
+  endTime: this.endTime,
+  date: this.date,
+  availableSlots: this.availableSlots,
+  maxSlots: this.maxSlots,
+  isAvailable: this.isAvailable,
+  enterId:this.enterId
+  }
+    console.log('enter',this.enterId);
+      return this.http.get<Session[]>(`${path}/${enterId}`)
+      
   }
   getAvailableSessions(date: Date): Session[] {
     return this.sessions.filter(session => 
@@ -73,7 +109,7 @@ export class SessionService {
   }
 
   bookSession(sessionId: number): boolean {
-    const session = this.sessions.find(s => s.id === sessionId);
+    const session = this.sessions.find(s => s.availableSlots === sessionId);  
     if (session && session.availableSlots > 0) {
       session.availableSlots--;
       if (session.availableSlots === 0) {

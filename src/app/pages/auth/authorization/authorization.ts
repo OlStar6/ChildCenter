@@ -45,7 +45,7 @@ const user: IUser = {
   const token: string = data.access_token;
   this.userService.setToken(token);
   this.userService.setToStore(token);
-  this.router.navigate(['/']);
+  this.router.navigate(['enters']);
  },
  /*(err:HttpErrorResponse)=>{
   const ServerError = <ServerError>err.error;

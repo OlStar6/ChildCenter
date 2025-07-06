@@ -22,6 +22,7 @@ export interface Ienters {
   _id?:string;
   age: string;
     date?: string;
+    session?:Session;
 }
 
 export interface Ientertanment {
@@ -34,6 +35,11 @@ export interface Ientertanment {
 }
 
 export interface IEnterTypeSelect {
+  label: string;
+  key: string;    
+  date?: Date;
+}
+export interface IEnterIdSelect {
   label: string;
   key: string;    
   date?: Date;
@@ -62,17 +68,6 @@ export interface IMenuType {
 
  export const UserStorageKey = 'current_user';
 
- export interface IBuyer {
-    firstName: string,
-      lastName: string,
-      cardNumber: number,
-      birthDate: Date,
-      age: number,
-      citizenship: string,
-    
- }
-
-
 
 export interface Appointment {
   id?: number;
@@ -84,7 +79,8 @@ export interface Appointment {
 
 
   export interface Session {
-  id?: number;
+  id?: string;
+  _id?:string;
   startTime: string;
   endTime: string;
   date?: Date;
@@ -100,10 +96,7 @@ export interface ICustomStatisticUser {
   login: string,
   email: string,
   }
-export interface IStatisticUser {
-  login: string,
-  email:string
 
-  }
-
-
+export type Coords = {
+  enterid:string;
+  };

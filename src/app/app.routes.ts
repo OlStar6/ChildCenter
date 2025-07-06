@@ -19,14 +19,12 @@ export const routes: Routes = [
     { path: 'auth', component: Authorization },
 
     {
-        path: '', component: Layout,
+        path: 'enters', component: Layout,
         children: [
-            { path: '', component: Entertainment, data: { showAside: true } },
-
-            { path: 'enter', redirectTo: '', pathMatch: 'full' },
-
+            { path: '', component: Entertainment, data: { showAside: true } },  
             { path: 'enter/:id', component: ItemEnter,  data: { showAside: true } },
-            { path: 'order', component: Order },
+            { path: 'enter', redirectTo: 'enters', pathMatch: 'full' },
+            { path: 'order/:id', component: Order },
             { path: 'glory', component: Glory },  
 
             {
@@ -43,6 +41,6 @@ export const routes: Routes = [
     },
 
 
-    { path: '**', redirectTo: '/auth', pathMatch: 'full' }
+    { path: '**', redirectTo: '/enters', pathMatch: 'full' }
 
 ];

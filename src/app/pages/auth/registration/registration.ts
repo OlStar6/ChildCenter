@@ -1,21 +1,21 @@
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { IUser, ServerError } from '../../../models/interfaces';
+import { IUser } from '../../../models/interfaces';
 import { UserService } from '../../../services/user-service';
 import { InputTextModule } from 'primeng/inputtext';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 //import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+
 
 export const LOCAL_STORAGE_NAME = 'currentUser';
 
 @Component({
   selector: 'app-registration',
-  imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule],
+  imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule, CommonModule],
  
   templateUrl: './registration.html',
   styleUrl: './registration.scss'
@@ -31,7 +31,7 @@ export class Registration implements OnInit {
   constructor(
     private userService: UserService,
     private http: HttpClient,
-    private messageService: MessageService,
+   // private messageService: MessageService,
     private router:Router
 
   ) { }
@@ -42,10 +42,10 @@ export class Registration implements OnInit {
 
   onAuth(ev: Event): void | boolean {
 
-   if (this.psw !== this.repeatPsw) {
+   /*if (this.psw !== this.repeatPsw) {
       this.messageService.add({ severity: 'error', summary: 'Пароли не совпадают', life: 2000 })
       return false;
-    }
+    }*/
 
     const userObj: IUser = {
       login: this.login,
@@ -55,7 +55,7 @@ export class Registration implements OnInit {
     this.http.post('http://localhost:3002/users/', userObj).subscribe(
                
     ()=> {
-      this.router.navigate(['/']);
+      this.router.navigate(['/enters']);
   },
  ()=>{
  alert('Ошибка')

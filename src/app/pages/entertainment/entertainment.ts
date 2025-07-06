@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { EntertainmentService } from '../../services/entertainment-service';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { Ienters, IEnterSelect, Ientertanment, IFilterTypeLogic } from '../../models/interfaces';
+import { Ienters, IEnterSelect, IFilterTypeLogic } from '../../models/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { isValid } from 'date-fns';
 import { SelectModule } from 'primeng/select';
+import { ItemEnter } from '../item-enter/item-enter';
 
 
 
@@ -105,6 +106,7 @@ export class Entertainment implements OnInit {
    goToEnter(item: Ienters): void {
    
     this.router.navigate(['enter', item._id], {relativeTo:this.route});
+    console.log('id', ItemEnter)
   }
 
 

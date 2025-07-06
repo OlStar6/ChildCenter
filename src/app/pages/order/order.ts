@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { IEnterSelect, Session } from '../../models/interfaces';
-import { IPostorder, TimeSlot } from '../../models/order';
+import { CommonModule, NgClass } from '@angular/common';
+import { Ienters, IEnterSelect, Session } from '../../models/interfaces';
+import { IPostorder } from '../../models/order';
 import { UserService } from '../../services/user-service';
 import { EntertainmentService } from '../../services/entertainment-service';
 import { SelectModule } from 'primeng/select';
@@ -11,9 +11,9 @@ import { Subscription } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
-
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { SessionService } from '../../services/session-service';
 
 
 
@@ -32,11 +32,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ButtonModule,
     RouterLink,
      InputNumberModule, 
+     NgClass
   
 
   ],
 })
 export class Order implements OnInit {
+  enterId:string = null;
+  enter:Ienters;
+  sessionId:string = null;
+  session:Session;
   clientName:string;
   childName:string;
   age:number;
@@ -44,53 +49,46 @@ export class Order implements OnInit {
   date:Date;
 participants:number;
   orderForm: FormGroup;
-  enterChoice: IEnterSelect[] | undefined;
-  sessionChoice: Session[] = [];
+ // enterChoice: IEnterSelect[] | undefined;
+  sessionChoice1: Session[] = [];
+  sessionChoice: string;
   loading = false;
   selectedEnter: IEnterSelect | undefined;
   minDate: string;
   subscription: Subscription;
   entersStore: IEnterSelect[] = [];
- /* orderFormArr =
-    [{ label: 'ФИО родителя', placeHolder: 'Введите ФИО', control: 'clientName' },
-    { label: 'Имя ребенка', placeHolder: 'Введите имя ребенка', control: 'childName' },
-    { label: 'Номер карты', placeHolder: 'Введите номер карты', control: 'cardNumber' },
-    { label: 'Возраст', placeHolder: 'Введите возраст', control: 'age' },
-    { label: 'День рождения', placeHolder: 'Введите День рождения', control: 'birthDate' },
-    { label: 'Выберите развлечение', placeHolder: 'Выберите развлечение', control: 'enterChoice' },
-    { label: 'Дата сеанса', placeHolder: 'Выберите дату', control: 'date' },
-    { label: 'Время сеанса', placeHolder: 'Выберите время', control: 'sessionChoice' },
-    { label: 'Количество участников', placeHolder: 'Количество участников', control: 'participants' }
-    ]*/
+  
   constructor(
 
     private userService: UserService,
     private enterService: EntertainmentService,
+    private route:ActivatedRoute,
+    private  sessionService: SessionService
    
   ) {
-    this.minDate = new Date().toISOString().split('T')[0];
+
 
   }
 
-  ngOnInit() {
+  ngOnInit():void {
 
-    this.enterChoice = [
-      { value: 'Лазертаг', name: 'Лазертаг' },
-      { value: 'Веселые батуты', name: 'Веселые батуты' },
-      { value: 'Веревочный парк', name: 'Веревочный парк' },
-      { value: 'Скалодром', name: 'Скалодром' }
-    ];
+    this.enterId = this.route.snapshot.paramMap.get('id');
+    this.enterService.getEnterById(this.enterId).subscribe((enter)=>{
+      this.enter = enter;
+    })
+    this.sessionId = this.route.snapshot.paramMap.get('id');
+    this.sessionService.getSessionById(this.sessionId).subscribe((session)=>{
+      this.session = session;
+    })
+
 
     this.orderForm = new FormGroup({
       clientName: new FormControl('', { validators: Validators.required }),
-      childName: new FormControl('', { validators: Validators.required }),
-      cardNumber: new FormControl(''),
-      age: new FormControl(''),
-      birthDate: new FormControl(''),
-      date: new FormControl('', { validators: Validators.required }),
-      enterChoice: new FormControl('', { validators: Validators.required }),
+      childName: new FormControl(''),
+      age: new FormControl([[Validators.required, Validators.min(4)]]),
+       date: new FormControl({ validators: Validators.required }),
       sessionChoice: new FormControl('', { validators: Validators.required }),
-      participants: new FormControl([1, [Validators.required, Validators.min(1)]]),
+      participants: new FormControl([1, [Validators.required, Validators.min(1),Validators.max(10)]]),
 
     });
 
@@ -102,20 +100,18 @@ participants:number;
   initOrder(): void {
 
     const userData = this.orderForm.getRawValue();
-      const postData = { ...this.enterChoice, ...userData}
+      const postData = { ...this.enter, ...userData}
     const userId = this.userService.getUsersStorage()?.id || null;
    
     const postObj: IPostorder = {
       clientName: postData.clearName,
       childName: postData.childName,
       age: postData.age,
-      birthDate: postData.birthDate,
-      enterChoice: postData._id,
-      sessionChoice: postData._id,
-      date: postData.date,
+      sessionChoice: postData.name,
+       date: postData.date,
       participants: postData.participants,
       userId: userId,
-      //enterId: enterId,
+     // enterId: postData._id,
     //  sessionId: sessionId
     }
     // const enterId = this.enterService.EntersAll() || null;

@@ -9,9 +9,11 @@ export interface IOrder {
 export interface IOrderPerson {
   clientName: string,
   childName: string,
-  cardNumber: number,
   age: number,
-  birthDate: string,
+date: string  | null;
+  participants: string  | null;
+ sessionChoice: string  | null;
+ 
 
 }
 
@@ -19,15 +21,13 @@ export interface IPostorder {
 
   clientName: string | null;
   childName: string  | null;
-  age: string  | null;
-  birthDate: string  | null;
+  age: number  | null;
   userId: string  | null;
   //enterId: string  | null;
  // sessionId: string  | null;
   date: string  | null;
-  participants: string  | null;
-enterChoice: string  | null;
-      sessionChoice: string  | null;
+  participants: number  | null;
+  sessionChoice: string  | null;
 }
 export interface TimeSlot {
   startTime: string;

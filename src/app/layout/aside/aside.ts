@@ -18,7 +18,7 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
 })
 export class Aside implements OnInit{
   //startDate = new Date;
-  date: Date | undefined;
+  date: Date = new Date;
   selectedType: IEnterTypeSelect=null;
 
   enterTypes: IEnterTypeSelect[] = [

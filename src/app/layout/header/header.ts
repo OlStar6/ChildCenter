@@ -60,7 +60,7 @@ export class Header implements OnInit, OnDestroy {
     return [
       {
         label: 'Каталог',
-        routerLink: ['']
+        routerLink: ['enters']
       },
           {
         label: 'Зал славы',
@@ -68,11 +68,11 @@ export class Header implements OnInit, OnDestroy {
       },
       {
         label: 'Запись',
-        routerLink: ['order'],
+        routerLink: ['order/:id'],
       },
       {
         label: 'Настройки',
-        routerLink: ['/settings'],
+        routerLink: ['settings'],
       },
   
 

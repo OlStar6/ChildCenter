@@ -10,17 +10,23 @@
 
   <div *ngIf="bookingError" class="alert alert-danger">
     Не удалось выполнить запись. Возможно, сеанс уже заполнен.
-  </div>
+  </div> 
+
 @for (item of session; track item.id) {
-     <h3>Доступные сеансы </h3>
-  
- <div class="session-time">
-{{item.startTime}}-{{item.endTime}}
+    <div class="session-time"> <h3>Доступные сеансы</h3>
+          {{item.startTime}} - {{item.endTime}}
+      
+      <div class="session-slots">
+        Свободных мест: {{item.availableSlots}} / {{item.maxSlots}}
+      </div>
 </div>
+
 <p-button (click)="bookSession(session.id)">Записаться</p-button>
-  
+
  
 }
+
+
 
 
 

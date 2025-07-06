@@ -152,7 +152,7 @@ window.localStorage.removeItem('usertoken')
     this.userStorage = this.userStorage.filter(({login}) => login === this.currentUser?.login);
     this.currentUser = null;
     localStorage.removeItem(LOCAL_STORAGE_NAME);
-     this.router.navigate(['/']);
+     this.router.navigate(['/enters']);
   }
   getRole():string {
     return this.currentUserRole;

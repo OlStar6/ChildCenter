@@ -21,7 +21,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (this.userService.isAdmin()){
     return true;
   } else {
-    this.router.navigate(['/'])
+    this.router.navigate(['/enters'])
   }
 }
 };
