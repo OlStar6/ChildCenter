@@ -16,7 +16,7 @@ export class UserService {
   private userStorage: IUser[] = [];
   private currentUser: IUser | null = null;
   private currentUserRole: string = 'guest';
-
+newPassword:string;
 
   token: string | null;
  
@@ -160,14 +160,12 @@ window.localStorage.removeItem('usertoken')
  isAdmin() {
 this.currentUserRole === 'admin';
   }
-  changePassword(psw: string) {
-    if (!this.currentUser) {
-      return
-    }
-    this.currentUser.psw = psw;
-    const dbUser = this.userStorage.find(({login}) => login === this.currentUser?.login)!;
-    dbUser.psw = psw
-  }
-  }
+  changePassword(newPassword:string):Observable<IUser> {
 
+const newPas:IUser={
+newPassword: this.newPassword
+}
+return this.http.post<IUser>('http://localhost:3002/users/', newPas)
 
+}
+}

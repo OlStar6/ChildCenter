@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API } from '../shared/api';
-import { BehaviorSubject, delay, Observable, Subject, tap } from 'rxjs';
-import { IEnterIdSelect, Ienters,  Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
-import { IOrder, IOrderPerson, IPostorder } from '../models/order';
+import { BehaviorSubject, delay, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
+import { IEnterIdSelect, Ienters,  IEnterServerResponse,  Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
+import {  IPostorder } from '../models/order';
 import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
-import { LoaderService } from './loader-service';
+
 
 
 @Injectable({
@@ -43,15 +42,7 @@ export class EntertainmentService {
    personalData: IPostorder;
    image:string;
 
-  startTime: string;
-  endTime: string;
-  date: Date;
-  availableSlots: number;
-  maxSlots: number;
-  isAvailable: boolean;
-
-
-
+ 
 
   constructor(private http: HttpClient,
     private router:Router,
@@ -59,19 +50,90 @@ export class EntertainmentService {
   ) { }
 
    EntersAll(): Observable<Ientertanment[]> {
-     
-
-   const enters: Ientertanment = {
+    const enters:Ientertanment = {
+id:this.id,
     name:this.name,
     description: this.description,
     price:this.price,
     img:this.img,
     age: this.age
-   };
-   
-    return this.http.get<Ientertanment[]>('http://localhost:3002/enters/');
+    }
+   return this.http.get<Ientertanment[]>('http://localhost:3002/enters');
+
   }
+showSession(): Observable<Ientertanment[]>{
+  const enters = this.http.get<IEnterServerResponse>('http://localhost:3002/enters');
+  const sessions = this.http.get<Session[]>('http://localhost:3002/session');
+
+   return forkJoin<[ Session[], IEnterServerResponse]>([sessions, enters]).pipe(
+  delay(1000),
+  map((data)=> {   
+    console.log('***массивы', data)
+        let entersWithSession = [] as Ientertanment[];
+      const entersArr = data[1].enters;
+        console.log('hjk', entersArr)
+      const sessionsMap = new Map();
+
+      data[0].forEach(session => {
+        sessionsMap.set(session.enterId, session);
+      });
+      console.log("***ju", entersArr)
+
+      
+    if (Array.isArray(entersArr)) {
+       console.log('***entersArr', entersArr)
+        entersWithSession = entersArr.map((enter)=> {
+
+          return {
+            ...enter,
+            session: sessionsMap.get(enter._id) || null
+          }
+         
+        });
+      } 
+        return entersWithSession;
+      
+    }
+  ));
+}
+
+   
     
+
+     
+  
+/*
+  return forkJoin<[IEnterServerResponse, Session[]]>([enters, sessions]).pipe(
+  delay(10),
+  map((data)=> {   
+    console.log('***массивы', data)
+        let entersWithSession = [] as Ientertanment[];
+      const entersArr = data[0].enters;
+      const sessionsMap = new Map();
+
+      data[1].forEach(session => {
+        sessionsMap.set(session.enterId, session);
+      });
+
+      
+    if (Array.isArray(entersArr)) {
+        console.log('***entersArr', entersArr)
+        entersWithSession = entersArr.map((enter)=> {
+
+          return {
+            ...enter,
+            session: sessionsMap.get(enter._id) || null
+          }
+        });
+      }
+        return entersWithSession;
+      
+    }
+  ));
+}*/
+ 
+
+
 
   
 
@@ -90,10 +152,11 @@ export class EntertainmentService {
   }
 
  getSession(): Observable<Session[]> {
-    const path = 'http://localhost:3002/session/'
+    const path = 'http://localhost:3002/session'
           return this.http.get<Session[]>(path);
     
 }
+
 
 initChangeEnterType(val:IEnterTypeSelect): void {
   this.enterTypeSubject.next(val);
@@ -125,4 +188,5 @@ postOrder(data:any): Observable<any> {
     description: this.description,
       }
     return this.http.get<Iglory[]>('http://localhost:3002/glory/');
-  }}
+  }
+}

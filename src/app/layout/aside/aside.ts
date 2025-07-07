@@ -4,6 +4,8 @@ import { IEnterTypeSelect } from '../../models/interfaces';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-aside',
@@ -11,6 +13,7 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
     DatePickerModule, 
         FormsModule, 
     SelectModule,
+    ButtonModule
 
     ],
   templateUrl: './aside.html',
@@ -29,6 +32,8 @@ export class Aside implements OnInit{
 
   constructor(
     private EntertainmentService:EntertainmentService,
+    private router:Router,
+    private route: ActivatedRoute
   
       
     
@@ -57,6 +62,13 @@ console.log('oi', ev)
 
   this.EntertainmentService.initChangeEnterType(this.selectedType);
 }
+initAuth(ev: Event): void {
+    this.router.navigate(['/auth'], { relativeTo: this.route });
+  }
+
+initReg(ev: Event): void {
+    this.router.navigate(['/register'], { relativeTo: this.route });
+  }
 }
 
 

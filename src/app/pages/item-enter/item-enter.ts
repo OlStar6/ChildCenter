@@ -66,13 +66,7 @@ export class ItemEnter implements OnInit {
    }
  */
 
-  initAuth(ev: Event): void {
-    this.router.navigate(['/auth'], { relativeTo: this.route });
-  }
-
-initReg(ev: Event): void {
-    this.router.navigate(['/register'], { relativeTo: this.route });
-  }
+  
   initOrder(ev: Event): void {
     this.router.navigate(['enters/order', this.enter._id]);
   }

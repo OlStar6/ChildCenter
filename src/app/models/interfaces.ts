@@ -1,10 +1,12 @@
 export interface IUser {
-    login: string;
+    login?: string;
     psw?: string;
     repeatPsw?: string;
     email?:string
     role?: 'admin' | 'user';
     id?:string;
+    newPassword?:string;
+    repeatPassword?:string;
 }
  export interface IUserRegister {
     login: string;
@@ -32,6 +34,15 @@ export interface Ientertanment {
   description: string;
   price: string;
   age: string;
+   session?:Session;
+   _id?:string;
+   date?: string;
+   enterId?:string;
+   
+}
+
+export interface IEnterServerResponse {
+    enters: Ientertanment[];
 }
 
 export interface IEnterTypeSelect {
