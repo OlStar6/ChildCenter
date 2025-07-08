@@ -1,4 +1,4 @@
-/*import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 
 import { inject } from '@angular/core';
 import { UserService } from '../../services/user-service';
@@ -11,21 +11,13 @@ export const authGuard: CanActivateFn = (route, state) => {
   const isAuth = !!userService.getUsersStorage();
 
   if (!isAuth) {
-    router.navigate(['auth']);
+    router.navigate(['enters']);
     return false;
   } else {
     return true;
   }
 
- CanvasCaptureMediaStreamTrack():boolean{
-  if (this.userService.isAdmin()){
-    return true;
-  } else {
-    this.router.navigate(['/enters'])
-  }
 }
-};
-*/
 
 
 

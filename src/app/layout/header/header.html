@@ -1,19 +1,12 @@
 <div class="layout-header">
-    <div class="layout-header__menu">
+  <div class="layout-header__menu">
     <p-menubar [model]="items">
-      <ng-template pTemplate="end">  
-        </ng-template>
-      </p-menubar>
-        <div class="d-flex">
-          <div class="ms-2">
-          <p-button
-          label="Выйти"
-          (click)="onLogout()"/>
-
-          
-      
- </div>
-      
-  
-</div>
-</div>
+      <ng-template pTemplate="end">
+      </ng-template>
+    </p-menubar>
+    <div class="d-flex">
+      <div class="ms-2">
+        <p-button label="Выйти" (click)="onLogout()" />
+      </div>
+    </div>
+  </div>

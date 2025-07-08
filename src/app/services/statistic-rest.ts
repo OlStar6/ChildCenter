@@ -7,12 +7,10 @@ import { ICustomStatisticUser } from '../models/interfaces';
 })
 export class StatisticRest {
 
-  constructor(  private http: HttpClient
+  constructor(  
   ) {
   }
 
-  getUserStatistic() {
-    return this.http.get <ICustomStatisticUser[]>("http://localhost:3002/users/")
-  }
+
 }
 

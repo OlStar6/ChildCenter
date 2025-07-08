@@ -2,17 +2,9 @@
   display: block;
 }
 
-h3{
+h3 {
   text-align: center;
-  
 }
-/*.flex-wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: wrap;
-  margin: auto;
-}*/
 
 .mx-3 {
   font-size: large;
@@ -20,7 +12,6 @@ h3{
   padding: 10px;
 
 }
-
 
 .Enterbutton {
   background-color: #9735be;
@@ -36,9 +27,8 @@ h3{
 .Enterbutton:hover {
   background-color: aquamarine;
   color: #9735be;
-  font-size:larger
+  font-size: larger
 }
-
 
 .background-color {
 
@@ -52,10 +42,8 @@ h3{
   background-color: #c490d8;
   flex-direction: column;
   margin: 50px 300px;
-
-
-
 }
-input{
-    display: table;
+
+input {
+  display: table;
 }

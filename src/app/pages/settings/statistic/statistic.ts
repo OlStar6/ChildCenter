@@ -34,6 +34,7 @@ export class Statistic {
     })
   }
 isAdmin() {
-  this.userService.isAdmin();
+ return this.userService.isAdmin();
+  
 }
 }

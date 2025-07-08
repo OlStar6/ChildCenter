@@ -27,14 +27,10 @@ export class Entertainment implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) { }
-
   ngOnInit(): void {
-
     //Types
     this.subscription = this.entertainmentService.enterType$.subscribe((enter) => {
-
       switch (enter.key) {
-
         case 'от 4 лет':
           this.enters = this.entersStore.filter((el) => el.age === 'от 4 лет')
           break;
@@ -45,10 +41,48 @@ export class Entertainment implements OnInit {
           this.enters = [...this.entersStore];
           break;
       }
-
     });
+    console.log('ActivatedRoute', this.route)
+    this.entertainmentService.showSession().subscribe((data) => {
+      console.log('***', data)
+      if (Array.isArray(data)) {
+        this.enters = data;
+        this.entersStore = [...data];
+        console.log('fgh')
+      }
+    }, (err) => {
+      console.log('***', err)
+    }
+    );
+  }
+  goToEnter(item: Ienters): void {
 
-    //Date
+    this.router.navigate(['enter', item._id], { relativeTo: this.route });
+    console.log('id', ItemEnter)
+  }
+  initEnterFilterLogic(): void {
+    if (this.typeEnterFilter) {
+      switch (this.typeEnterFilter.key) {
+        case 'от 4 лет':
+          this.enters = this.entersStore.filter((el) => el.age === 'от 4 лет')
+          break;
+        case 'от 6 лет':
+          this.enters = this.entersStore.filter((el) => el.age === 'от 6 лет')
+          break;
+        case 'Все':
+          this.enters = [...this.entersStore];
+          break;
+      }
+    }
+  }
+  ngOnDestroy(): void {
+    this.destroyer.next(true);
+    this.destroyer.complete();
+  }
+}
+
+
+/*//Date
     this.entertainmentService.enterDate$.subscribe((date) => {
 
       console.log('****date', date);
@@ -74,51 +108,4 @@ export class Entertainment implements OnInit {
 
       // }
     )
-
-    console.log('ActivatedRoute', this.route)
-    this.entertainmentService.EntersAll().subscribe((data) => {
-      
-      if (Array.isArray(data)) {
-        this.enters = data;
-        this.entersStore = [...data];
-        console.log('fgh')
-      }
-    }, (err) => {
-      console.log('***', err)
-    }
-    );
-
-  }
-
-  goToEnter(item: Ienters): void {
-
-    this.router.navigate(['enter', item._id], { relativeTo: this.route });
-    console.log('id', ItemEnter)
-  }
-
-
-  initEnterFilterLogic(): void {
-
-    if (this.typeEnterFilter) {
-      switch (this.typeEnterFilter.key) {
-
-        case 'от 4 лет':
-          this.enters = this.entersStore.filter((el) => el.age === 'от 4 лет')
-          break;
-        case 'от 6 лет':
-          this.enters = this.entersStore.filter((el) => el.age === 'от 6 лет')
-          break;
-        case 'Все':
-          this.enters = [...this.entersStore];
-          break;
-      }
-    }
-  }
-  ngOnDestroy(): void {
-    this.destroyer.next(true);
-    this.destroyer.complete();
-
-  }
-}
-
-
+*/

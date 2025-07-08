@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, delay, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
-import { IEnterIdSelect, Ienters,  IEnterServerResponse,  Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
-import {  IPostorder } from '../models/order';
+import { IEnterIdSelect, Ienters, IEnterServerResponse, Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
+import { IPostorder } from '../models/order';
 import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
 
@@ -29,164 +29,118 @@ export class EntertainmentService {
 
   private clearSubject = new Subject<void>();
   readonly clearEnter$ = this.clearSubject.asObservable();
-  
+
   name: string;
   description: string;
   price: string;
   img: string;
   id: string;
-  _id:string;
+  _id: string;
   age: string;
-  userLogin: string  | null;
+  userLogin: string | null;
   enterId: Ienters;
-   personalData: IPostorder;
-   image:string;
+  personalData: IPostorder;
+  image: string;
 
- 
+
 
   constructor(private http: HttpClient,
-    private router:Router,
-    
+    private router: Router,
+
   ) { }
 
-   EntersAll(): Observable<Ientertanment[]> {
-    const enters:Ientertanment = {
-id:this.id,
-    name:this.name,
-    description: this.description,
-    price:this.price,
-    img:this.img,
-    age: this.age
+  EntersAll(): Observable<Ientertanment[]> {
+    const enters: Ientertanment = {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      price: this.price,
+      img: this.img,
+      age: this.age
     }
-   return this.http.get<Ientertanment[]>('http://localhost:3002/enters');
+    return this.http.get<Ientertanment[]>('http://localhost:3002/enters');
 
   }
-showSession(): Observable<Ientertanment[]>{
-  const enters = this.http.get<IEnterServerResponse>('http://localhost:3002/enters');
-  const sessions = this.http.get<Session[]>('http://localhost:3002/session');
+  showSession(): Observable<Ientertanment[]> {
+    const enters = this.http.get<IEnterServerResponse>('http://localhost:3002/enters');
+    const sessions = this.http.get<Session[]>('http://localhost:3002/session');
 
-   return forkJoin<[ Session[], IEnterServerResponse]>([sessions, enters]).pipe(
-  delay(1000),
-  map((data)=> {   
-    console.log('***массивы', data)
+    return forkJoin<[Session[], IEnterServerResponse]>([sessions, enters]).pipe(
+      delay(1000),
+      map((data) => {
+        console.log('***массивы', data)
         let entersWithSession = [] as Ientertanment[];
-      const entersArr = data[1].enters;
+        const entersArr = data[1];
         console.log('hjk', entersArr)
-      const sessionsMap = new Map();
+        const sessionsMap = new Map();
 
-      data[0].forEach(session => {
-        sessionsMap.set(session.enterId, session);
-      });
-      console.log("***ju", entersArr)
-
-      
-    if (Array.isArray(entersArr)) {
-       console.log('***entersArr', entersArr)
-        entersWithSession = entersArr.map((enter)=> {
-
-          return {
-            ...enter,
-            session: sessionsMap.get(enter._id) || null
-          }
-         
+        data[0].forEach(session => {
+          sessionsMap.set(session.startTime, session);
         });
-      } 
+        console.log("***ju", entersArr)
+
+
+        if (Array.isArray(entersArr)) {
+          console.log('***entersArr', entersArr)
+          entersWithSession = entersArr.map((enter) => {
+
+            return {
+              ...enter,
+              session: sessionsMap.get(enter._id) || null
+            }
+
+          });
+        }
         return entersWithSession;
-      
-    }
-  ));
-}
 
-   
-    
-
-     
-  
-/*
-  return forkJoin<[IEnterServerResponse, Session[]]>([enters, sessions]).pipe(
-  delay(10),
-  map((data)=> {   
-    console.log('***массивы', data)
-        let entersWithSession = [] as Ientertanment[];
-      const entersArr = data[0].enters;
-      const sessionsMap = new Map();
-
-      data[1].forEach(session => {
-        sessionsMap.set(session.enterId, session);
-      });
-
-      
-    if (Array.isArray(entersArr)) {
-        console.log('***entersArr', entersArr)
-        entersWithSession = entersArr.map((enter)=> {
-
-          return {
-            ...enter,
-            session: sessionsMap.get(enter._id) || null
-          }
-        });
       }
-        return entersWithSession;
-      
-    }
-  ));
-}*/
- 
-
-
-
-  
-
-  getEnterById(id:string): Observable<Ienters>{ 
-    const path = 'http://localhost:3002/enters';
-   const enter: Ienters = {
-    id:this.id,
-    name:this.name,
-    description: this.description,
-    price:this.price,
-    img:this.img,
-    age: this.age
-   }
-    return this.http.get<Ienters>(`${path}/${id}`);
-  
+      ));
   }
 
- getSession(): Observable<Session[]> {
+  getEnterById(id: string): Observable<Ienters> {
+    const path = 'http://localhost:3002/enters';
+    const enter: Ienters = {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      price: this.price,
+      img: this.img,
+      age: this.age
+    }
+    return this.http.get<Ienters>(`${path}/${id}`);
+
+  }
+
+  getSession(): Observable<Session[]> {
     const path = 'http://localhost:3002/session'
-          return this.http.get<Session[]>(path);
-    
-}
+    return this.http.get<Session[]>(path);
 
+  }
 
-initChangeEnterType(val:IEnterTypeSelect): void {
-  this.enterTypeSubject.next(val);
-  
+  initChangeEnterType(val: IEnterTypeSelect): void {
+    this.enterTypeSubject.next(val);
+  }
+  initChangeEnterId(val: IEnterIdSelect): void {
+    this.enterIdSubject.next(val);
+  }
 
-}
-initChangeEnterId(val:IEnterIdSelect): void {
-  this.enterIdSubject.next(val);
-  
+  initChangeEnterDate(val: Date): void {
+    this.enterDateSubject.next(val);
+    this.sessionDateSubject.next(val);
+  }
+  initChangeSession(val: Session): void {
+    this.enterAllSubject.next(val);
+  }
+  postOrder(data: any): Observable<any> {
+    return this.http.post<any>('http://localhost:3002/order', data)
+  }
 
-}
-
-initChangeEnterDate(val:Date): void{
- this.enterDateSubject.next(val);
- this.sessionDateSubject.next(val);
-}
-initChangeSession(val:Session):void{
-  this.enterAllSubject.next(val);
-}
-postOrder(data:any): Observable<any> {
-  return this.http.post<any>('http://localhost:3002/order', data)
-}
-    
-    
-    GloryAll(): Observable<Iglory[]> {
-   const glory: Iglory = {
-    id:this.id,
-    image:this.image,
-    description: this.description,
-      }
+  GloryAll(): Observable<Iglory[]> {
+    const glory: Iglory = {
+      id: this.id,
+      image: this.image,
+      description: this.description,
+    }
     return this.http.get<Iglory[]>('http://localhost:3002/glory/');
   }
 }

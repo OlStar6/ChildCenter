@@ -1,39 +1,46 @@
 input {
-    display: table;
+  display: table;
 }
-.form-control{
-   display: table;
-   margin: 5px;
+
+.form-control {
+  display: table;
+  margin: 5px;
 }
-.mt-5{
-    height: 600px;
+
+.mt-5 {
+  height: 600px;
 }
 
 .container {
-    margin-bottom: 5px;
-    padding: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
 }
-.left{
+
+.left {
   float: right;
 }
-.clear{
+
+.clear {
   clear: both;
 }
-.clearfix::after{
+
+.clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
+
 h3,
 h2 {
-color:blue;
-margin: 8px;
+  color: blue;
+  margin: 8px;
 }
 
-.p-button{
-  color:blue;
+.p-button {
+  color: blue;
 }
+
 label,
-.orderbutton{
+.orderbutton {
   margin: 8px;
 }

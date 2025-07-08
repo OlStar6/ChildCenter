@@ -1,39 +1,28 @@
- <div class="m-auto">
-<h3>Авторизация</h3>
-  <table>
-    <tr>
-    <td><div class="flex flex-column m-auto">
-    <div class="flex justify-content-between align-items-center flex-wrap background-color">
-   <span class="mx-3">Логин</span>
-        <input 
-    type="text"
-    pInputText 
-    [ngClass]="{'input-error': !login || login.length<3}"
-    [(ngModel)]="login">
-    
+<div class="m-auto">
+    <h3>Авторизация</h3>
+    <table>
+        <tr>
+            <td>
+                <div class="flex flex-column m-auto">
+                    <div class="flex justify-content-between align-items-center flex-wrap background-color">
+                        <span class="mx-3">Логин</span>
+                        <input type="text" pInputText [ngClass]="{'input-error': !login || login.length<3}"
+                            [(ngModel)]="login">
+
+                    </div>
+        <tr>
+            <td>
+                <div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
+                    <span class="mx-3">Пароль</span>
+                    <input type="password" pInputText [ngClass]="{'input-error': !psw || psw.length<3}"
+                        [(ngModel)]="psw">
+
+                </div>
 </div>
-
-<tr>
-<td><div class="mt-3 flex justify-content-between align-items-center flex-wrap background-color">
-    <span class="mx-3">Пароль</span>
-         <input type="password"
-     pInputText 
-     [ngClass]="{'input-error': !psw || psw.length<3}"
-     [(ngModel)]="psw">
-     
- </div></div>
- </table>
- <div class="mt-3 flex justify-content-between align-items-center flex-wrap">
-    <p-button class="Enterbutton"
-    label="Вход"
-    [disabled]="!login || !psw || login.length < 6 || psw.length < 6" 
-    (click)="onAuth($event)" 
-    ></p-button>
-    <p-button 
-label="Регистрация"
-styleClass="my-3"
-routerLink="/register"
-></p-button>
-
+</table>
+<div class="mt-3 flex justify-content-between align-items-center flex-wrap">
+    <p-button class="Enterbutton" label="Вход" [disabled]="!login || !psw || login.length < 3 || psw.length < 6"
+        (click)="onAuth($event)"></p-button>
+    <p-button label="Регистрация" styleClass="my-3" routerLink="/register"></p-button>
 </div>
 </div>

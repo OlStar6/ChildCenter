@@ -7,7 +7,6 @@ import { IUser } from '../../../models/interfaces';
 import { UserService } from '../../../services/user-service';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClient } from '@angular/common/http';
-//import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 
 
@@ -16,7 +15,7 @@ export const LOCAL_STORAGE_NAME = 'currentUser';
 @Component({
   selector: 'app-registration',
   imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule, CommonModule],
- 
+
   templateUrl: './registration.html',
   styleUrl: './registration.scss'
 })
@@ -31,21 +30,14 @@ export class Registration implements OnInit {
   constructor(
     private userService: UserService,
     private http: HttpClient,
-   // private messageService: MessageService,
-    private router:Router
+    private router: Router
 
   ) { }
 
   ngOnInit(): void {
-
   }
 
   onAuth(ev: Event): void | boolean {
-
-   /*if (this.psw !== this.repeatPsw) {
-      this.messageService.add({ severity: 'error', summary: 'Пароли не совпадают', life: 2000 })
-      return false;
-    }*/
 
     const userObj: IUser = {
       login: this.login,
@@ -53,32 +45,32 @@ export class Registration implements OnInit {
       email: this.email
     }
     this.http.post('http://localhost:3002/users/', userObj).subscribe(
-               
-    ()=> {
-      this.router.navigate(['/enters']);
-  },
- ()=>{
- alert('Ошибка')
-})
-            
-   if (!this.userService.isUserExist(userObj)) {
+
+      () => {
+        this.router.navigate(['/enters']);
+      },
+     )
+
+    if (!this.userService.isUserExist(userObj)) {
       this.userService.setUser(userObj);
-   
+
       if (this.saveUserInStore) {
         const objUserJsonStr = JSON.stringify(userObj);
         window.localStorage.setItem('user_' + userObj.login, objUserJsonStr);
       }
     }
-    
-    }
+  }
 
-  
-     
-/*initToast(type: 'error' | 'success', text: string):void {
-  this.messageService.add({ severity: type, detail: text, life: 3000}) 
-}
-*/
-  
+  /* if (this.psw !== this.repeatPsw) {
+  alert ('Пароли не совпадают')
+    return false;
+  }*/
+
+  /*initToast(type: 'error' | 'success', text: string):void {
+    this.messageService.add({ severity: type, detail: text, life: 3000}) 
+  }
+  */
+
   /*()=>(err:HttpErrorResponse)=> {
     console.log('err', err)
     const ServerError = <ServerError>err.error;

@@ -9,8 +9,7 @@ import { isValid } from 'date-fns';
 import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
-
-
+import { DatePickerModule } from 'primeng/datepicker';
 @Component({
   selector: 'app-session-booking',
   templateUrl: './session-booking.html',
@@ -19,31 +18,76 @@ import { Router } from '@angular/router';
     CommonModule,
     FormsModule,
     CardModule,
-    ButtonModule
+    ButtonModule,
+   
   ],
 })
 export class SessionBookingComponent implements OnInit {
+  date:Date = null;
   selectedDate: Date = new Date();
   session: any = [];
   sessionStore: Session[] = [];
   bookingSuccess = false;
   bookingError = false;
   subscription: Subscription;
-  enterId:string;
-   enter: Ienters;
-  constructor(private sessionService: SessionService, 
-    private entersService:EntertainmentService,
-  private router:Router) {}
-
+  enterId: string;
+  enter: Ienters;
+  dateEnterFilter:Date;
+  constructor(private sessionService: SessionService,
+    private entersService: EntertainmentService,
+    private router: Router) { }
   ngOnInit(): void {
-     
     this.loadSessions();
-      this.sessionService.getSession().subscribe((data) => {
+    this.sessionService.getSession().subscribe((data) => {
       if (Array.isArray(data)) {
         this.session = data;
         this.sessionStore = [...data];
       }
     });
+    this.entersService.enterDate$.subscribe((date) => {
+      console.log('****date', date);
+      this.session = this.sessionStore.filter((session) => {
+        if (NaN) {
+          return this.session = this.sessionStore;
+        }
+        else if (isValid(new Date(session.date))) {
+          const sessionDate = new Date(session.date).setHours(0, 0, 0, 0);
+          console.log('****sessionDate', sessionDate)
+          const calendarDate = new Date(date).setHours(0, 0, 0);
+          console.log('****calendarDate', calendarDate)
+          return sessionDate === calendarDate;
+        } else {
+          return false;
+        }
+      }
+      );
+    })
+  }
+  loadSessions(): void {
+    this.session = this.sessionService.getAvailableSessions(this.selectedDate);
+  }
+  bookSession(sessionId: number): void {
+    const success = this.sessionService.getSession();
+    if (success) {
+      this.bookingSuccess = true;
+      this.bookingError = false;
+      this.loadSessions();
+      setTimeout(() => this.bookingSuccess = false, 1000);
+    } else {
+      this.bookingError = true;
+      setTimeout(() => this.bookingError = false, 1000);
+    };
+    this.router.navigate([['enters/order', this.enter._id]])
+    console.log('success', success)
+  }
+ 
+  
+    
+  getSessionIdEnter(enterid: string) {
+    this.sessionService.getSessionIdEnter(enterid);
+  }
+}
+
 /*this.subscription = this.entersService.enterEnter$.subscribe((enter) => {
      
       switch (enter._id) {
@@ -64,63 +108,3 @@ export class SessionBookingComponent implements OnInit {
           }
 }
 )*/
-  this.entersService.sessionDate$.subscribe((date) => {
-
-      console.log('****date', date);
-  
-      this.session = this.sessionStore.filter((enter)=>{
-     if (NaN) {
-      return this.session=this.sessionStore;
-     }
-
-       else if (isValid (new Date(enter.date))) {
-
-          const sessionDate = new Date(enter.date).setHours(0, 0, 0, 0);
-          console.log('****sessionDate', sessionDate)
-          const calendarDate = new Date(date).setHours(0, 0, 0);
-          console.log('****calendarDate', calendarDate)
-          return sessionDate === calendarDate;
-        }else {
-          return false;
-        }
-  }
-);})
-  }
-
-  loadSessions(): void {
-    this.session = this.sessionService.getAvailableSessions(this.selectedDate);
-  }
-
-  bookSession(sessionId: number): void {
-    const success = this.sessionService.getSession();
-    if (success) {
-      this.bookingSuccess = true;
-      this.bookingError = false;
-      this.loadSessions();
-       setTimeout(() => this.bookingSuccess = false, 1000);
-    } else {
-      this.bookingError = true;
-      setTimeout(() => this.bookingError = false, 1000);
-    };
-    this.router.navigate([['enters/order', this.enter._id]])
-    console.log('success', success)
-  }
-  
-    
-
-  onDateChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const date = input.valueAsDate;
-    
-       if (date) {
-      this.selectedDate = date;
-      this.loadSessions();
-    } else {
-      console.error('Invalid date selected');
-    }
-  }
-
-  getSessionIdEnter(enterid:string) {
-    this.sessionService.getSessionIdEnter(enterid);
-  }
-}

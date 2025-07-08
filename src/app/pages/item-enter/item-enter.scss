@@ -1,25 +1,65 @@
-
-
 .card {
     display: flex;
     flex-direction: column;
 }
-img {
 
-    height:150px;
+img {
+    height: 150px;
 }
+img:hover{
+  filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));
+  transform: translateY(-10px); 
+  transform: scale(1.02);
+  transition: .3s ease-in-out;
+}
+
 .item-enter {
-  
+    display: flex;
+    justify-content: center;
+
+}
+.card{
+     display: flex;
+    justify-content: center;
+}
+h3{
+      display: flex;
+    justify-content: center;
+    color: rgb(221, 4, 116);
+}
+p{
     display: flex;
     justify-content: center;
 }
 
-.session-book{
+.session-book {
     display: flex;
-flex-direction: column;
-justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.my-3{
-    margin-top: 20px;
+.calendar {
+margin-bottom: 10px;
+margin-top: 10px;
 }
+p-datepicker{
+padding-bottom: 10px;
+
+}
+.group{
+     display: inline-block;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, .1);
+    background: #fff;
+     width: 300px;
+    height: 150px;
+    padding:10px;
+   
+}
+
+input{
+    margin: 10px;
+}/* display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;*/

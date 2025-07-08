@@ -3,24 +3,23 @@
     width: 100%;
     display: block;
 }
+
 .layout-footer {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     gap: 8px;
-    background: #c282db;
-    color: rgb(6, 22, 17);
+    background: #c47ee0;
+    color: #fff;
     padding: 4px 10px;
     align-items: center;
     height: 50px;
-    
-    
-    }
-    .ms-2{
-align-items: center;
-    }
-    .m-0 {
-        margin: 0;
-    }
+}
 
-  
-   
+.ms-2 {
+    text-align: center;
+    padding-right: 10px;
+}
+
+.m-0 {
+    margin: 0;
+}

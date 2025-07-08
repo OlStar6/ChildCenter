@@ -25,13 +25,16 @@
   padding: 15px;
   margin-bottom: 15px;
   display: flex;
-flex-wrap: wrap;
-  align-items:end;
+  flex-wrap: wrap;
+  align-items: end;
 }
 
 .session-time {
-  font-weight:100;
+  font-weight: 100;
   font-size: 1em;
+  display: flex;
+ flex-direction: column;
+  margin: 5px;
 }
 
 .book-button {
@@ -61,4 +64,14 @@ flex-wrap: wrap;
 .alert-danger {
   background-color: #f2dede;
   color: #a94442;
+}
+
+p-button{
+  margin: 10px;
+}
+div{
+  align-items: center;
+  text-align: center;
+  margin: 1px;
+  padding: 1px;
 }

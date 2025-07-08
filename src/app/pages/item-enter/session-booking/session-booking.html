@@ -1,29 +1,21 @@
 <div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
-
   <div class="session-booking">
     <h2>Запись на сеанс</h2>
+     <div class="date-picker">
 
-
+      
+    
     <div *ngIf="bookingSuccess" class="alert alert-success">
       Вы успешно записаны на сеанс!
     </div>
-
-    <div *ngIf="bookingError" class="alert alert-danger">
-      Не удалось выполнить запись. Возможно, сеанс уже заполнен.
-    </div>
-
     @for (item of session; track item.id) {
     <div class="session-time">
       {{item.startTime}} - {{item.endTime}}
-
       <div class="session-slots">
         Свободных мест: {{item.availableSlots}} / {{item.maxSlots}}
-      </div>
-    </div>
-
-    <p-button (click)="bookSession(session.id)">Записаться</p-button>
-
-
+      </div> </div>
+      <p-button (click)="bookSession(session.id)">Записаться</p-button>
+   
     }
 
 
@@ -32,7 +24,10 @@
 
 
 
-    <!--<div class="session-booking">
+    <!--
+       <div *ngIf="bookingError" class="alert alert-danger">
+      Не удалось выполнить запись. Возможно, сеанс уже заполнен.
+    </div><div class="session-booking">
   <h2>Запись на сеанс</h2>
   
   <div class="date-picker">

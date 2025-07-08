@@ -1,23 +1,17 @@
-.w-full{
+.w-full {
     height: 200px;
-    width: 100%;
+    width: 220px;
     padding: 20px;
     margin: 5px;
 }
+
 .align-items-stretch {
     display: flex;
-    justify-content:left;
+    justify-content: space-around;
     align-items: stretch;
-    padding:50px 20px;
-}
-.p-card{
-    padding: 20px;
+    padding: 50px 20px;
 }
 
-
-.align-items-stretch{
-height: 600px;
+.align-items-stretch {
+    height: 600px;
 }
-
-  
-

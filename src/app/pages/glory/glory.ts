@@ -10,19 +10,19 @@ import { EntertainmentService } from '../../services/entertainment-service';
   styleUrl: './glory.scss'
 })
 export class Glory implements OnInit {
-  glory:any=[];
-  gloryStore:Iglory[]=[];
-  constructor(private enterService :EntertainmentService) {}
+  glory: any = [];
+  gloryStore: Iglory[] = [];
+  constructor(private enterService: EntertainmentService) { }
 
   ngOnInit(): void {
-this.enterService.GloryAll().subscribe((data)=>{
-  if (Array.isArray(data)){
-    this.glory=data;
-    this.gloryStore=[...data]
+    this.enterService.GloryAll().subscribe((data) => {
+      if (Array.isArray(data)) {
+        this.glory = data;
+        this.gloryStore = [...data]
+      }
+    }, (err) => {
+      console.log('err', err)
+    }
+    );
   }
-}, (err)=>{
-    console.log('err', err)
-  }
- );
-}
 }

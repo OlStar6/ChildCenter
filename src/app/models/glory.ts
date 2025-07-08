@@ -1,7 +1,6 @@
- export interface Iglory {
-    id: string;
-    image:string;
-    description:string;
-  
- }
- 
+export interface Iglory {
+   id: string;
+   image: string;
+   description: string;
+
+}

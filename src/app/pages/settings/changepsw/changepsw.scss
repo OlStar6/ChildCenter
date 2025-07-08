@@ -1,17 +1,19 @@
-input{
+input {
     display: table;
     height: 30px;
     border-radius: 3px;
 }
 
-.flex-wrap{
-margin: 20px;
+.flex-wrap {
+    margin: 20px;
 }
-h3{
- display:block;
+
+h3 {
+    display: block;
 
 }
-.m-auto{
+
+.m-auto {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

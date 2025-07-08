@@ -81,6 +81,38 @@
         "maxSlots": 10,
         "isAvailable": true,
          "enterId":"685c60aad8810aa93c3389ca"
+        },
+        {
+                "id": 9,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60bad8810aa93c3389cc"
+        },
+        {
+                "id": 10,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60bad8810aa93c3389cc"
+        },
+          {
+                "id": 11,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "date": "2025-07-18T10:00:00.910Z",
+        "availableSlots": 5,
+        "maxSlots": 10,
+        "isAvailable": true,
+         "enterId":"685c60bad8810aa93c3389cc"
         }
+
+
     ]
 }

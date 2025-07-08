@@ -1,6 +1,27 @@
-<div class="aside mt-3"><div class="aside m-3">
- 
-  <div class="my-3">
+<div class="container">
+  <div class="aside mt-3">
+    <div class="aside m-3">
+      <div class="group">
+        <h4>Выберите возрастную категорию</h4>
+        <div class="width">
+          <p-select [options]="enterTypes" [(ngModel)]="selectedType" (onChange)="changeEnterType($event)"
+            optionLabel="label" placeholder="Выберите возрастную категорию" />
+        </div>
+        <div class="groupbutton">
+          <div class="my-6">
+            <p-button label="Авторизация" (click)='initAuth($event)'></p-button>
+          </div>
+          <div class="my-6">
+            <p-button label="Регистрация" (click)='initReg($event)'></p-button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+   
+ <!-- <div class="my-3">
     <p-datepicker 
     [showIcon]="true"
     [(ngModel)]="date" 
@@ -10,30 +31,4 @@
     (onClearClick)="clearDate($event)">
   </p-datepicker> 
   </div>
-
-   <div class="group">
-
-    <p>Выберите возрастную категорию</p>
-<div class="width">
-<p-select
-    [options]="enterTypes" 
-    [(ngModel)]="selectedType" 
-    (onChange)="changeEnterType($event)"
-    optionLabel="label" 
-    placeholder="Выберите возрастную категорию"
-  />
-</div>
-<div class="groupbutton">
- <div class="my-6">
-  <p-button 
-label="Авторизация"
-(click)='initAuth($event)'
-></p-button></div>
-<div class="my-6">
-<p-button 
-label="Регистрация"
-(click)='initReg($event)'
-></p-button></div>
-</div>
-
-</div></div>
+-->

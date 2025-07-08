@@ -30,39 +30,27 @@ export class Header implements OnInit, OnDestroy {
   private settingsActive: boolean = false;
   ;
   constructor(private router: Router,
-    private userService:UserService
-  ) {
-  }
-
-
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.items = this.initMenuItems();
-    this.timer = window.setInterval(() => {
-      this.datetime = new Date();
-    }, 1000)
-  }
 
+  }
 
   ngOnDestroy() {
     if (this.timer) {
       window.clearInterval(this.timer);
     }
   }
-  /*get userName(): string {
-     return this.userService.user?.login || '';
-   }
-   ngOnChanges(ev: SimpleChanges): void {
-     // this.settingsActive = this.menuType?.type === "extended";
-     // this.items = this.initMenuItems();
-   }*/
+
   initMenuItems(): MenuItem[] {
     return [
       {
         label: 'Каталог',
         routerLink: ['enters']
       },
-          {
+      {
         label: 'Зал славы',
         routerLink: ['glory'],
       },
@@ -74,17 +62,24 @@ export class Header implements OnInit, OnDestroy {
         label: 'Настройки',
         routerLink: ['settings'],
       },
-  
-
     ];
   }
-
 
   onLogout() {
     this.router.navigate(['auth']);
     this.userService.removeUser();
-    
+
   }
 }
 
 
+/*get userName(): string {
+   return this.userService.user?.login || '';
+ }
+ ngOnChanges(ev: SimpleChanges): void {
+   // this.settingsActive = this.menuType?.type === "extended";
+   // this.items = this.initMenuItems();
+ }*/
+  /*  this.timer = window.setInterval(() => {
+      this.datetime = new Date();
+    }, 1000)*/

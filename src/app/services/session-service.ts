@@ -17,99 +17,73 @@ export class SessionService implements OnInit {
   availableSlots: number;
   maxSlots: number;
   isAvailable: boolean;
-  enterId:string;
+  enterId: string;
 
   constructor(private http: HttpClient) {
-    this.generateSampleSessions();
-  }
-ngOnInit(): void {
-  
-}
-  private generateSampleSessions(): void {
-    // Генерация тестовых сеансов
-    const today = new Date();
-    
-   /* this.sessions = [
-      {
-        id: 1,
-        startTime: '09:00',
-        endTime: '10:00',
-        date: new Date(today),
-        availableSlots: 5,
-        maxSlots: 10,
-        isAvailable: true
-      },
-      {
-        id: 2,
-        startTime: '10:00',
-        endTime: '11:00',
-        date: new Date(today),
-        availableSlots: 0,
-        maxSlots: 10,
-        isAvailable: false
-      },
    
-    ];*/
   }
-
+  ngOnInit(): void {
+const today = new Date();
+  }
+ 
 
   getSession(): Observable<Session[]> {
     const path = 'http://localhost:3002/session/'
-  const session: Session = {
-  startTime: this.startTime,
-  endTime: this.endTime,
-  date: this.date,
-  availableSlots: this.availableSlots,
-  maxSlots: this.maxSlots,
-  isAvailable: this.isAvailable,
-  enterId:this.enterId
-  };
-    
-      return this.http.get<Session[]>(path);
-    
+    const session: Session = {
+      startTime: this.startTime,
+      endTime: this.endTime,
+      date: this.date,
+      availableSlots: this.availableSlots,
+      maxSlots: this.maxSlots,
+      isAvailable: this.isAvailable,
+      enterId: this.enterId
+    };
+
+    return this.http.get<Session[]>(path);
+
   }
-  getSessionById(id:string): Observable<Session> {
+  getSessionById(id: string): Observable<Session> {
     const path = 'http://localhost:3002/session';
-  const sessionId: Session = {
-    id:this.id,
-  startTime: this.startTime,
-  endTime: this.endTime,
-  date: this.date,
-  availableSlots: this.availableSlots,
-  maxSlots: this.maxSlots,
-  isAvailable: this.isAvailable,
-  enterId:this.enterId
-  }
-    console.log('session',sessionId._id);
-      return this.http.get<Session>(`${path}/${id}`)
-      
+    const sessionId: Session = {
+      id: this.id,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      date: this.date,
+      availableSlots: this.availableSlots,
+      maxSlots: this.maxSlots,
+      isAvailable: this.isAvailable,
+      enterId: this.enterId
+    }
+    console.log('session', sessionId._id);
+    return this.http.get<Session>(`${path}/${id}`)
+
   }
 
-   getSessionIdEnter(enterId:string): Observable<Session[]> {
+  getSessionIdEnter(enterId: string): Observable<Session[]> {
     const path = 'http://localhost:3002/session';
-  const sessionId: Session = {
-    id:this.id,
-  startTime: this.startTime,
-  endTime: this.endTime,
-  date: this.date,
-  availableSlots: this.availableSlots,
-  maxSlots: this.maxSlots,
-  isAvailable: this.isAvailable,
-  enterId:this.enterId
-  }
-    console.log('enter',this.enterId);
-      return this.http.get<Session[]>(`${path}/${enterId}`)
-      
+    const sessionId: Session = {
+      id: this.id,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      date: this.date,
+      availableSlots: this.availableSlots,
+      maxSlots: this.maxSlots,
+      isAvailable: this.isAvailable,
+      enterId: this.enterId
+    }
+    console.log('enter', this.enterId);
+    return this.http.get<Session[]>(`${path}/${enterId}`)
+
   }
   getAvailableSessions(date: Date): Session[] {
-    return this.sessions.filter(session => 
-      session.date.toDateString() === date.toDateString() && 
+    return this.sessions.filter(session =>
+      session.date.toDateString() === date.toDateString() &&
       session.isAvailable
     );
   }
 
   bookSession(sessionId: number): boolean {
-    const session = this.sessions.find(s => s.availableSlots === sessionId);  
+    const session = this.sessions.find(s => s.availableSlots === sessionId);
     if (session && session.availableSlots > 0) {
       session.availableSlots--;
       if (session.availableSlots === 0) {

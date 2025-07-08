@@ -5,21 +5,15 @@
 }
 
 .m-3 {
-  min-height: 100%;
-  width: 30%;
-  max-width: 300px;
+  width: 25%;
   background: #c282db;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
   float: right;
-  position: relative;
 }
 
-h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+h4 {
+  margin: 15px 10px;
+  font-size: 1rem;
+  color: #fff;
 }
 
 .close-btn {
@@ -48,7 +42,14 @@ h2 {
 button {
   margin-left: 10px;
 }
+
 .my-6 {
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+.group {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
