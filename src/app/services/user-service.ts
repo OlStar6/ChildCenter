@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IUser, UserStorageKey } from '../models/interfaces';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 export const LOCAL_STORAGE_NAME = 'currentUser';
 
 @Injectable({
@@ -12,7 +12,8 @@ export class UserService {
   private userStorage: IUser[] = [];
   private currentUser: IUser | null = null;
   private currentUserRole: string;
-  newPassword: string;
+  newPsw: string;
+  oldPsw:string;
   token: string | null;
   constructor(
     private router: Router,
@@ -164,12 +165,48 @@ return false;
    return this.currentUserRole === 'admin';
      
   }
-  changePassword(newPassword: string): Observable<IUser> {
-    const newPas: IUser = {
-      newPassword: this.newPassword
-    }
-    return this.http.put<IUser>('http://localhost:3002/users/', newPas)
+  changePassword(login:string, oldPsw:string, newPsw: string): Observable<any> {
+     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+    const pswObj: IUser = {
+           oldPsw: this.oldPsw,
+           newPsw: this.newPsw,
+         
+          }
+   
+    return this.http.put('http://localhost:3002/users/', pswObj, {headers})
+    .pipe(
+      catchError(error => {
+        return throwError(()=> this.handleError(error));
+        })
+    );
   }
+  private handleError(error:any): string {
+    if (error.error?.message) {
+      return error.error.message;
+    }
+    if (error.status === 401) {
+      return 'Неверный текущий пароль';
+    }
+if (error.status === 404) {
+      return 'Пользователь не найден';
+    }
+       return 'Произошла ошибка при изменении пароля';
+  }
+ /* changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.post(
+      `${this.apiUrl}/auth/change-password`,
+      { oldPassword, newPassword },
+      { headers }
+    );
+  }*/
 }
 
 

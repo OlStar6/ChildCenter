@@ -5,8 +5,9 @@ export interface IUser {
   email?: string
   role?: 'admin' | 'user';
   id?: string;
-  newPassword?: string;
-  repeatPassword?: string;
+  newPsw?: string;
+  oldPsw?:string;
+  repeatChangePsw?: string;
 }
 export interface IUserRegister {
   login: string;

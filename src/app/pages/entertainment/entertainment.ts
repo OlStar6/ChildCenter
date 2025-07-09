@@ -5,13 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Ienters, IEnterSelect, Ientertanment, IFilterTypeLogic } from '../../models/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { isValid } from 'date-fns';
-import { SelectModule } from 'primeng/select';
+
 import { ItemEnter } from '../item-enter/item-enter';
 
 @Component({
   selector: 'app-entertainment',
-  imports: [CardModule, CommonModule, SelectModule],
+  imports: [CardModule, CommonModule],
   templateUrl: './entertainment.html',
   styleUrl: './entertainment.scss'
 })
@@ -60,21 +59,7 @@ export class Entertainment implements OnInit {
     this.router.navigate(['enter', item._id], { relativeTo: this.route });
     console.log('id', ItemEnter)
   }
-  initEnterFilterLogic(): void {
-    if (this.typeEnterFilter) {
-      switch (this.typeEnterFilter.key) {
-        case 'от 4 лет':
-          this.enters = this.entersStore.filter((el) => el.age === 'от 4 лет')
-          break;
-        case 'от 6 лет':
-          this.enters = this.entersStore.filter((el) => el.age === 'от 6 лет')
-          break;
-        case 'Все':
-          this.enters = [...this.entersStore];
-          break;
-      }
-    }
-  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   

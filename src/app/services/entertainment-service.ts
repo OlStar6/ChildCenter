@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, delay, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, distinctUntilChanged, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
 import { IEnterIdSelect, Ienters, IEnterServerResponse, Ientertanment, IEnterTypeSelect, IServerResponse, Session } from '../models/interfaces';
 import { IPostorder } from '../models/order';
 import { Router } from '@angular/router';
@@ -30,7 +30,9 @@ export class EntertainmentService {
   private clearSubject = new Subject<void>();
   readonly clearEnter$ = this.clearSubject.asObservable();
 
-  
+  private allSessions$ = new BehaviorSubject<Session[]>([]);
+  private selectedEntertainmentId$ = new BehaviorSubject<string>('');
+  private selectedDate$ = new BehaviorSubject<Date>(new Date());
 
   name: string;
   description: string;
@@ -50,6 +52,61 @@ export class EntertainmentService {
     private router: Router,
 
   ) { }
+
+// Установка ID развлечения
+  setEntertainmentId(id: string): void {
+    this.selectedEntertainmentId$.next(id);
+  }
+
+  // Установка даты
+  setSelectedDate(date: Date): void {
+    this.selectedDate$.next(date);
+  }
+
+  // Обновление всех сеансов
+  updateAllSessions(sessions: Session[]): void {
+    this.allSessions$.next(sessions);
+  }
+
+  // Получение отфильтрованных сеансов
+  getFilteredSessions(): Observable<Session[]> {
+    return combineLatest([
+      this.allSessions$,
+      this.selectedEntertainmentId$.pipe(distinctUntilChanged()),
+      this.selectedDate$.pipe(distinctUntilChanged())
+    ]).pipe(
+      map(([sessions, entertainmentId, selectedDate]) => {
+        return sessions.filter(session => {
+          // Фильтрация по виду развлечения
+          const matchesEntertainment = session.enterId === entertainmentId;
+          
+          // Фильтрация по дате
+          const matchesDate = this.isSameDate(session.date, selectedDate);
+          
+          return matchesEntertainment && matchesDate;
+        });
+      })
+    );
+  }
+
+  // Вспомогательная функция для сравнения дат
+  private isSameDate(date1: Date, date2: Date): boolean {
+    return date1.getFullYear() === date2.getFullYear() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getDate() === date2.getDate();
+  }
+  filterSessions(entertainmentId$: Observable<string>, date$: Observable<Date>): Observable<Session[]> {
+  return combineLatest([this.allSessions$, entertainmentId$, date$]).pipe(
+    map(([sessions, eId, date]) => 
+      sessions.filter(s => 
+        s.enterId === eId && this.isSameDate(s.date, date)
+      )
+    ),
+    distinctUntilChanged((prev, curr) => 
+      JSON.stringify(prev) === JSON.stringify(curr)
+    )
+  );
+}
 
   EntersAll(): Observable<Ientertanment[]> {
     const enters: Ientertanment = {

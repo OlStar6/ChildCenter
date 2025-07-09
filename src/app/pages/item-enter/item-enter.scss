@@ -1,14 +1,4 @@
-/*.w-full{
-   display: inline-block;
-    border-radius: .5rem;
-    background-color: rgba(255, 255, 255, .1);
-    background: #d35454;
-     width: 430px;
-    height: 580px;
-    margin-top: 19,92px;
-    align-items: center;
-   
-}
+/*
 img {
     height: 250px;
      display: flex;
@@ -64,6 +54,17 @@ p-datepicker{
 padding-bottom: 10px;
 
 }*/
+/*.w-full{
+   display: inline-block;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, .1);
+    background: #c2b3b3;
+     width: 430px;
+    height: 580px;
+    margin-top: 19,92px;
+    align-items: center;
+   
+}
 
 .pbutton {
     margin: 50px;
@@ -72,18 +73,36 @@ padding-bottom: 10px;
 .session-book {
 display: block;
 width: 400px;
-float:inline-end
+float:right;
 }
-.sessions{
-     display: inline-block
 
-}
 .description{
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
    }
+
+
+.width{
+    height: 580px;
+}.w-full{
+   display: flex;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, .1);
+    background: #d35454;
+     width: 430px;
+    height: 580px;
+    margin-top: 19,92px;
+    align-items: center;
+   
+}*/
+
+.sessions{
+     display: flex;
+     background-color: aquamarine;
+
+}
 img {
     height: 250px;
      display: flex;
@@ -99,15 +118,20 @@ img:hover{
 .card{
      display: flex;
     justify-content: center;
-    width: 30%;
-}
-.width{
-    height: 580px;
+    align-items: center;
+
 }
 li{
-   display: block;
+   display:block;
+   width: 150px;
     list-style: none;
     text-align: center;
+}
+.container{
+ display: flex;
+justify-content: space-between;
+
+
 }
 /*.group{
      display: inline-block;
@@ -120,13 +144,7 @@ li{
 
    
 }
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 
-
-}
 
 input{
     margin: 10px;
