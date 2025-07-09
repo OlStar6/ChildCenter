@@ -33,7 +33,7 @@ export class Statistic {
     this.usersStore=[...data];
     })
   }
-isAdmin() {
+isAdmin():boolean {
  return this.userService.isAdmin();
   
 }

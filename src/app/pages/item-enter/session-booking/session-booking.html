@@ -1,11 +1,20 @@
 <div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
   <div class="session-booking">
     <h2>Запись на сеанс</h2>
-     <div class="date-picker">
-
-      
+      <div class="group">
+            <label for="booking-date">Выберите дату:</label>
+           <div class="calendar">
+       <p-datepicker 
+    [showIcon]="true"
+    [(ngModel)]="date" 
+    (onSelect)="changeDate($event)"
+    [showButtonBar]="true"
+        dateFormat="dd-mm-yy"
+    >
+  </p-datepicker> </div>
+  </div>
     
-    <div *ngIf="bookingSuccess" class="alert alert-success">
+  <!--  <div *ngIf="bookingSuccess" class="alert alert-success">
       Вы успешно записаны на сеанс!
     </div>
     @for (item of session; track item.id) {
@@ -16,7 +25,7 @@
       </div> </div>
       <p-button (click)="bookSession(session.id)">Записаться</p-button>
    
-    }
+    }-->
 
 
 

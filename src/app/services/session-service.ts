@@ -24,10 +24,11 @@ export class SessionService implements OnInit {
   }
   ngOnInit(): void {
 const today = new Date();
-  }
- 
 
-  getSession(): Observable<Session[]> {
+  }
+
+
+  getAllSessions(): Observable<Session[]> {
     const path = 'http://localhost:3002/session/'
     const session: Session = {
       startTime: this.startTime,
@@ -42,6 +43,13 @@ const today = new Date();
     return this.http.get<Session[]>(path);
 
   }
+  getSessionsByEnterId(enterId: string): Observable<Session[]> {
+  return this.http.get<Session[]>(`http://localhost:3002/session?enterId=${enterId}`);
+}
+
+
+
+
   getSessionById(id: string): Observable<Session> {
     const path = 'http://localhost:3002/session';
     const sessionId: Session = {
@@ -60,7 +68,7 @@ const today = new Date();
   }
 
   getSessionIdEnter(enterId: string): Observable<Session[]> {
-    const path = 'http://localhost:3002/session';
+    const path = 'http://localhost:3002';
     const sessionId: Session = {
       id: this.id,
       startTime: this.startTime,
@@ -72,8 +80,13 @@ const today = new Date();
       enterId: this.enterId
     }
     console.log('enter', this.enterId);
-    return this.http.get<Session[]>(`${path}/${enterId}`)
+    return this.http.get<Session[]>(`${path}/session?=${enterId}`)
 
+  }
+
+  deleteSession(id:string): Observable<any> {
+       const path = 'http://localhost:3002/session';
+return this.http.delete(`http://localhost:3002/session/${id}`)
   }
   getAvailableSessions(date: Date): Session[] {
     return this.sessions.filter(session =>

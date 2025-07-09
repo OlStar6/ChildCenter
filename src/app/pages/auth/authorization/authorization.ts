@@ -38,16 +38,16 @@ export class Authorization implements OnInit, OnDestroy {
     }
     this.http.post<{ access_token: string, id: string }>('http://localhost:3002/users/' + user.login, user).subscribe((data) => {
       user.id = data.id;
-      this.userService.setUser(user);
+      this.userService.setUser(user); //добавляем в sessionStorage
       const token: string = data.access_token;
       this.userService.setToken(token);
       this.userService.setToStore(token);
       this.router.navigate(['enters']);
     },
-      (err: HttpErrorResponse) => {
+    /*  (err: HttpErrorResponse) => {
         const ServerError = <ServerError>err.error;
         alert(ServerError.errorText)
-      }
+      }*/
     );
   }
 }

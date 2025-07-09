@@ -18,46 +18,73 @@ export class UserService {
     private router: Router,
     private http: HttpClient
   ) {
-    const storagedUser: IUser | null = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || 'null');
-    if (storagedUser) {
-      this.userStorage.push(storagedUser);
-      this.auth(storagedUser)
-    }
+   
   }
+ /* //регистр
+   register(user: IUser): boolean {  //добавляем в localstorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if(users.find((u:IUser) => u.login === user.login)) {
+      return false;
+    }
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+        return true;
+  }
+  //авторизация
+  login(login:string, psw: string): boolean{
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find((u:IUser) => u.login===user.login && u.psw === user.psw);
+if (user) {
+  sessionStorage.setItem('currentUser', JSON.stringify(user));
+return true;
+}
+return false;
+ }
 
+ logout():void{
+  sessionStorage.removeItem('currentUser')
+ }
+ isLoggedIn():boolean {
+  return sessionStorage.getItem('currentUser') !== null; //получаем авторизован ли пользователь, неравный null
+ }
+ getCurrentUser():IUser {
+  return JSON.parse(sessionStorage.getItem('currentUser') || null); //получаем текущего пользователь или null
+ }
+*/
   getUser(login: string): IUser | null {
     return this.userStorage.find((user) => login === user.login) || null;
+
   }
-  setUs(role: string) {
-    this.currentUserRole = role;
+  setUser(user: IUser): void {
+    this.currentUser = user;
+    sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));  //добавляем в sessionStorage
+      console.log('login', user)
   }
+  setUserLocal(user: IUser): void {
+    this.currentUser = user;
+    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));
+       //добавляем в localStorage
+  }
+  
   getUsersStorage(): IUser {
     const userFromStorage = sessionStorage.getItem(UserStorageKey);
-    /*
-      if (!this.currentUser) {
-        this.userFromStorage()
-       */
     return this.currentUser || JSON.parse(userFromStorage);
 
   }
-  private auth(user: IUser, isRememberMe?: boolean) {
+ /* private auth(user: IUser, isRememberMe?: boolean) {
     console.log('user', user)
     this.currentUser = user;
     this.router.navigate([''])
-
     localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(user));
 
   }
 
-  setUser(user: IUser): void {
-    this.currentUser = user;
-    sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));
-  }
+  
 
   private authAndRedirect(user: IUser, isRememberMe?: boolean) {
     this.auth(user, isRememberMe);
-    this.router.navigate(['']);
-  }
+    this.router.navigate(['enters']);
+  }*/
 
   get isAuthenticated(): boolean {
     return !!this.currentUser || !!localStorage.getItem(LOCAL_STORAGE_NAME);
@@ -99,9 +126,10 @@ export class UserService {
   removeUser(): void {
     this.currentUser = null;
     this.token = null;
-    window.localStorage.removeItem('usertoken')
+    window.localStorage.removeItem('usertoken');
+   sessionStorage.removeItem('userlogin')
   }
-  authUser(login: string, psw: string, isRememberMe: boolean): true | string {
+ /* authUser(login: string, psw: string, isRememberMe: boolean): true | string {
     const user = this.getUser(login);
     if (!user) {
       return 'User not found';
@@ -119,17 +147,20 @@ export class UserService {
     this.userStorage.push(user);
     this.authAndRedirect(user, isRememberMe)
     return true;
-  }
+  }*/
   logout() {
     this.userStorage = this.userStorage.filter(({ login }) => login === this.currentUser?.login);
     this.currentUser = null;
     localStorage.removeItem(LOCAL_STORAGE_NAME);
     this.router.navigate(['/enters']);
   }
-  getRole(): string {
+  getRole(): string | null {
     return this.currentUserRole;
   }
-  isAdmin() {
+  setUserRole(role: string) {
+    this.currentUserRole = role;
+  }
+  isAdmin():boolean {
    return this.currentUserRole === 'admin';
      
   }
@@ -148,4 +179,10 @@ export class UserService {
       return true;
     }
     return false;
-  }*/
+  }
+    
+   const storagedUser: IUser | null = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME) || 'null');
+    if (storagedUser) {
+      this.userStorage.push(storagedUser);
+      this.auth(storagedUser)
+    }*/

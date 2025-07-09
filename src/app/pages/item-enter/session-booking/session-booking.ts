@@ -6,10 +6,11 @@ import { SessionService } from '../../../services/session-service';
 import { CardModule } from 'primeng/card';
 import { EntertainmentService } from '../../../services/entertainment-service';
 import { isValid } from 'date-fns';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatePickerModule } from 'primeng/datepicker';
+
 @Component({
   selector: 'app-session-booking',
   templateUrl: './session-booking.html',
@@ -19,6 +20,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     FormsModule,
     CardModule,
     ButtonModule,
+    DatePickerModule
    
   ],
 })
@@ -32,19 +34,27 @@ export class SessionBookingComponent implements OnInit {
   subscription: Subscription;
   enterId: string;
   enter: Ienters;
+  entertainment$: Observable<Ienters>;
+  relatedSessions$: Observable<Session[]>;
   dateEnterFilter:Date;
   constructor(private sessionService: SessionService,
     private entersService: EntertainmentService,
-    private router: Router) { }
+    private router: Router,
+  private route: ActivatedRoute,
+) { }
   ngOnInit(): void {
     this.loadSessions();
-    this.sessionService.getSession().subscribe((data) => {
+    this.sessionService.getAllSessions().subscribe((data) => {
       if (Array.isArray(data)) {
         this.session = data;
         this.sessionStore = [...data];
       }
     });
-    this.entersService.enterDate$.subscribe((date) => {
+    const id = this.route.snapshot.paramMap.get('id');
+      this.entertainment$ = this.entersService.getEnterById(id);
+      this.relatedSessions$ = this.sessionService.getSessionsByEnterId(id);
+
+   /* this.entersService.enterDate$.subscribe((date) => {
       console.log('****date', date);
       this.session = this.sessionStore.filter((session) => {
         if (NaN) {
@@ -61,13 +71,13 @@ export class SessionBookingComponent implements OnInit {
         }
       }
       );
-    })
+    })*/
   }
   loadSessions(): void {
     this.session = this.sessionService.getAvailableSessions(this.selectedDate);
   }
   bookSession(sessionId: number): void {
-    const success = this.sessionService.getSession();
+    const success = this.sessionService.getAllSessions();
     if (success) {
       this.bookingSuccess = true;
       this.bookingError = false;
@@ -85,6 +95,12 @@ export class SessionBookingComponent implements OnInit {
     
   getSessionIdEnter(enterid: string) {
     this.sessionService.getSessionIdEnter(enterid);
+  }
+  changeDate(ev: Date): void {
+    const input = event.target as HTMLInputElement;
+    const date = input.valueAsDate;
+    console.log('ev', ev)
+    this.entersService.initChangeEnterDate(ev);
   }
 }
 

@@ -11,7 +11,7 @@ export interface IUser {
 export interface IUserRegister {
   login: string;
   psw?: string;
-  repeatPsw: string;
+  repeatPsw?: string;
   email: string
 
 }
@@ -26,6 +26,10 @@ export interface Ienters {
   date?: string;
   session?: Session;
 }
+export interface IServerResponse {
+enter:Ienters;
+}
+
 
 export interface Ientertanment {
   id?: string;

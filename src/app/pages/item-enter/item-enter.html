@@ -1,7 +1,96 @@
-<div>
+<div class="container">
+  <p-button label="Назад" styleClass="p-button-link" routerLink="/enters"></p-button>
+    <div class="w-full">
+  <div *ngIf="entertainment$ | async as entertainment">
+    <p-card class="card">
+  <img alt="park" class="img" src="/img/{{entertainment.img}}">
+    <div class="description">  
+      <h2>{{ entertainment.name }}</h2>
+      <p>{{ entertainment.description }}</p>
+      <p>{{ entertainment.price }}</p>
+      <p>{{ entertainment.age }}</p>
+    </div>
+  </p-card>
+  <div class="session-book">
+     <div class="sessions">
+      <div>
+      <h2>Сессии на {{ selectedDate | date }}</h2>
+      <input type="date" (change)="onDateChange($event)">
+      
+         </div>
+  <h3>Сеансы:</h3>
+ 
+  <ul *ngIf="relatedSessions$ | async as sessions">
+    <li *ngFor="let session of sessions">
+      <p-button class="pbutton" (click)="initOrder($event)">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</p-button> 
+    </li>
+    <li *ngIf="sessions.length === 0">Нет доступных сеансов</li>
+     
+  </ul>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<!--<div class="container">
   <p-button label="Назад" styleClass="p-button-link" routerLink="/enters"></p-button>
   <div class="flex flex-1">
-    @if(enter) {
+   <div class="width" *ngIf="entertainment$ | async as entertainment">
+   
+      <div class="w-full">
+     
+    </div>
+<div class="session-book">
+         <div class="session-selection">
+    <h3>Выберите дату:</h3>
+    <input type="date" [(ngModel)]="selectedDate" (change)="filterSessionsByDate()">
+    <div class="sessions"> <h3>Сеансы:</h3>
+      <ul *ngIf="relatedSessions$ | async as sessions">
+        <li *ngFor="let session of sessions">
+        <button (click)="initOrder($event)"> {{ session.date | date }} - {{ session.startTime }} - {{ session.endTime }}</button> 
+
+        </li>
+        <li *ngIf="sessions.length === 0">Нет доступных сеансов</li>
+      </ul>
+    </div>-->
+    <!--<h3>Доступные сеансы:</h3>
+    <div *ngIf="filteredsession.length > 0; else noSessions">
+      <div *ngFor="let session of filteredsession" 
+           class="session-card" 
+           [class.selected]="session === selectedSessions"
+           (click)="selectSession(session)">
+        <p>Время: {{ session.startTime }} - {{ session.endTime }}</p>
+        <p>Доступно мест: {{ session.availableSlots }}</p>
+      </div>
+      
+      <button *ngIf="selectedSessions" (click)="bookSession()">Записаться</button>
+    </div>
+    
+    <ng-template #noSessions>
+      <p>Нет доступных сеансов на выбранную дату</p>
+    </ng-template>
+  </div>
+</div>
+</div>
+</div>
+</div>-->
+  <!--  <div class="sessions"> <h3>Сеансы:</h3>
+      <ul *ngIf="relatedSessions$ | async as sessions">
+        <li *ngFor="let session of sessions">
+        <button (click)="initOrder($event)"> {{ session.date | date }} - {{ session.startTime }} - {{ session.endTime }}</button> 
+
+        </li>
+        <li *ngIf="sessions.length === 0">Нет доступных сеансов</li>
+      </ul>
+    </div>
+    </div>--> 
+  <!-- <p-button label="Сформировать заказ" styleClass="my-3" (click)='initOrder($event)'></p-button>--> 
+
+
+<!--  <div class='calendar'><app-session-booking> 
+        </app-session-booking></div>
+
+@if(enter) {
     <div class="flex">
       <span class="item-enter">
         <div class="card">
@@ -9,13 +98,11 @@
           <h3>{{enter.name}}</h3>
           <p>{{enter.price}}</p>
           <p>{{enter.description}}</p>
-          <p>{{enter.age}}</p>
-         
-          
-        </div>
-        <div class="session-book"><app-session-booking> 
-        </app-session-booking></div>
-          <div class="group">
+          <p>{{enter.age}}</p>-->
+
+
+
+<!--  <div class="group">
             <label for="booking-date">Выберите дату:</label>
            <div class="calendar">
        <p-datepicker 
@@ -25,10 +112,12 @@
     [showButtonBar]="true"
         dateFormat="dd-mm-yy"
     >
-  </p-datepicker> </div>
-        <p-button label="Сформировать заказ" styleClass="my-3" (click)='initOrder($event)'></p-button>
-          </div></span>
-    </div>
-    }
-  </div>
-</div>
+  </p-datepicker> </div><div class="session-book"><app-session-booking> 
+        </app-session-booking></div><mat-slide-toggle>Toggle me!</mat-slide-toggle>-->
+<!--  <div class="mb-4">
+        <label for="sessionDate">Выберите дату</label>
+        <input type="date"
+        id="sessionDate"
+         [value]="selectedDate"
+       >
+       </div>-->

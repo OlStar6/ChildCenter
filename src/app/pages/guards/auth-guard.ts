@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const isAuth = !!userService.getUsersStorage();
 
   if (!isAuth) {
-    router.navigate(['enters']);
+    router.navigate(['auth']);
     return false;
   } else {
     return true;

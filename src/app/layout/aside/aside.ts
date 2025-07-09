@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-aside',
@@ -33,7 +34,8 @@ export class Aside implements OnInit {
   constructor(
     private EntertainmentService: EntertainmentService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService:UserService
 
   ) { }
 
@@ -49,6 +51,7 @@ export class Aside implements OnInit {
   }
   
   initAuth(ev: Event): void {
+      this.userService.removeUser();
     this.router.navigate(['/auth'], { relativeTo: this.route });
   }
 

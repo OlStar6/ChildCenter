@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+        MessageService,
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
@@ -26,6 +27,6 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     provideHttpClient(),
-    MessageService
+
   ]
 };

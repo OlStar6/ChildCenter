@@ -1,8 +1,8 @@
 .w-full {
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    padding: 50px 20px;
+    align-items: center;
+
 }
 
 img {
@@ -17,5 +17,8 @@ h2 {
 }
 
 .glory-container {
-    height: 500px;
+    height: 580px;
+}
+.p-card-title {
+    text-align: center;
 }

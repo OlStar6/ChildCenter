@@ -43,7 +43,7 @@ export class Entertainment implements OnInit {
       }
     });
     console.log('ActivatedRoute', this.route)
-    this.entertainmentService.showSession().subscribe((data) => {
+    this.entertainmentService.EntersAll().subscribe((data) => {
       console.log('***', data)
       if (Array.isArray(data)) {
         this.enters = data;
@@ -76,8 +76,8 @@ export class Entertainment implements OnInit {
     }
   }
   ngOnDestroy(): void {
-    this.destroyer.next(true);
-    this.destroyer.complete();
+    this.subscription.unsubscribe();
+  
   }
 }
 

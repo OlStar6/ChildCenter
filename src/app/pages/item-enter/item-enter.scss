@@ -1,11 +1,29 @@
-.card {
+/*.w-full{
+   display: inline-block;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, .1);
+    background: #d35454;
+     width: 430px;
+    height: 580px;
+    margin-top: 19,92px;
+    align-items: center;
+   
+}
+img {
+    height: 250px;
+     display: flex;
+    justify-content: ceil($number: 0);
+  
+    padding: 5px 2px;
+
+   }
+   .description{
     display: flex;
     flex-direction: column;
-}
-
-img {
-    height: 150px;
-}
+    align-items: center;
+    background-color: aqua;
+    position: absolute;
+   }
 img:hover{
   filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));
   transform: translateY(-10px); 
@@ -21,23 +39,23 @@ img:hover{
 .card{
      display: flex;
     justify-content: center;
+    width: 30%;
 }
+
 h3{
       display: flex;
     justify-content: center;
     color: rgb(221, 4, 116);
+    margin: 0;
 }
 p{
-    display: flex;
-    justify-content: center;
+
+    font-size: 20px;
+    justify-items: center;
 }
 
-.session-book {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+*/
+/*
 .calendar {
 margin-bottom: 10px;
 margin-top: 10px;
@@ -45,21 +63,75 @@ margin-top: 10px;
 p-datepicker{
 padding-bottom: 10px;
 
+}*/
+
+.pbutton {
+    margin: 50px;
 }
-.group{
+
+.session-book {
+display: block;
+width: 400px;
+float:inline-end
+}
+.sessions{
+     display: inline-block
+
+}
+.description{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+   }
+img {
+    height: 250px;
+     display: flex;
+    justify-content: ceil($number: 0);
+    padding: 5px 2px;
+   }
+img:hover{
+  filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));
+  transform: translateY(-10px); 
+  transform: scale(1.02);
+  transition: .3s ease-in-out;
+}
+.card{
+     display: flex;
+    justify-content: center;
+    width: 30%;
+}
+.width{
+    height: 580px;
+}
+li{
+   display: block;
+    list-style: none;
+    text-align: center;
+}
+/*.group{
      display: inline-block;
     border-radius: .5rem;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(235, 101, 101, 0.1);
     background: #fff;
      width: 300px;
-    height: 150px;
+    height: 300px;
     padding:10px;
+
    
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+
 }
 
 input{
     margin: 10px;
-}/* display: flex;
+}*/
+/* display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 10px;*/

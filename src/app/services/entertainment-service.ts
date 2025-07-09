@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
-import { IEnterIdSelect, Ienters, IEnterServerResponse, Ientertanment, IEnterTypeSelect, Session } from '../models/interfaces';
+import { BehaviorSubject, combineLatest, delay, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
+import { IEnterIdSelect, Ienters, IEnterServerResponse, Ientertanment, IEnterTypeSelect, IServerResponse, Session } from '../models/interfaces';
 import { IPostorder } from '../models/order';
 import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
@@ -29,6 +29,8 @@ export class EntertainmentService {
 
   private clearSubject = new Subject<void>();
   readonly clearEnter$ = this.clearSubject.asObservable();
+
+  
 
   name: string;
   description: string;
@@ -75,7 +77,7 @@ export class EntertainmentService {
         const sessionsMap = new Map();
 
         data[0].forEach(session => {
-          sessionsMap.set(session.startTime, session);
+          sessionsMap.set(session.enterId, session);
         });
         console.log("***ju", entersArr)
 
@@ -110,12 +112,7 @@ export class EntertainmentService {
     return this.http.get<Ienters>(`${path}/${id}`);
 
   }
-
-  getSession(): Observable<Session[]> {
-    const path = 'http://localhost:3002/session'
-    return this.http.get<Session[]>(path);
-
-  }
+ 
 
   initChangeEnterType(val: IEnterTypeSelect): void {
     this.enterTypeSubject.next(val);
@@ -143,4 +140,6 @@ export class EntertainmentService {
     }
     return this.http.get<Iglory[]>('http://localhost:3002/glory/');
   }
+
+ 
 }
