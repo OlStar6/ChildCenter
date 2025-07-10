@@ -1,5 +1,5 @@
 import { Component,  OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule} from '@angular/common';
@@ -8,16 +8,19 @@ import { EntertainmentService } from '../../services/entertainment-service';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from '../../services/session-service';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
+import { isValid } from 'date-fns';
 
 
 @Component({
   selector: 'app-item-enter',
-  imports: [ButtonModule, CommonModule, CardModule, FormsModule],
+  imports: [ButtonModule, CommonModule, CardModule, FormsModule, RouterLink],
   templateUrl: './item-enter.html',
   styleUrl: './item-enter.scss',
 
 })
 export class ItemEnter implements OnInit {
+   enters_sessions: Session[] = [];
+  enters_sessionStore: Session[] = [];
   filteredSessions$:Observable<Session[]>
    entertainment$: Observable<Ienters>;
   relatedSessions$: Observable<Session[]>;
@@ -26,6 +29,7 @@ export class ItemEnter implements OnInit {
   enter: Ienters;
   session:Session;
   selectedDate: Date = new Date();
+   dateEnterFilter:Date;
   private selectedDate$ = new BehaviorSubject<Date>(new Date());
 
   private sessions$ = new BehaviorSubject<Session[]>([]);
@@ -52,8 +56,12 @@ export class ItemEnter implements OnInit {
         this.session = session;
        
         })
-        
+         
+
+
 this.filteredSessions$ = this.entersService.getFilteredSessions();
+
+
     const id = this.route.snapshot.paramMap.get('id');
     this.entertainment$ = this.entersService.getEnterById(id);
     console.log('enter',this.entertainment$)
@@ -67,7 +75,29 @@ this.filteredSessions$ = this.entersService.getFilteredSessions();
     )
    )
   console.log('id', this.relatedSessions$)
-
+    //Date
+  this.entersService.enterDate$.subscribe((date) => {
+            console.log('****date', date);
+         //this.initTourFilterLogic();
+           //if (date = null) {
+            this.enters_sessions = this.enters_sessionStore.filter((enter)=>{
+           if (NaN) {
+            return this.enters_sessions=this.enters_sessionStore;
+           }
+      
+             else if (isValid (new Date(enter.date))) {
+      
+                const sessionDate = new Date(this.session.date).setHours(0, 0, 0, 0);
+                console.log('****enterDate', sessionDate)
+                const calendarDate = new Date(date).setHours(0, 0, 0);
+                console.log('****calendarDate', calendarDate)
+                return sessionDate === calendarDate;
+              }else {
+                return false;
+              }
+        }
+      );})
+      
   
   }
    // Установить выбранную дату

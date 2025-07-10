@@ -12,6 +12,7 @@ import { Glory } from './pages/glory/glory';
 import { authGuard } from './pages/guards/auth-guard';
 
 
+
 export const routes: Routes = [
         { path: 'register', component: Registration },
     { path: 'auth', component: Authorization },
@@ -34,7 +35,11 @@ export const routes: Routes = [
                 children: [
                     { path: '', redirectTo: 'changePsw', pathMatch: 'full' },
                     { path: 'changePsw', component: Changepsw },
-                    { path: 'statistic', component: Statistic, data: { showAside: true } },
+                    { path: 'statistic',
+                          
+                          
+                           component: Statistic, 
+                           data: { showAside: true} },
 
 
                 ]

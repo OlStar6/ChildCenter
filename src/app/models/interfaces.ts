@@ -98,6 +98,9 @@ export interface ICustomStatisticUser {
   login: string,
   email: string,
 }
+export interface Role {
+role:'admin' | 'user';
+}
 
 export type Coords = {
   enterid: string;

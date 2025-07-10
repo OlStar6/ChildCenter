@@ -1,7 +1,8 @@
 .w-full {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: 50px 20px;
 
 }
 
@@ -21,4 +22,8 @@ h2 {
 }
 .p-card-title {
     text-align: center;
+}
+
+.align-items-stretch {
+    
 }

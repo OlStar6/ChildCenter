@@ -22,7 +22,7 @@ import { UserService } from '../../services/user-service';
 })
 export class Aside implements OnInit {
   //startDate = new Date;
-  date: Date = new Date;
+  date: Date = null;
   selectedType: IEnterTypeSelect = null;
 
   enterTypes: IEnterTypeSelect[] = [
@@ -49,6 +49,10 @@ export class Aside implements OnInit {
     console.log('selectedType', this.selectedType)
 
   }
+   changeDate(ev: Date): void {
+     console.log('ev', ev)
+    this.EntertainmentService.initChangeEnterDate(ev);
+  }
   
   initAuth(ev: Event): void {
       this.userService.removeUser();
@@ -58,6 +62,16 @@ export class Aside implements OnInit {
   initReg(ev: Event): void {
     this.router.navigate(['/register'], { relativeTo: this.route });
   }
+   isAuth() {
+  return this.userService.getUsersStorage();
+}
+notAuth() {
+  this.userService.notAuth();
+}
+isLoggedIn(): boolean{
+  return this.isLoggedIn()
+}
+ 
 }
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IUser, UserStorageKey } from '../models/interfaces';
+import { IUser, Role, UserStorageKey } from '../models/interfaces';
 import { Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 export const LOCAL_STORAGE_NAME = 'currentUser';
 
@@ -11,16 +11,28 @@ export const LOCAL_STORAGE_NAME = 'currentUser';
 export class UserService {
   private userStorage: IUser[] = [];
   private currentUser: IUser | null = null;
-  private currentUserRole: string;
+  private currentUserRole: string | null = null;
   newPsw: string;
   oldPsw:string;
   token: string | null;
+private auth = false;
+
   constructor(
     private router: Router,
     private http: HttpClient
   ) {
    
   }
+isAuth() {
+  this.auth = true;
+}
+notAuth() {
+  this.auth = false;
+}
+isLoggedIn(): boolean{
+  return this.auth
+}
+  
  /* //регистр
    register(user: IUser): boolean {  //добавляем в localstorage
     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -155,6 +167,7 @@ return false;
     localStorage.removeItem(LOCAL_STORAGE_NAME);
     this.router.navigate(['/enters']);
   }
+  // Получить текущую роль
   getRole(): string | null {
     return this.currentUserRole;
   }
@@ -165,7 +178,22 @@ return false;
    return this.currentUserRole === 'admin';
      
   }
-  changePassword(login:string, oldPsw:string, newPsw: string): Observable<any> {
+  getRoleUser() {
+   
+      return this.http.get<Role[]>("http://localhost:3002/users/")
+    }
+  fetchUserRole(): Observable<string> {
+    return this.http.get<string>('http://localhost:3002/users/role').pipe(
+      tap(role => this.currentUserRole = role)
+    );
+  }
+
+  // Функция для проверки роли
+  hasRole(admin: string): boolean {
+    return this.currentUserRole === admin;
+  }
+
+    changePassword(login:string, oldPsw:string, newPsw: string): Observable<any> {
      const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`

@@ -25,6 +25,8 @@ import { DatePickerModule } from 'primeng/datepicker';
   ],
 })
 export class SessionBookingComponent implements OnInit {
+    enters_sessions: Session[] = [];
+  enters_sessionStore: Session[] = [];
   date:Date = null;
   selectedDate: Date = new Date();
   session: any = [];
@@ -54,6 +56,7 @@ export class SessionBookingComponent implements OnInit {
       this.entertainment$ = this.entersService.getEnterById(id);
       this.relatedSessions$ = this.sessionService.getSessionsByEnterId(id);
 
+      
    /* this.entersService.enterDate$.subscribe((date) => {
       console.log('****date', date);
       this.session = this.sessionStore.filter((session) => {
@@ -97,8 +100,8 @@ export class SessionBookingComponent implements OnInit {
     this.sessionService.getSessionIdEnter(enterid);
   }
   changeDate(ev: Date): void {
-    const input = event.target as HTMLInputElement;
-    const date = input.valueAsDate;
+    /*const input = event.target as HTMLInputElement;
+    const date = input.valueAsDate;*/
     console.log('ev', ev)
     this.entersService.initChangeEnterDate(ev);
   }

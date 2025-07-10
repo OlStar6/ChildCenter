@@ -1,8 +1,7 @@
-<div class="container">
+ <div >
   <p-button label="Назад" styleClass="p-button-link" routerLink="/enters"></p-button>
- 
-  <div *ngIf="entertainment$ | async as entertainment">
-    <p-card class="card">
+  <div *ngIf="entertainment$ | async as entertainment" class="container">
+    <p-card class="card"> 
   <img alt="park" class="img" src="/img/{{entertainment.img}}">
     <div class="description">  
       <h2>{{ entertainment.name }}</h2>
@@ -10,25 +9,29 @@
       <p>{{ entertainment.price }}</p>
       <p>{{ entertainment.age }}</p>
     </div>
+
   </p-card>
-  <div class="session-book">
-     <div class="sessions">
-       <div>
+  <div class="card">
+     <div class="date">
+
          <input type="date" [value]="selectedDate | date:'yyyy-MM-dd'" 
              (change)="onDateChange($event)">
+              </div>
+              <div class="sessions">
            <h3>Сеансы на {{ selectedDate | date }}</h3>
-         </div>
-   <ul *ngIf="relatedSessions$ | async as sessions">
+       
+   <ul *ngIf="relatedSessions$ | async as sessions" class="button-container">
     <li *ngFor="let session of sessions">
-      <p-button class="pbutton" (click)="initOrder($event)">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</p-button> 
+      <button class="pbutton" (click)="initOrder($event)">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
     </li>
     <li *ngIf="sessions.length === 0">Нет доступных сеансов</li>
      
   </ul>
   </div>
+  </div>
 </div>
 </div>
-</div>
+
 <!--<div class="container">
   <p-button label="Назад" styleClass="p-button-link" routerLink="/enters"></p-button>
   <div class="flex flex-1">

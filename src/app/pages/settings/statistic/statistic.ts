@@ -37,4 +37,7 @@ isAdmin():boolean {
  return this.userService.isAdmin();
   
 }
+hasRole(admin:string):boolean{
+  return this.userService.hasRole(admin);
+}
 }

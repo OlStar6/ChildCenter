@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="aside mt-3">
+ 
     <div class="aside m-3">
       <div class="group">
         <h4>Выберите возрастную категорию</h4>
@@ -7,12 +7,22 @@
           <p-select [options]="enterTypes" [(ngModel)]="selectedType" (onChange)="changeEnterType($event)"
             optionLabel="label" placeholder="Выберите возрастную категорию" />
         </div>
+
+    <h4>Выберите дату сеанса</h4>
+          <p-datepicker 
+    [showIcon]="true"
+    [(ngModel)]="date" 
+    (onSelect)="changeDate($event)"
+    [showButtonBar]="true"
+    dateFormat="dd-mm-yy"
+   >
+  </p-datepicker> 
         <div class="groupbutton">
           <div class="my-6">
-            <p-button label="Авторизация" (click)='initAuth($event)'></p-button>
+            <p-button label="Авторизация" [disabled]="isAuth()"  (click)='initAuth($event)'></p-button>
           </div>
           <div class="my-6">
-            <p-button label="Регистрация" (click)='initReg($event)'></p-button>
+            <p-button label="Регистрация" [disabled]="isAuth()" (click)='initReg($event)'></p-button>
           </div>
         </div>
 

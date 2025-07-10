@@ -10,8 +10,16 @@
     justify-content: space-around;
     align-items: stretch;
     padding: 50px 20px;
+    height: 100%;
 }
+.ent-p-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-.align-items-stretch {
-    height: 620px;
+}
+.col-3{
+    text-align: center;
+
+   
 }

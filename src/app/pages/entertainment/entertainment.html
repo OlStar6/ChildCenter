@@ -1,11 +1,13 @@
 <div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
    @for (item of enters; track item.id) {
    <div (click)="goToEnter(item)" class="col-3">
-      <p-card header="{{item.name}}" subheader="{{item.price}}" styleClass="ent-p-card">
+      <p-card header="{{item.name}}" styleClass="ent-p-card">
+         <p>{{item.price}}</p>
+         <p>{{item.age}}</p>
          <ng-template #header>
             <img alt="Card" class="w-full" src="/img/{{item.img}}" />
          </ng-template>
-         <p>{{item.age}}</p>
+         
       
 
       </p-card>

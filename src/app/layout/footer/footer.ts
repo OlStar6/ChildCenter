@@ -22,8 +22,8 @@ export class Footer implements OnInit{
   }
 
   ngOnInit(): void {
-  //   this.timer = window.setInterval(() => {
-   //   this.datetime = new Date();
-  //  }, 0)
+    this.timer = window.setInterval(() => {
+     this.datetime = new Date();
+    }, 0)
   }
 }
