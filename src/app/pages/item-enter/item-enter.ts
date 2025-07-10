@@ -138,6 +138,7 @@ this.filteredSessions$ = this.entersService.getFilteredSessions();
  //this.entersService.updateSessions();
   }
   initOrder(ev: Event): void {
+    
     this.router.navigate(['/enters/order', this.enter._id]);
     this.router.navigate(['/enters/order', this.session._id])
   }

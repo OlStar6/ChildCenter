@@ -3,16 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { IUser, ServerError } from '../../../models/interfaces';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { IUser } from '../../../models/interfaces';
+import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user-service';
-import { MessageService } from 'primeng/api';
-
-
-
-
-
+import { ToastService } from '../../../services/toast';
 
 @Component({
   selector: 'app-authorization',
@@ -29,7 +24,8 @@ export class Authorization implements OnInit, OnDestroy {
   constructor(private http: HttpClient,
     private router: Router,
     private userService: UserService,
-   private messageService: MessageService,
+private toastService: ToastService
+
 
   ) { }
 
@@ -50,16 +46,15 @@ export class Authorization implements OnInit, OnDestroy {
       const token: string = data.access_token;
       this.userService.setToken(token);
       this.userService.setToStore(token);
-        this.messageService.add({severity:'warn', summary:"Успех"});
+      this.toastService.show('success', 'Успешная авторизация');
       this.router.navigate(['enters']);
     },
-      
-      ()=>{this.initToast('error', 'Ошибка');}
+    () => {
+        this.toastService.show('error', 'Ошибка авторизации');
+    }
     );
   }
-   initToast(type: 'error' | 'success', text: string):void {
-  this.messageService.add({ severity: type, detail: text, life: 3000}); 
-}
+
 }
 //alert(ServerError.errorText)
 /*(err: HttpErrorResponse) => {

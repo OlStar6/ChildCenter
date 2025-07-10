@@ -1,4 +1,5 @@
 <div class="settings-wrap">
+     <p-tabpanels>
     @for (item of menuItems; track item.path) {
         <p-button
         label="{{item.label}}"
@@ -9,4 +10,5 @@
     <div  class="menu-content">
         <router-outlet></router-outlet>
     </div>
+     </p-tabpanels>
 </div>

@@ -8,7 +8,7 @@ import { UserService } from '../../../services/user-service';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { ToastService } from '../../../services/toast';
 
 
 export const LOCAL_STORAGE_NAME = 'currentUser';
@@ -32,7 +32,7 @@ export class Registration implements OnInit {
     private userService: UserService,
     private http: HttpClient,
     private router: Router,
-    private messageService: MessageService
+   private toastService: ToastService
 
   ) { }
 
@@ -54,22 +54,20 @@ export class Registration implements OnInit {
         const objUserJsonStr = JSON.stringify(userObj);
         window.localStorage.setItem('user_' + userObj.login, objUserJsonStr);
       };
-        this.initToast('success', 'Регистрация прошла успешно');
+    this.toastService.show('success', 'Регистрация прошла успешно');
        this.router.navigate(['/auth'])
 
       }
     },  
   ()=>{
-  this.initToast('error', 'Ошибка');
+   this.toastService.show('error', 'Ошибка');
     }
   )
      }
-
- initToast(type: 'error' | 'success', text: string):void {
-  this.messageService.add({ severity: type, detail: text, life: 3000}) 
+ 
 }
   
-}
+
   
 
   /* this.router.navigate(['/auth']);if (this.psw !== this.repeatPsw) {

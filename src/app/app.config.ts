@@ -4,8 +4,6 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import Aura from '@primeng/themes/aura';
-
-//import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
@@ -30,6 +28,5 @@ export const appConfig: ApplicationConfig = {
       
     }),
     provideHttpClient(),
- //MessageService
   ]
 };

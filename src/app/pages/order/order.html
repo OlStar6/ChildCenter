@@ -18,7 +18,7 @@
       </div>
       <div class="form-group mt-3">
         <label>Возраст ребенка</label>
-        <p-inputNumber type="age" id="age" formControlName="age" [showButtons]="true" min="4" [(ngModel)]="age"
+        <p-inputNumber type="age" id="age" formControlName="age" [showButtons]="true" placeholder="Старше 3х лет"min="4" [(ngModel)]="age"
           [ngClass]="{'input-error': !age}" class="form-control">
         </p-inputNumber>
       </div>
@@ -37,7 +37,7 @@
       <div class="form-group mt-3">
         <label>Количество участников</label>
         <p-inputNumber type="number" id="participants" formControlName="participants" [showButtons]="true" min="1"
-          max="10" [(ngModel)]="participants" [ngClass]="{'input-error': !participants}" class="form-control">
+          max="10" [(ngModel)]="participants" placeholder="Не более 10 человек" [ngClass]="{'input-error': !participants}" class="form-control">
         </p-inputNumber>
       </div>
 
@@ -50,24 +50,3 @@
     </form>
   </div>
 </div>
-<!-- @for (item of sessionChoice1; track item.id) {
-      <select  [class.btn-primary]="orderForm.get('sessionId')?.value?.startTime === item.startTime"
-          [class.btn-outline-secondary]="orderForm.get('sessionId')?.value?.startTime !== item.startTime"
-          [disabled]="!item.isAvailable" (click)="orderForm.get('session')?.setValue(item)" class="btn btn-sm m-1">
-        {{item.startTime}}-{{item.endTime}}
-   ></select>
-       }-->
-
-<!-- <button type="button" formControlName = "session" *ngFor="let slot of availableTimeSlots"
-          [class.btn-primary]="orderForm.get('sessionId')?.value?.startTime === slot.startTime"
-          [class.btn-outline-secondary]="orderForm.get('sessionId')?.value?.startTime !== slot.startTime"
-          [disabled]="!slot.isAvailable" (click)="orderForm.get('timeSlot')?.setValue(slot)" class="btn btn-sm m-1">
-          {{slot.startTime}} - {{slot.endTime}}
-          <span *ngIf="!slot.isAvailable" class="badge badge-danger ml-1">Занято</span>
-        </button>-->
-<!-- @for (fieldObj of orderFormArr; track fieldObj.control) {
-                <ng-container
-                    [ngTemplateOutlet] = ''
-                    [ngTemplateOutletContext] = 'fieldObj'
-                  
-     }-->

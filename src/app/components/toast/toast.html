@@ -1,1 +1,8 @@
-<p>toast works!</p>
+  <div class="toast-container">
+      <div *ngFor="let toast of (toastService.toasts$ | async)" 
+           [class]="'toast ' + toast.type"
+           @fadeInOut>
+        {{ toast.message }}
+        <button (click)="removeToast(toast)">×</button>
+      </div>
+    </div>

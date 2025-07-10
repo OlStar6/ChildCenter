@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SessionService } from '../../services/session-service';
+import { ToastService } from '../../services/toast';
 
 
 
@@ -62,7 +63,8 @@ export class Order implements OnInit {
     private userService: UserService,
     private enterService: EntertainmentService,
     private route: ActivatedRoute,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+     private toastService: ToastService
 
   ) {
 
@@ -111,11 +113,11 @@ export class Order implements OnInit {
     this.enterService.postOrder(postObj).subscribe(
       () => {
      
-        //alert('Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
+       this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
       },
-      () => {
-      //  alert('Попробуйте еще раз')
-      }
+      ()=>{
+   this.toastService.show('error', 'Ошибка');
+    }
     );
 
   }
