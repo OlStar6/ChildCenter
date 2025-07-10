@@ -1,7 +1,7 @@
 <div class="entertainment-list flex flex-wrap justify-content-around align-items-stretch">
    @for (item of enters; track item.id) {
    <div (click)="goToEnter(item)" class="col-3">
-      <p-card header="{{item.name}}" styleClass="ent-p-card">
+      <p-card header="{{item.name}}" styleClass="w-full">
          <p>{{item.price}}</p>
          <p>{{item.age}}</p>
          <ng-template #header>

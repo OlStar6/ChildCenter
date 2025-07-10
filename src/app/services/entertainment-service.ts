@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, delay, distinctUntilChanged, forkJoin, from, map, Observable, Subject, tap } from 'rxjs';
 import { IEnterIdSelect, Ienters, IEnterServerResponse, Ientertanment, IEnterTypeSelect, IServerResponse, Session } from '../models/interfaces';
 import { IPostorder } from '../models/order';
-import { Router } from '@angular/router';
 import { Iglory } from '../models/glory';
 
 
@@ -48,8 +47,7 @@ export class EntertainmentService {
 
 
 
-  constructor(private http: HttpClient,
-    private router: Router,
+  constructor(private http: HttpClient
 
   ) { }
 

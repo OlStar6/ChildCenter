@@ -1,5 +1,6 @@
+
 .w-full {
-    height: 200px;
+    height: 220px;
     width: 220px;
     padding: 20px;
     margin: 5px;
@@ -10,7 +11,8 @@
     justify-content: space-around;
     align-items: stretch;
     padding: 50px 20px;
-    height: 100%;
+    width: 75%;
+    height: 600px;
 }
 .ent-p-card{
     display: flex;
@@ -20,6 +22,12 @@
 }
 .col-3{
     text-align: center;
-
    
+}
+.col-3:hover{
+    filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));
+  transform: translateY(-20px); 
+  transform: scale(1.02);
+  transition: .3s ease-in-out;
+
 }

@@ -1,20 +1,31 @@
+
+body{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .h-full {
-min-height: 100vh;
+//min-height: 100vh;
   display: flex;
   flex-direction: column;
-   position: relative;
+// position: relative;
+  // width: 100%;
  
 }
 .overflow-auto{
   flex: 1;
-  background-color: bisque;
+  background-color: rgb(249, 245, 249);
   padding-bottom: 20px;
+
+  height: 700px;
+
 
 }
 
 footer {
   background: #c47ee0;
   color: white;
+  padding: 20px;
   position: fixed;
    bottom: 0;
 margin: 0;

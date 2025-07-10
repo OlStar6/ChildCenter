@@ -7,6 +7,11 @@ import { IUser, ServerError } from '../../../models/interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user-service';
+import { MessageService } from 'primeng/api';
+
+
+
+
 
 
 @Component({
@@ -16,6 +21,7 @@ import { UserService } from '../../../services/user-service';
   styleUrl: './authorization.scss'
 })
 export class Authorization implements OnInit, OnDestroy {
+   
   login: string;
   psw: string;
   id: string
@@ -23,6 +29,8 @@ export class Authorization implements OnInit, OnDestroy {
   constructor(private http: HttpClient,
     private router: Router,
     private userService: UserService,
+   private messageService: MessageService,
+
   ) { }
 
   ngOnInit(): void {
@@ -42,13 +50,19 @@ export class Authorization implements OnInit, OnDestroy {
       const token: string = data.access_token;
       this.userService.setToken(token);
       this.userService.setToStore(token);
+        this.messageService.add({severity:'warn', summary:"Успех"});
       this.router.navigate(['enters']);
     },
-    /*  (err: HttpErrorResponse) => {
-        const ServerError = <ServerError>err.error;
-        alert(ServerError.errorText)
-      }*/
+      
+      ()=>{this.initToast('error', 'Ошибка');}
     );
   }
+   initToast(type: 'error' | 'success', text: string):void {
+  this.messageService.add({ severity: type, detail: text, life: 3000}); 
 }
-//this.messageService.add({severity:'warn', summary:ServerError.errorText});
+}
+//alert(ServerError.errorText)
+/*(err: HttpErrorResponse) => {
+        const ServerError = <ServerError>err.error;
+       this.messageService.add({severity:'warn', summary:ServerError.errorText}); 
+      },*/ 
