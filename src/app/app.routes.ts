@@ -25,7 +25,7 @@ export const routes: Routes = [
             { path: '', component: Entertainment, data: { showAside: true } },
             { path: 'enter/:id', component: ItemEnter, data: { showAside: true } },
             { path: 'enter', redirectTo: 'enters', pathMatch: 'full' },
-            { path: 'order/:id', component: Order },
+            { path: 'order/:id', canActivate: [authGuard], component: Order },
             { path: 'glory', component: Glory },
 
             {

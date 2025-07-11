@@ -20,7 +20,7 @@
               <div class="sessions">
            <h3>Сеансы на {{ selectedDate | date }}</h3>
        
-   <ul *ngIf="relatedSessions$ | async as sessions" class="button-container">
+   <ul *ngIf="sessions" class="button-container">
     <li *ngFor="let session of sessions">
       <button class="pbutton" (click)="initOrder($event)">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
     </li>

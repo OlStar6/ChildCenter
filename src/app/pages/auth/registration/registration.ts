@@ -60,7 +60,7 @@ export class Registration implements OnInit {
       }
     },  
   ()=>{
-   this.toastService.show('error', 'Ошибка');
+   this.toastService.show('error', 'Пользователь уже зарегистрирован');
     }
   )
      }

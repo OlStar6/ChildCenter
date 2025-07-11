@@ -30,8 +30,10 @@ export class EntertainmentService {
   readonly clearEnter$ = this.clearSubject.asObservable();
 
   private allSessions$ = new BehaviorSubject<Session[]>([]);
+  
   private selectedEntertainmentId$ = new BehaviorSubject<string>('');
-  private selectedDate$ = new BehaviorSubject<Date>(new Date());
+
+  public selectedDate$ = new BehaviorSubject<Date>(new Date());
 
   name: string;
   description: string;
@@ -59,6 +61,7 @@ export class EntertainmentService {
   // Установка даты
   setSelectedDate(date: Date): void {
     this.selectedDate$.next(date);
+    console.log(date)
   }
 
   // Обновление всех сеансов
@@ -178,6 +181,7 @@ export class EntertainmentService {
 
   initChangeEnterDate(val: Date): void {
     this.enterDateSubject.next(val);
+    console.log('val',val)
     this.sessionDateSubject.next(val);
   }
   initChangeSession(val: Session): void {

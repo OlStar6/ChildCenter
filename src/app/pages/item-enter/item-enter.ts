@@ -28,6 +28,8 @@ export class ItemEnter implements OnInit {
   sessionId:string;
   enter: Ienters;
   session:Session;
+  sessions: Session[]
+  sessionsCopy: Session[]
   selectedDate: Date = new Date();
    dateEnterFilter:Date;
   private selectedDate$ = new BehaviorSubject<Date>(new Date());
@@ -54,6 +56,7 @@ export class ItemEnter implements OnInit {
       console.log('sessionId', this.sessionId)
       this.sessionService.getSessionById(this.sessionId).subscribe((session)=> {
         this.session = session;
+
        
         })
          
@@ -68,15 +71,41 @@ this.filteredSessions$ = this.entersService.getFilteredSessions();
         console.log('enter', this.entertainment$)
     const allSessions$ = this.sessionService.getAllSessions();
      console.log('all', allSessions$)
-    this.relatedSessions$ = combineLatest([this.entertainment$, allSessions$]).pipe(
+combineLatest([this.entertainment$, allSessions$]).pipe(
  
     map(([entertainment, sessions]) => 
     sessions.filter(session => session.enterId === entertainment._id)
     )
-   )
+   ).subscribe((data) => {
+    this.sessions = data;
+     this.sessionsCopy = data;
+
+         const calendareDate = new Date(this.selectedDate).setHours(0, 0, 0, 0);
+    this.sessions = this.sessionsCopy.filter((el) => {
+      const elDate = new Date(el.date).setHours(0, 0, 0, 0);
+      console.log('elDate', elDate, calendareDate)
+      return elDate === calendareDate
+
+    })
+     
+     
+     console.log(data)
+   })
   console.log('id', this.relatedSessions$)
     //Date
-  this.entersService.enterDate$.subscribe((date) => {
+  this.entersService.selectedDate$.subscribe((date) => {
+    this.selectedDate = date;
+    const calendareDate = new Date(date).setHours(0, 0, 0, 0);
+    this.sessions = this.sessionsCopy.filter((el) => {
+      const elDate = new Date(el.date).setHours(0, 0, 0, 0);
+      console.log('elDate', elDate, calendareDate)
+      return elDate === calendareDate
+
+    })
+    console.log('***', this.sessionsCopy, date);
+
+    //this.sessions = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(date).getTime())
+    console.log('sessions', this.sessionsCopy)
             console.log('****date', date);
          //this.initTourFilterLogic();
            //if (date = null) {
@@ -139,7 +168,7 @@ this.filteredSessions$ = this.entersService.getFilteredSessions();
   }
   initOrder(ev: Event): void {
     
-    this.router.navigate(['/enters/order', this.enter._id]);
+    this.router.navigate(['/enters/order', this.enter._id], {queryParams: {date: new Date(this.selectedDate).toISOString()}});
     this.router.navigate(['/enters/order', this.session._id])
   }
  

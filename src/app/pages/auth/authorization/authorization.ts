@@ -50,7 +50,7 @@ private toastService: ToastService
       this.router.navigate(['enters']);
     },
     () => {
-        this.toastService.show('error', 'Ошибка авторизации');
+        this.toastService.show('error', 'Пользователь не найден в базе');
     }
     );
   }
