@@ -7,7 +7,7 @@ import { IUser, IUserRegister, ServerError } from '../../../models/interfaces';
 import { UserService } from '../../../services/user-service';
 import { InputTextModule } from 'primeng/inputtext';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../../services/toast';
 
 
@@ -15,7 +15,7 @@ export const LOCAL_STORAGE_NAME = 'currentUser';
 
 @Component({
   selector: 'app-registration',
-  imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule, CommonModule],
+  imports: [NgClass, FormsModule, ButtonModule, CheckboxModule, InputTextModule, CommonModule, RouterLink],
 
   templateUrl: './registration.html',
   styleUrl: './registration.scss'

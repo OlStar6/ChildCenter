@@ -1,21 +1,28 @@
-import { Injectable } from '@angular/core';
-import { IUser, Role, UserStorageKey } from '../models/interfaces';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Changepsw, ChangePswResponse, IUser, Role, Roles, UserStorageKey } from '../models/interfaces';
 import { Router } from '@angular/router';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import {  BehaviorSubject, Observable, Subject, Subscription, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 export const LOCAL_STORAGE_NAME = 'currentUser';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy {
+private currentUserSubject = new BehaviorSubject<IUser | null>(null);
+currentUser$ = this.currentUserSubject.asObservable;
+
   private userStorage: IUser[] = [];
+  user:IUser;
+  role:Roles;
   private currentUser: IUser | null = null;
-  private currentUserRole: string | null = null;
+  private currentUserRole: Roles | null;
   newPsw: string;
   oldPsw:string;
+  login:string;
   token: string | null;
-private auth = false;
+//private auth = false;
+
 
   constructor(
     private router: Router,
@@ -23,68 +30,90 @@ private auth = false;
   ) {
    
   }
-isAuth() {
-  this.auth = true;
-}
-notAuth() {
-  this.auth = false;
-}
-isLoggedIn(): boolean{
-  return this.auth
-}
-  
- /* //регистр
-   register(user: IUser): boolean {  //добавляем в localstorage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    if(users.find((u:IUser) => u.login === user.login)) {
-      return false;
-    }
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
-        return true;
-  }
-  //авторизация
-  login(login:string, psw: string): boolean{
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find((u:IUser) => u.login===user.login && u.psw === user.psw);
-if (user) {
-  sessionStorage.setItem('currentUser', JSON.stringify(user));
-return true;
-}
-return false;
+ ngOnDestroy(): void {
+   
  }
-
- logout():void{
-  sessionStorage.removeItem('currentUser')
- }
- isLoggedIn():boolean {
-  return sessionStorage.getItem('currentUser') !== null; //получаем авторизован ли пользователь, неравный null
- }
- getCurrentUser():IUser {
-  return JSON.parse(sessionStorage.getItem('currentUser') || null); //получаем текущего пользователь или null
- }
-*/
-  getUser(login: string): IUser | null {
+   getUser(login: string): IUser | null {
     return this.userStorage.find((user) => login === user.login) || null;
 
   }
+ setRole(role: IUser): void {
+     this.user = role;
+  }
+  setToRole(role: Roles) {
+    window.localStorage.setItem('role', role)
+  }
+    /*this.currentUserSubject.next(user);
+      localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ user }));  //добавляем в localStorage
+      console.log('role', user)
+  }*/
+getCurrentRole(): IUser | null{
+  if (!this.currentUserSubject.value) {
+    const role = localStorage.getItem(LOCAL_STORAGE_NAME);
+    if(role) {
+this.currentUserSubject.next(JSON.parse(role));
+
+    }
+  }
+  return this.currentUserSubject.value;
+}
+getRole(): Roles | undefined {
+    return this.getCurrentRole().role;
+     } 
+ 
+  setUserRole(role: Roles) {
+    this.currentUserRole = role;
+     console.log('role', role)
+    
+  }
+  hasRole(requiredRole:string):boolean{
+    return this.getRole() === requiredRole;
+  }
+  isAdmin():boolean {
+   return this.getRole() === 'admin';
+   }
+isUser():boolean {
+   return this.getRole() === 'user';
+   }
+clearUser(): void{
+  this.currentUserSubject.next(null);
+  localStorage.removeItem(LOCAL_STORAGE_NAME);
+}
+  getRoleUser() {
+         return this.http.get<Role[]>("http://localhost:3002/users/")
+        
+    }
+
+
+  fetchUserRole(): Observable<Roles> {
+    
+    return this.http.get<Roles>('http://localhost:3002/users/role').pipe(
+      tap(role => this.currentUserRole = role)
+      
+    
+    );
+    
+  }
+
+
+
   setUser(user: IUser): void {
     this.currentUser = user;
     sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));  //добавляем в sessionStorage
       console.log('login', user)
   }
-  setUserLocal(user: IUser): void {
+  /*setUserLocal(user: IUser): void {
     this.currentUser = user;
     localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));
        //добавляем в localStorage
-  }
+  }*/
   
   getUsersStorage(): IUser {
     const userFromStorage = sessionStorage.getItem(UserStorageKey);
     return this.currentUser || JSON.parse(userFromStorage);
 
   }
- /* private auth(user: IUser, isRememberMe?: boolean) {
+  private auth(user: IUser, isRememberMe?: boolean) {
     console.log('user', user)
     this.currentUser = user;
     this.router.navigate([''])
@@ -92,13 +121,11 @@ return false;
 
   }
 
-  
-
   private authAndRedirect(user: IUser, isRememberMe?: boolean) {
     this.auth(user, isRememberMe);
     this.router.navigate(['enters']);
-  }*/
 
+  }
   get isAuthenticated(): boolean {
     return !!this.currentUser || !!localStorage.getItem(LOCAL_STORAGE_NAME);
   }
@@ -113,19 +140,19 @@ return false;
   saveUserInStore(): boolean {
     return !!localStorage.getItem(LOCAL_STORAGE_NAME);
   }
-  get user(): IUser | null {
+  /*get user(): IUser | null {
     return this.currentUser;
   }
   get Token(): string | null {
     return this.isAuthenticated ? 'my-token' : null;
-  }
+  }*/
   setToken(token: string): void {
     this.token = token;
   }
   setToStore(token: string) {
     window.localStorage.setItem('usertoken', token)
   }
-  getFromStore() {
+ /* getFromStore() {
     window.localStorage.getItem('usertoken');
   }
 
@@ -135,14 +162,17 @@ return false;
     } else {
       return this.getFromStore()
     }
-  }
+  }*/
   removeUser(): void {
     this.currentUser = null;
     this.token = null;
     window.localStorage.removeItem('usertoken');
-   sessionStorage.removeItem('userlogin')
+   window.sessionStorage.removeItem('userlogin');
+   this.clearUser();
   }
- /* authUser(login: string, psw: string, isRememberMe: boolean): true | string {
+
+    
+/* authUser(login: string, psw: string, isRememberMe: boolean): true | string {
     const user = this.getUser(login);
     if (!user) {
       return 'User not found';
@@ -168,50 +198,42 @@ return false;
     this.router.navigate(['/enters']);
   }
   // Получить текущую роль
-  getRole(): string | null {
-    return this.currentUserRole;
-  }
-  setUserRole(role: string) {
-    this.currentUserRole = role;
-  }
-  isAdmin():boolean {
-   return this.currentUserRole === 'admin';
-     
-  }
-  getRoleUser() {
-   
-      return this.http.get<Role[]>("http://localhost:3002/users/")
-    }
-  fetchUserRole(): Observable<string> {
-    return this.http.get<string>('http://localhost:3002/users/role').pipe(
-      tap(role => this.currentUserRole = role)
+  
+ 
+ changePassword(oldPsw:Changepsw, newPsw:Changepsw): Observable<ChangePswResponse> {
+   const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+    return this.http.put<ChangePswResponse>(
+      'http://localhost:3002/users/'+ this.user.login,
+      {oldPsw, newPsw},
+      {headers}
     );
   }
-
-  // Функция для проверки роли
-  hasRole(admin: string): boolean {
-    return this.currentUserRole === admin;
-  }
-
-    changePassword(login:string, oldPsw:string, newPsw: string): Observable<any> {
+   /* changePassword(oldPsw:string, newPsw: string): Observable<IUser> {
      const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
+ 
     const pswObj: IUser = {
            oldPsw: this.oldPsw,
            newPsw: this.newPsw,
          
           }
    
-    return this.http.put('http://localhost:3002/users/', pswObj, {headers})
-    .pipe(
+    return this.http.put('http://localhost:3002/users/'+ this.user.login,
+       {newPsw},
+       {headers})
+    }*/
+   /* .pipe(
       catchError(error => {
         return throwError(()=> this.handleError(error));
         })
     );
   }
-  private handleError(error:any): string {
+  handleError(error:any): string {
     if (error.error?.message) {
       return error.error.message;
     }
@@ -222,7 +244,8 @@ if (error.status === 404) {
       return 'Пользователь не найден';
     }
        return 'Произошла ошибка при изменении пароля';
-  }
+  }*/
+
  /* changePassword(oldPassword: string, newPassword: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

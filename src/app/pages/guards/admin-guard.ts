@@ -1,24 +1,45 @@
-/*import { HttpClient } from '@angular/common/http';
-import {
-    CanActivate,
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
 
-export class AboutGuard implements CanActivate {
-  constructor(private http:HttpClient) {} 
-    canActivate(
-     
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ): Observable<boolean> | boolean {
-      role = 'admin'
-      return this.http.get('http://localhost:3002/users/')
-       
-    }
-}*/
+import { UserService } from '../../services/user-service';
+import { Roles } from '../../models/interfaces';
 
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RoleGuard implements CanActivate {
+  constructor(private userService: UserService, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
+    const requiredRole = route.data['role'] as Roles;
+  const userRole = this.userService.getRole();
+  
+  if (!requiredRole || userRole === requiredRole) {
+    return true;
+  }
+  
+  return this.router.parseUrl(userRole ? '/access-denied' : '/glory');
+}
+}
+
+
+
+
+/*import { inject } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivateChildFn, RouterStateSnapshot } from "@angular/router";
+import { UserService } from "../../services/user-service";
+
+export const adminChildGuard: CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  const authService = inject(UserService);
+  const requiredRole = childRoute.data?.['requiredRole'];
+
+  if (!requiredRole) {
+    return true;
+  }
+  const userRole = authService.getRole();
+  return userRole === requiredRole;
+};*/
 
 
 

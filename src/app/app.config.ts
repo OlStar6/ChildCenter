@@ -1,10 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
+import { MessageService } from 'primeng/api';
+import { ErrorInterceptorsService } from './pages/interceptors/error-interceptor';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,5 +31,7 @@ export const appConfig: ApplicationConfig = {
       
     }),
     provideHttpClient(),
+    
+MessageService
   ]
 };

@@ -1,44 +1,125 @@
+ /* body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+             background-color: #c490d8;
+          
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            display: table;
+            width: 100%;
+    
+        }*/
+        
+      /*  label {
+           display: table-cell;
+            width: 30%;
+            padding: 50px;
+          //  padding-right: 10px;
+            //vertical-align: middle;
+            font-weight: bold;
+        }
+        */
+    /*    input {
+            display: table;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+ .form-button {
+            width: 100%;
+            padding: 12px;
+ text-align: center;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        form-button:hover {
+            background-color: #45a049;
+        }
+
+  h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }*/
 .container{
   display: flex;
   flex-direction: column;
   justify-content:space-around;
 }
 h3,
-.gap-4{
+.form-button{
   display: block;
 text-align: center;
+font-size: 30px;
+margin: 0px, 10px;
 }
  input{
   display: table;
-  height: 30px;
+  height: 40px;
     border-radius: 3px;
+    margin-bottom: 5px;
+    padding: 10px;
 
- }/*
-.flex-wrap {
+ }
+ 
+/*.form-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex: wrap;
   margin: auto;
 }*/
-
-/*.mx-3 {
+/*
+.mx-3 {
   font-size: large;
   font-weight: 700;
   padding: 10px;
 
 }*/
- .m-auto {
 
-  display: block;
+.m-auto {
+
+  display: flex;
   background-color: #c490d8;
   flex-direction: column;
   margin: auto;
-  padding: auto;
-  clear: both;
-  text-align: center;
-}
-/*
+  padding: 0px;
+ // clear: both;
+ text-align: center;
+ font-size: 20px;
+color: #fff;
+
+
+ }
+ /*.form-group {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}*/
+ /*
 .ml-2 {
   color: aquamarine;
   margin: auto;

@@ -1,17 +1,20 @@
-import { Component } from '@angular/core';
-import { ICustomStatisticUser } from '../../../models/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { ICustomStatisticUser, Role } from '../../../models/interfaces';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { StatisticService } from '../../../services/statistic-service';
 import { UserService } from '../../../services/user-service';
+import { RolePipePipe } from '../../pipe/role-pipe-pipe';
 
 @Component({
   selector: 'app-statistic',
+  standalone: true,
   imports: [CommonModule, TableModule],
+  
   templateUrl: './statistic.html',
   styleUrl: './statistic.scss'
 })
-export class Statistic {
+export class Statistic implements OnInit{
  columns:any = [
     {field: 'login', header: 'login'},
     {field: 'email', header: 'email'},
@@ -19,10 +22,13 @@ export class Statistic {
   ];
   users: any = [];
   usersStore:ICustomStatisticUser[]=[];
+  roleStore:Role[]=[]
+  admin:Role
 
   constructor(
     private statisticService: StatisticService,
-    private userService:UserService
+    private userService:UserService,
+    
   ) {
   }
 
@@ -31,13 +37,14 @@ export class Statistic {
        if (Array.isArray(data)) 
       this.users = data;
     this.usersStore=[...data];
-    })
+    console.log('data', data)
+    });
+
+ 
   }
 isAdmin():boolean {
  return this.userService.isAdmin();
-  
-}
-hasRole(admin:string):boolean{
-  return this.userService.hasRole(admin);
-}
+  }
+
+
 }

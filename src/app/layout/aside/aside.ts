@@ -65,12 +65,7 @@ export class Aside implements OnInit {
    isAuth() {
   return this.userService.getUsersStorage();
 }
-notAuth() {
-  this.userService.notAuth();
-}
-isLoggedIn(): boolean{
-  return this.isLoggedIn()
-}
+
  
 }
 

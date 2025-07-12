@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SessionService } from '../../services/session-service';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { isValid } from 'date-fns';
+import { OrderService } from '../../services/order-service';
 
 
 @Component({
@@ -19,21 +20,23 @@ import { isValid } from 'date-fns';
 
 })
 export class ItemEnter implements OnInit {
-   enters_sessions: Session[] = [];
-  enters_sessionStore: Session[] = [];
-  filteredSessions$:Observable<Session[]>
+ //  enters_sessions: Session[] = [];
+  //enters_sessionStore: Session[] = [];
+ // filteredSessions$:Observable<Session[]>
    entertainment$: Observable<Ienters>;
+  // entertainment:Ienters;
   relatedSessions$: Observable<Session[]>;
+  enterorder:Ienters;
+ sessionorder:Session;
   enterId: string;
   sessionId:string;
   enter: Ienters;
   session:Session;
-  sessions: Session[]
+  sessions4: Session[]
   sessionsCopy: Session[]
   selectedDate: Date = new Date();
    dateEnterFilter:Date;
   private selectedDate$ = new BehaviorSubject<Date>(new Date());
-
   private sessions$ = new BehaviorSubject<Session[]>([]);
  
 
@@ -42,7 +45,8 @@ export class ItemEnter implements OnInit {
     private route: ActivatedRoute,
     private entersService:EntertainmentService,
     private sessionService:SessionService,
-    private router:Router
+    private router:Router,
+    private orderService: OrderService
 
   ) {}
 
@@ -52,23 +56,13 @@ export class ItemEnter implements OnInit {
       this.entersService.getEnterById(this.enterId).subscribe((enter)=> {
         this.enter = enter;
         })
-        this.sessionId = this.route.snapshot.paramMap.get('id');
-      console.log('sessionId', this.sessionId)
-      this.sessionService.getSessionById(this.sessionId).subscribe((session)=> {
-        this.session = session;
+  
+  
 
-       
-        })
-         
-
-
-this.filteredSessions$ = this.entersService.getFilteredSessions();
-
-
+const sessionsId$ = this.sessionService.getSessionById('id');
+console.log('sessionId1', sessionsId$)
     const id = this.route.snapshot.paramMap.get('id');
     this.entertainment$ = this.entersService.getEnterById(id);
-    console.log('enter',this.entertainment$)
-        console.log('enter', this.entertainment$)
     const allSessions$ = this.sessionService.getAllSessions();
      console.log('all', allSessions$)
 combineLatest([this.entertainment$, allSessions$]).pipe(
@@ -76,40 +70,53 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
     map(([entertainment, sessions]) => 
     sessions.filter(session => session.enterId === entertainment._id)
     )
-   ).subscribe((data) => {
-    this.sessions = data;
+   )
+   .subscribe((data) => {
+    this.sessions4 = data;
      this.sessionsCopy = data;
-
+ 
          const calendareDate = new Date(this.selectedDate).setHours(0, 0, 0, 0);
-    this.sessions = this.sessionsCopy.filter((el) => {
+    this.sessions4 = this.sessionsCopy.filter((el) => {
       const elDate = new Date(el.date).setHours(0, 0, 0, 0);
       console.log('elDate', elDate, calendareDate)
       return elDate === calendareDate
 
     })
-     
-     
-     console.log(data)
+        console.log('session4', this.sessions4)//undefined
+     console.log('data',data)
    })
-  console.log('id', this.relatedSessions$)
+  console.log('id', this.relatedSessions$)//undefined
+
+   
     //Date
   this.entersService.selectedDate$.subscribe((date) => {
     this.selectedDate = date;
     const calendareDate = new Date(date).setHours(0, 0, 0, 0);
-    this.sessions = this.sessionsCopy.filter((el) => {
+    this.sessions4 = this.sessionsCopy.filter((el) => {
       const elDate = new Date(el.date).setHours(0, 0, 0, 0);
       console.log('elDate', elDate, calendareDate)
       return elDate === calendareDate
 
     })
+    console.log('sessions4', this.sessions4); // массивы сеансов отобранные по дате 
     console.log('***', this.sessionsCopy, date);
+       console.log('****date', date);
 
     //this.sessions = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(date).getTime())
-    console.log('sessions', this.sessionsCopy)
-            console.log('****date', date);
+   // 
+          
+      const sessionId = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(this.selectedDate).getTime());
+      console.log('sessionId', sessionId)
+       this.sessionService.getSessionById(this.sessionId).subscribe((session)=> {
+        this.session = session;
+
+       
+        })
+  })  
+}    
          //this.initTourFilterLogic();
            //if (date = null) {
-            this.enters_sessions = this.enters_sessionStore.filter((enter)=>{
+         /*   this.enters_sessions = this.enters_sessionStore.filter((enter)=>{
            if (NaN) {
             return this.enters_sessions=this.enters_sessionStore;
            }
@@ -125,10 +132,10 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
                 return false;
               }
         }
-      );})
-      
+      );
+    
   
-  }
+}*/
    // Установить выбранную дату
   setSelectedDate(date: Date): void {
     this.selectedDate$.next(date);
@@ -166,10 +173,11 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
 
  //this.entersService.updateSessions();
   }
-  initOrder(ev: Event): void {
-    
-    this.router.navigate(['/enters/order', this.enter._id], {queryParams: {date: new Date(this.selectedDate).toISOString()}});
-    this.router.navigate(['/enters/order', this.session._id])
+  initOrder(): void {
+    this.orderService.setOrderData(this.enterorder) //для заказа
+    console.log('Сессия', this.enterorder, this.sessions4.find(date=>date.date))
+    this.router.navigate(['/enters/order', this.enter._id, this.sessions4], {queryParams: {date: new Date(this.selectedDate).toISOString()}});
+  
   }
  
 }

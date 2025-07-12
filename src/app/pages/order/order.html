@@ -3,8 +3,10 @@
     <a routerLink="/">Назад</a>
     <div class="mt-3">
       <h2>Запись на развлекательный сеанс</h2>
-      <h3>{{enter?.name}}</h3>
-    </div>
+      <h3>{{enter.name}}</h3>
+      <h3>Дата сеанса: {{sessionId | date: 'dd-MM-yyyy'}}</h3>
+     <!-- <h3>{{session.startTime}} - {{session.endTime}}</h3>-->
+
     <form [formGroup]="orderForm" novalidate>
       <div class="form-group mt-3">
         <label for="clientName">ФИО родителя</label>

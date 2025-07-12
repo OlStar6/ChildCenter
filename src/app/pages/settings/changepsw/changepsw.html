@@ -1,24 +1,18 @@
 <div class="d-flex flex-column m-auto">
   <h3>Изменение пароля</h3>
  
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="successMessage" class="alert alert-success">
-    {{ successMessage }}
-  </div>
- <form [formGroup]="passwordForm" class="password-form">
+ 
+  
+ <div [formGroup]="passwordForm" class="password-form">
   <div class="form-group">
     <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap">
     <label for="oldPsw">Текущий пароль</label>
-  
-     <input type="password"
+       <input type="password"
       pInputText
       id="oldPsw"
       formControlName="oldPsw"
-      
-      [ngClass]="{'input-error': !oldPsw || oldPsw.length < 6}" />
+      [ngClass]="{'input-error': !oldPsw || oldPsw.length < 6}"
+      [(ngModel)]="oldPsw" >
   </div>
   <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap">
      <label for="newPsw">Новый пароль</label>
@@ -26,19 +20,33 @@
         pInputText
         id="newPsw"
         formControlName="newPsw"
-     
-        [ngClass]="{'input-error': !newPsw || newPsw.length < 6}" /></div>
-  </div>
+         placeholder="Не менее 6ти знаков"
+        [ngClass]="{'input-error': !newPsw }"
+        [(ngModel)]="newPsw" >
+      </div>
+
   <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap">
     <label for="repeatChangePsw">Повторить пароль</label>
     <input type="password"
      pInputText
      id="repeatChangePsw"
       formControlName="repeatChangePsw"
-      
-      [ngClass]="{'input-error': repeatChangePsw !== newPsw}" />
+            [ngClass]="{'input-error': repeatChangePsw !== newPsw}"
+            [(ngModel)]="repeatChangePsw" >
   </div>
   <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap">
-    <p-button label="Сохранить" [disabled]="oldPsw.length < 6 || newPsw.length < 6 "
-      (ngSubmit)="onChangePsw()"></p-button>
+    <p-button label="Сохранить" 
+      (onClick)="onChangePsw($event)"></p-button>
+      </div>
+  
   </div>
+
+</div>
+
+<!-- <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>-->

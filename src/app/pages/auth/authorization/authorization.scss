@@ -1,7 +1,7 @@
 :host {
   display: block;
 }
-
+/*
 h3 {
   text-align: center;
 }
@@ -46,4 +46,37 @@ h3 {
 
 input {
   display: table;
+}*/
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
 }
+h3,
+.form-button{
+  display: block;
+text-align: center;
+font-size: 30px;
+margin: 0px, 10px;
+}
+ input{
+  display: table;
+  height: 40px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    padding: 10px;
+
+ }
+ .m-auto {
+
+  display: flex;
+  background-color: #c490d8;
+  flex-direction: column;
+  margin: auto;
+  padding: 0px;
+ // clear: both;
+ text-align: center;
+ font-size: 20px;
+ color:#fff;
+
+ }

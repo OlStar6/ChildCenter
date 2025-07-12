@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, NgClass } from '@angular/common';
 import { Ienters, IEnterSelect, Session } from '../../models/interfaces';
@@ -15,6 +15,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SessionService } from '../../services/session-service';
 import { ToastService } from '../../services/toast';
+import { OrderService } from '../../services/order-service';
 
 
 
@@ -38,11 +39,12 @@ import { ToastService } from '../../services/toast';
 
   ],
 })
-export class Order implements OnInit {
+export class Order implements OnInit, OnDestroy {
   enterId: string = null;
   enter: Ienters;
   sessionId: string = null;
   session: Session;
+  session1:Session;
   clientName: string;
   childName: string;
   age: number;
@@ -56,7 +58,11 @@ export class Order implements OnInit {
   selectedEnter: IEnterSelect | undefined;
   minDate: string;
   subscription: Subscription;
+  private dataSubscription: Subscription;
   entersStore: IEnterSelect[] = [];
+  enterorder:Ienters;
+ sessionorder:Session;
+ sessions4:Session;
 
   constructor(
 
@@ -64,7 +70,8 @@ export class Order implements OnInit {
     private enterService: EntertainmentService,
     private route: ActivatedRoute,
     private sessionService: SessionService,
-     private toastService: ToastService
+     private toastService: ToastService, 
+     private orderService:OrderService
 
   ) {
 
@@ -72,15 +79,26 @@ export class Order implements OnInit {
   }
 
   ngOnInit(): void {
-
+this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
+  if (data){
+    this.enterorder = data.enterorder;
+ 
+  }
+});
     this.enterId = this.route.snapshot.paramMap.get('id');
     this.enterService.getEnterById(this.enterId).subscribe((enter) => {
       this.enter = enter;
     })
-    this.sessionId = this.route.snapshot.paramMap.get('id');
-    this.sessionService.getSessionById(this.sessionId).subscribe((session) => {
-      this.session = session;
+     this.route.queryParams.subscribe(params =>{
+      this.sessionId = params['date'];
+      if (this.sessionId) {
+         this.sessionService.getSessionById(this.sessionId).subscribe((session4) => {
+      this.sessions4 = session4;
     })
+    console.log('session4Id', this.sessionId)
+      }
+    })
+       
 
 
     this.orderForm = new FormGroup({
@@ -99,6 +117,7 @@ export class Order implements OnInit {
     const userData = this.orderForm.getRawValue();
     const postData = { ...this.enter, ...userData }
     const userId = this.userService.getUsersStorage()?.id || null;
+    const sessions4 = this.date;
     const postObj: IPostorder = {
       clientName: postData.clearName,
       childName: postData.childName,
@@ -112,15 +131,24 @@ export class Order implements OnInit {
 
     this.enterService.postOrder(postObj).subscribe(
       () => {
-     
-       this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
+    // this.sessionService.deleteSessionId(this.session._id) //?
+  //   .subscribe(()=>{
+   //   this.orderService.clearOrderData();
+      this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
       },
+    
+  //  )
+ //   },
       ()=>{
    this.toastService.show('error', 'Ошибка');
     }
     );
 
   }
-
+ngOnDestroy(): void {
+  if (this.dataSubscription) {
+    this.dataSubscription.unsubscribe();
+  }
+}
 }
 

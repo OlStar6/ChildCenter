@@ -3,12 +3,16 @@ export interface IUser {
   psw?: string;
   repeatPsw?: string;
   email?: string
-  role?: 'admin' | 'user';
+  role?: Roles;
+  _id?:string;
   id?: string;
   newPsw?: string;
   oldPsw?:string;
   repeatChangePsw?: string;
 }
+
+export type Roles = "admin" | "user";
+
 export interface IUserRegister {
   login: string;
   psw?: string;
@@ -105,3 +109,13 @@ role:'admin' | 'user';
 export type Coords = {
   enterid: string;
 };
+
+export interface Changepsw {
+  oldPsw: string;
+  newPsw: string;
+}
+
+export interface ChangePswResponse {
+  success: boolean;
+  message: string;
+}

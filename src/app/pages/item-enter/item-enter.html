@@ -20,11 +20,11 @@
               <div class="sessions">
            <h3>Сеансы на {{ selectedDate | date }}</h3>
        
-   <ul *ngIf="sessions" class="button-container">
-    <li *ngFor="let session of sessions">
-      <button class="pbutton" (click)="initOrder($event)">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
+   <ul *ngIf="sessions4" class="button-container">
+    <li *ngFor="let session of sessions4">
+      <button class="pbutton" (click)="initOrder()">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
     </li>
-    <li *ngIf="sessions.length === 0">Нет доступных сеансов</li>
+    <li *ngIf="sessions4.length === 0">Нет доступных сеансов</li>
      
   </ul>
   </div>

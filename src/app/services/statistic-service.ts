@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ICustomStatisticUser } from '../models/interfaces';
+import { ICustomStatisticUser, Role } from '../models/interfaces';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from './user-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatisticService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userService: UserService
+  ) { }
   getUserStatistic(): Observable<ICustomStatisticUser[]> {
     return this.getUserStatistic1().pipe(
       map((data) => {
@@ -18,7 +21,11 @@ export class StatisticService {
       })
     )
   }
+ 
   getUserStatistic1() {
     return this.http.get<ICustomStatisticUser[]>("http://localhost:3002/users/")
   }
+
+
+
 }

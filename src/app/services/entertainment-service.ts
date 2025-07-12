@@ -167,6 +167,7 @@ export class EntertainmentService {
       img: this.img,
       age: this.age
     }
+     console.log('enterId', enter.id);
     return this.http.get<Ienters>(`${path}/${id}`);
 
   }

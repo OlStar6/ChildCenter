@@ -62,7 +62,7 @@ const today = new Date();
       isAvailable: this.isAvailable,
       enterId: this.enterId
     }
-    console.log('session', sessionId._id);
+    console.log('session', sessionId.id);
     return this.http.get<Session>(`${path}/${id}`)
 
   }
@@ -84,8 +84,8 @@ const today = new Date();
 
   }
 
-  deleteSession(id:string): Observable<any> {
-       const path = 'http://localhost:3002/session';
+  deleteSessionId(id:string): Observable<any> {
+   //    const path = 'http://localhost:3002/session';
 return this.http.delete(`http://localhost:3002/session/${id}`)
   }
   getAvailableSessions(date: Date): Session[] {
