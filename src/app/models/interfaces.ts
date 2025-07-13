@@ -87,7 +87,7 @@ export interface IMenuType {
 export const UserStorageKey = 'current_user';
 
 export interface Session {
-  id?: string;
+  id?: number;
   _id?: string;
   startTime: string;
   endTime: string;

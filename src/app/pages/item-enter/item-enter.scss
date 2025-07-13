@@ -132,9 +132,12 @@ img:hover{
 }
 .img{
     height: 250px;
-     display: flex;
-  justify-content: space-between;
-    padding: 5px 2px;
+    width: 270px;
+ //    display: flex;
+ // justify-content: space-between;
+    padding: 20px;
+  
+    margin: 5px;
 }
 img:hover{
   filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));

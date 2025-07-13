@@ -6,14 +6,30 @@
 }
 
 .layout-footer {
-    display: flex;
-    justify-content: space-between;
+    padding: 2rem 0;
+  background:  linear-gradient( rgba(#ea89ca, 0.8), rgba(#b73de7, 0.8));
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+   /* 
+    
     gap: 8px;
-    background: #c47ee0;
+   // background: linear-gradient(rgba(#ea89ca, 0.8), rgba(#b73de7, 0.8));
     color: #fff;
-    padding: 4px 10px;
-    align-items: center;
+    padding: 2rem, 0;
+    margin: 0;
+   */
 
+}
+.foot{
+    margin-left: 115px;
+}
+.line__bottom{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .ms-2 {

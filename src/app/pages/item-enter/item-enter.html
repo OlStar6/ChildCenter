@@ -21,9 +21,10 @@
            <h3>Сеансы на {{ selectedDate | date }}</h3>
        
    <ul *ngIf="sessions4" class="button-container">
-    <li *ngFor="let session of sessions4">
-      <button class="pbutton" (click)="initOrder()">{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
-    </li>
+    
+      @for ( session of sessions4; track session.id) {
+      <li><button class="pbutton" (click)="initOrder(session)" >{{ session.date | date }} - {{ session.startTime }} - {{session.endTime}}</button> 
+    </li>}
     <li *ngIf="sessions4.length === 0">Нет доступных сеансов</li>
      
   </ul>

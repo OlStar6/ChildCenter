@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SessionService implements OnInit {
   private sessions: Session[] = [];
-  id: string;
+  id: number;
   startTime: string;
   endTime: string;
   date: Date;
@@ -50,7 +50,7 @@ const today = new Date();
 
 
 
-  getSessionById(id: string): Observable<Session> {
+  getSessionById(id: number): Observable<any> {
     const path = 'http://localhost:3002/session';
     const sessionId: Session = {
       id: this.id,
@@ -63,11 +63,11 @@ const today = new Date();
       enterId: this.enterId
     }
     console.log('session', sessionId.id);
-    return this.http.get<Session>(`${path}/${id}`)
+    return this.http.get(`${path}`+ id)
 
   }
 
-  getSessionIdEnter(enterId: string): Observable<Session[]> {
+ /* getSessionIdEnter(enterId: string): Observable<Session[]> {
     const path = 'http://localhost:3002';
     const sessionId: Session = {
       id: this.id,
@@ -82,11 +82,13 @@ const today = new Date();
     console.log('enter', this.enterId);
     return this.http.get<Session[]>(`${path}/session?=${enterId}`)
 
-  }
+  }*/
 
-  deleteSessionId(id:string): Observable<any> {
+  deleteSessionId(id:number): Observable<any> {
    //    const path = 'http://localhost:3002/session';
+   console.log('удаление', id)
 return this.http.delete(`http://localhost:3002/session/${id}`)
+
   }
   getAvailableSessions(date: Date): Session[] {
     return this.sessions.filter(session =>

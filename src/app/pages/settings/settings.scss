@@ -2,6 +2,12 @@
   height: 620px;
 }
 
-.p-tabpanels{
-  background-color: none;
+.p-tabpanels,
+.p-component
+
+{
+  margin: 0;
+background-color: #f1f1f1;
+  padding: 0;
+  text-align: center;
 }

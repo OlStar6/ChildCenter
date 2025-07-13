@@ -1,0 +1,76 @@
+
+<section class="about-header">
+  <div class="container">
+    <h1>Наш центр - лучший выбор для вашего ребенка!</h1>
+    <p class="subtitle">Более 5 лет мы создаем волшебный мир детства</p>
+  </div>
+</section>
+
+<section class="about-mission">
+  <div class="container">
+    <div class="mission-content">
+      <h2>Наша миссия</h2>
+      <p>Мы создаем пространство, где дети могут безопасно играть, развиваться и познавать мир через игру. Наш центр сочетает в себе развлечения и образовательные элементы, помогая детям расти счастливыми и любознательными.</p>
+      <p>Каждый день наша команда профессионалов работает над тем, чтобы впечатления ваших детей были яркими, а воспоминания - незабываемыми.</p>
+    </div>
+    <div class="mission-image">
+      <img src="img/499.jpg" alt="Дети в нашем центре">
+    </div>
+  </div>
+</section>
+
+<section class="advantages">
+  <div class="container">
+    <h2>Почему выбирают нас</h2>
+    <div class="advantages-grid">
+      <div class="advantage-card" *ngFor="let item of advantages">
+        <div class="advantage-icon">
+          <i [class]="item.icon"></i>
+        </div>
+        <h3>{{item.title}}</h3>
+        <p>{{item.description}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statistics">
+  <div class="container">
+    <h2>Мы в цифрах</h2>
+    <div class="stats-grid">
+      <div class="stat-item" *ngFor="let stat of statistics">
+        <div class="stat-value">{{stat.value}}</div>
+        <div class="stat-label">{{stat.label}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-details">
+  <div class="container">
+    <h2>Реквизиты нашей организации</h2>
+    <div class="details-grid">
+      <div class="details-item">
+        <h3>Юридическая информация</h3>
+        <p><strong>Название:</strong> {{companyDetails.name}}</p>
+        <p><strong>ИНН:</strong> {{companyDetails.inn}}</p>
+        <p><strong>КПП:</strong> {{companyDetails.kpp}}</p>
+  
+      </div>
+      <div class="details-item">
+        <h3>Контактные данные</h3>
+        <p><strong>Адрес:</strong> {{companyDetails.address}}</p>
+        <p><strong>Телефон:</strong> {{companyDetails.phone}}</p>
+        <p><strong>Email:</strong> {{companyDetails.email}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Хотите убедиться лично?</h2>
+    <p>Приходите к нам и убедитесь, что наш центр - лучшее место для вашего ребенка!</p>
+    <button class="cta-button" routerLink="/enters">Перейти в каталог</button>
+  </div>
+</section>

@@ -1,12 +1,18 @@
 .layout-header__menu {
     display: flex;
     justify-content:space-between;
-    gap: 8px;
-    background: #c282db;
-   padding: 4px 10px;
+    gap: 2px;
+    background:linear-gradient(rgba(#ea89ca, 0.8), rgba(#b73de7, 0.8));
+   padding: 2rem 10px;
+      
     }
 .ms-2{
     padding-right: 10px;
     text-align: center;
     padding-top: 5px;
+
 }
+.p-component{
+     color: #1608da;
+}
+//background: #c282db;

@@ -5,14 +5,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { IUser, Roles } from '../../../models/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../../services/user-service';
 import { ToastService } from '../../../services/toast';
 import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-authorization',
-  imports: [NgClass, FormsModule, ButtonModule, InputTextModule, RouterLink],
+  imports: [NgClass, FormsModule, ButtonModule, InputTextModule],
   templateUrl: './authorization.html',
   styleUrl: './authorization.scss'
 })

@@ -47,7 +47,7 @@ export class Entertainment implements OnInit {
       if (Array.isArray(data)) {
         this.enters = data;
         this.entersStore = [...data];
-        console.log('fgh')
+        console.log('fgh', data)
       }
     }, (err) => {
       console.log('***', err)

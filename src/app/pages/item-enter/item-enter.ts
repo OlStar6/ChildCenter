@@ -10,6 +10,7 @@ import { SessionService } from '../../services/session-service';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { isValid } from 'date-fns';
 import { OrderService } from '../../services/order-service';
+import { ToastService } from '../../services/toast';
 
 
 @Component({
@@ -20,16 +21,15 @@ import { OrderService } from '../../services/order-service';
 
 })
 export class ItemEnter implements OnInit {
- //  enters_sessions: Session[] = [];
-  //enters_sessionStore: Session[] = [];
- // filteredSessions$:Observable<Session[]>
-   entertainment$: Observable<Ienters>;
-  // entertainment:Ienters;
+    entertainment$: Observable<Ienters>;
   relatedSessions$: Observable<Session[]>;
+  sessionsId$:Observable<Session>;
   enterorder:Ienters;
  sessionorder:Session;
   enterId: string;
-  sessionId:string;
+
+  sessionId:number;
+  sessionId1:string;
   enter: Ienters;
   session:Session;
   sessions4: Session[]
@@ -46,7 +46,9 @@ export class ItemEnter implements OnInit {
     private entersService:EntertainmentService,
     private sessionService:SessionService,
     private router:Router,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private toastService: ToastService
+
 
   ) {}
 
@@ -56,13 +58,15 @@ export class ItemEnter implements OnInit {
       this.entersService.getEnterById(this.enterId).subscribe((enter)=> {
         this.enter = enter;
         })
+        console.log('enter', this.enter)
   
   
 
-const sessionsId$ = this.sessionService.getSessionById('id');
+const sessionsId$ = this.sessionService.getSessionById(this.sessionId);
 console.log('sessionId1', sessionsId$)
     const id = this.route.snapshot.paramMap.get('id');
     this.entertainment$ = this.entersService.getEnterById(id);
+    console.log('ent', this.entertainment$)
     const allSessions$ = this.sessionService.getAllSessions();
      console.log('all', allSessions$)
 combineLatest([this.entertainment$, allSessions$]).pipe(
@@ -105,8 +109,8 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
     //this.sessions = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(date).getTime())
    // 
           
-      const sessionId = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(this.selectedDate).getTime());
-      console.log('sessionId', sessionId)
+      const sessionId1 = this.sessionsCopy.filter((el) => new Date(el.date).getTime() === new Date(this.selectedDate).getTime());
+      console.log('sessionId', sessionId1)
        this.sessionService.getSessionById(this.sessionId).subscribe((session)=> {
         this.session = session;
 
@@ -114,28 +118,7 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
         })
   })  
 }    
-         //this.initTourFilterLogic();
-           //if (date = null) {
-         /*   this.enters_sessions = this.enters_sessionStore.filter((enter)=>{
-           if (NaN) {
-            return this.enters_sessions=this.enters_sessionStore;
-           }
-      
-             else if (isValid (new Date(enter.date))) {
-      
-                const sessionDate = new Date(this.session.date).setHours(0, 0, 0, 0);
-                console.log('****enterDate', sessionDate)
-                const calendarDate = new Date(date).setHours(0, 0, 0);
-                console.log('****calendarDate', calendarDate)
-                return sessionDate === calendarDate;
-              }else {
-                return false;
-              }
-        }
-      );
-    
-  
-}*/
+         
    // Установить выбранную дату
   setSelectedDate(date: Date): void {
     this.selectedDate$.next(date);
@@ -164,25 +147,65 @@ combineLatest([this.entertainment$, allSessions$]).pipe(
            date1.getDate() === date2.getDate();
   }
   onDateChange(event: any) {
+
     const date = new Date(event.target.value);
+    if (event.value<date) {
+      this.toastService.show('error', 'Неверная дата');
+      }
+    
     this.selectedDate = date;
     this.entersService.setSelectedDate(date);
   }
 
   loadSessions() {
 
- //this.entersService.updateSessions();
   }
-  initOrder(): void {
-    this.orderService.setOrderData(this.enterorder) //для заказа
-    console.log('Сессия', this.enterorder, this.sessions4.find(date=>date.date))
-    this.router.navigate(['/enters/order', this.enter._id, this.sessions4], {queryParams: {date: new Date(this.selectedDate).toISOString()}});
+  initOrder(session: Session): void {
+  this.orderService.setOrderData(this.enterorder) //для заказа
+    console.log('Сессия', this.enterorder, this.sessions4);
+    this.router.navigate(['/enters/order', this.enter._id],
+       {queryParams: {
+        session: session,
+      date: new Date(this.selectedDate).toISOString(),
+      time: session.startTime,
+     sessionId:session.id,
+           }}, );
+    
+    console.log('ActivatedRoute', this.route)
+    /*this.router.navigate(['/enters/order', this.enter._id],
+       {queryParams: {
+      date: new Date(this.selectedDate).toISOString(),
+      time: session.startTime,
+      _id:session._id
+       }}, );*/
   
   }
  
 }
 
-
+ //this.entersService.updateSessions();
+//this.initTourFilterLogic();
+           //if (date = null) {
+         /*   this.enters_sessions = this.enters_sessionStore.filter((enter)=>{
+           if (NaN) {
+            return this.enters_sessions=this.enters_sessionStore;
+           }
+      
+             else if (isValid (new Date(enter.date))) {
+      
+                const sessionDate = new Date(this.session.date).setHours(0, 0, 0, 0);
+                console.log('****enterDate', sessionDate)
+                const calendarDate = new Date(date).setHours(0, 0, 0);
+                console.log('****calendarDate', calendarDate)
+                return sessionDate === calendarDate;
+              }else {
+                return false;
+              }
+        }
+      );
+    
+  
+}*/
 
 /* bookSession() {
     if (this.selectedSession) {

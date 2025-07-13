@@ -1,0 +1,240 @@
+//@import 'src/styles/variables';
+
+.about-header {
+  background: linear-gradient(rgba(#b73de7, 0.8)), 
+              url('/img/baloon1.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    
+    @media (min-width: 768px) {
+      font-size: 3.5rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+}
+
+.about-mission {
+  padding: 4rem 0;
+  background-color: white;
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+    @media (min-width: 992px) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  
+  .mission-content {
+    flex: 1;
+    text-align: center;
+    
+    h2 {
+     color: #1608da;  //#1608da
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+  }
+  
+  .mission-image {
+    flex: 1;
+    text-align: center;
+    
+    img {
+      width: 100%;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.advantages {
+  padding: 1rem 0;
+  background-color:#f0edf2 ;//#14addc
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+   color: #1608da;
+  }
+  
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .advantage-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .advantage-icon {
+      font-size: 2.5rem;
+      color: #14addc;
+      margin-bottom: 1.5rem;
+    }
+    
+    h3 {
+      margin-bottom: 1rem;
+      color: #1608da;
+    }
+    
+    p {
+      color:#14addc;
+    }
+  }
+}
+
+.statistics {
+  padding: 1rem 0 2rem 0 ;
+background: linear-gradient(rgba(#ea89ca, 0.8)); 
+           
+  color: #1608da;
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .stat-item {
+    text-align: center;
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      
+      @media (min-width: 768px) {
+        font-size: 3rem;
+      }
+    }
+    
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+.company-details {
+  padding: 4rem 0;
+  background-color: white;
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+   color: #1608da;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .details-item {
+    background: #14addc3c;
+    padding: 2rem;
+    border-radius: 10px;
+    
+    h3 {
+     color: #1608da;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid ;
+    }
+    
+    p {
+      margin-bottom: 0.8rem;
+      
+      strong {
+        color: #1608da;
+      }
+    }
+  }
+}
+
+.cta-section {
+  padding: 4rem 0;
+  background:  linear-gradient( rgba(#e979e1, 0.8));
+  color: white;
+  text-align: center;
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .cta-button {
+    background: white;
+    color: #1608da;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    //cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    
+    &:hover {
+      background: darken(white, 5%);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

@@ -1,19 +1,19 @@
 :host {
-  width: 300px;
+  width: 200px;
   flex-basis: 300px;
   min-width: 300px;
 }
 
 .m-3 {
-  width: 25%;
-  background: #c282db;
+  width: 20%;
+  background:linear-gradient( rgb(81, 27, 81), 0.8); //rgb(81, 27, 81);
   float: right;
 }
 
 h4 {
 margin: 5px;
   font-size: 1rem;
-  color: #060606;
+  color: #060606;  //#060606
 }
 .groupbutton{
   margin-bottom: 10px;

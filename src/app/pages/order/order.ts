@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SessionService } from '../../services/session-service';
 import { ToastService } from '../../services/toast';
@@ -40,15 +40,16 @@ import { OrderService } from '../../services/order-service';
   ],
 })
 export class Order implements OnInit, OnDestroy {
+  session5:string=null;
+  ses:Session;
   enterId: string = null;
   enter: Ienters;
-  sessionId: string = null;
+  dateId: Date | null = null;
   session: Session;
   session1:Session;
   clientName: string;
   childName: string;
   age: number;
-  birthDate: Date;
   date: Date;
   participants: number;
   orderForm: FormGroup;
@@ -63,6 +64,10 @@ export class Order implements OnInit, OnDestroy {
   enterorder:Ienters;
  sessionorder:Session;
  sessions4:Session;
+ startTime:string;
+ sessionId:number;
+ session6:string;
+ 
 
   constructor(
 
@@ -71,7 +76,8 @@ export class Order implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private sessionService: SessionService,
      private toastService: ToastService, 
-     private orderService:OrderService
+     private orderService: OrderService
+   
 
   ) {
 
@@ -79,6 +85,8 @@ export class Order implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+console.log('ActivatedRoute', this.route)
+
 this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
   if (data){
     this.enterorder = data.enterorder;
@@ -89,15 +97,35 @@ this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
     this.enterService.getEnterById(this.enterId).subscribe((enter) => {
       this.enter = enter;
     })
+    
+     console.log('session.5', this.session5)
+    console.log('NAME - enter', this.enterId)
      this.route.queryParams.subscribe(params =>{
-      this.sessionId = params['date'];
-      if (this.sessionId) {
+      this.session = params['session']
+     this.date = params['date'];
+      this.startTime = params['time'];
+      this.sessionId = params['sessionId'];
+      if (params['date']) {
+        this.dateId = new Date(params['date']);
+        if (isNaN(this.dateId.getTime())){
+          this.dateId = null;
+          console.error('некорр формат даты');
+        }
+      }
+    });
+   console.log(' sessionId', this.sessionId)
+    console.log('выбранная дата', this.dateId)
+        console.log('Время', this.startTime)
+      
+      
+      /*if (this.sessionId) {
+
          this.sessionService.getSessionById(this.sessionId).subscribe((session4) => {
       this.sessions4 = session4;
     })
-    console.log('session4Id', this.sessionId)
+    console.log('выбранная дата - sessionId', this.sessionId)
       }
-    })
+    })*/
        
 
 
@@ -105,8 +133,10 @@ this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
       clientName: new FormControl('', { validators: Validators.required }),
       childName: new FormControl(''),
       age: new FormControl([[Validators.required, Validators.min(4)]]),
-      date: new FormControl({ validators: Validators.required }),
-      sessionChoice: new FormControl('', { validators: Validators.required }),
+     date: new FormControl({ validators: Validators.required }),
+     enter:new FormControl('', { }),
+    startTime: new FormControl('', { }),
+    sessionId: new FormControl('', { }),
       participants: new FormControl([1, [Validators.required, Validators.min(1), Validators.max(10)]]),
 
     });
@@ -117,13 +147,14 @@ this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
     const userData = this.orderForm.getRawValue();
     const postData = { ...this.enter, ...userData }
     const userId = this.userService.getUsersStorage()?.id || null;
-    const sessions4 = this.date;
-    const postObj: IPostorder = {
-      clientName: postData.clearName,
+     const postObj: IPostorder = {
+      clientName: postData.clientName,
       childName: postData.childName,
       age: postData.age,
-      sessionChoice: postData.name,
-      date: postData.date,
+     enter: postData.name,
+       date: this.dateId,
+      startTime:this.startTime,
+      sessionId:this.sessionId,
       participants: postData.participants,
       userId: userId,
 
@@ -131,9 +162,12 @@ this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
 
     this.enterService.postOrder(postObj).subscribe(
       () => {
-    // this.sessionService.deleteSessionId(this.session._id) //?
-  //   .subscribe(()=>{
-   //   this.orderService.clearOrderData();
+        console.log("заказ", postObj)
+     this.sessionService.deleteSessionId(this.sessionId);
+     
+
+   //.subscribe(()=>{
+    // this.orderService.clearOrderData();
       this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
       },
     

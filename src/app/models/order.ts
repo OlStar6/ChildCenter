@@ -8,7 +8,7 @@ export interface IOrderPerson {
   clientName: string,
   childName: string,
   age: number,
-  date: string | null;
+  date: Date | null;
   participants: string | null;
   sessionChoice: string | null;
 
@@ -20,9 +20,11 @@ export interface IPostorder {
   childName: string | null;
   age: number | null;
   userId: string | null;
-  date: string | null;
+  date: Date | null;
   participants: number | null;
-  sessionChoice: string | null;
+  enter: string | null;
+  startTime:string | null;
+  sessionId:number;
 }
 
 export interface IOrderResponse {

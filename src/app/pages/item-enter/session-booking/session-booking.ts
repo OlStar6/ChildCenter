@@ -96,9 +96,9 @@ export class SessionBookingComponent implements OnInit {
  
   
     
-  getSessionIdEnter(enterid: string) {
+ /* getSessionIdEnter(enterid: string) {
     this.sessionService.getSessionIdEnter(enterid);
-  }
+  }*/
   changeDate(ev: Date): void {
     /*const input = event.target as HTMLInputElement;
     const date = input.valueAsDate;*/

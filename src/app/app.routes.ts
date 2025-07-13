@@ -12,6 +12,7 @@ import { Glory } from './pages/glory/glory';
 import { authGuard } from './pages/guards/auth-guard';
 import { Auth } from './pages/auth/auth';
 import { RoleGuard } from './pages/guards/admin-guard';
+import { About } from './pages/about/about';
 
 
 
@@ -27,14 +28,15 @@ export const routes: Routes = [
         children: [
             { path: '', component: Entertainment, data: { showAside: true } },
             { path: 'enter/:id', component: ItemEnter, data: { showAside: true } },
-            { path: 'enter', redirectTo: 'enters', pathMatch: 'full' },
+            { path: 'enter', redirectTo: '', pathMatch: 'full' },
             { path: 'order/:id', canActivate: [authGuard], component: Order },
             { path: 'glory', component: Glory },
+             { path: 'about', component: About },
 
             {
                 path: 'settings',
                 component: Settings,
-                canActivate: [authGuard],
+                //canActivate: [authGuard],
                 children: [
                     { path: '', redirectTo: 'changePsw', pathMatch: 'full' },
                     { path: 'changePsw', component: Changepsw },

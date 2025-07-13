@@ -55,8 +55,8 @@ export class Header implements OnInit, OnDestroy {
         routerLink: ['glory'],
       },
       {
-        label: 'Запись',
-        routerLink: ['order/:id'],
+        label: 'Об организации',
+        routerLink: ['about'],
       },
       {
         label: 'Настройки',
@@ -70,6 +70,9 @@ export class Header implements OnInit, OnDestroy {
     this.userService.removeUser();
 
   }
+  isnotAuth() {
+  return !this.userService.getUsersStorage();
+}
 }
 
 

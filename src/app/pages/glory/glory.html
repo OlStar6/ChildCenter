@@ -1,11 +1,12 @@
 <div class="glory-container"><h2>Наши победители</h2>
 <div class="w-full">
     @for (item of glory; track item.id) {
+        <div class="onecard">
         <p-card class="card"
         header="{{item.description}}"
         >
-        <img alt="фото" src="/img/{{item.image}}"/>
-    </p-card>
+        <img alt="фото" class="imgwidth" src="/img/{{item.image}}"/>
+    </p-card></div>
     }
 </div>
 </div>

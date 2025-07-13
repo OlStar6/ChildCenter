@@ -4,10 +4,12 @@
     align-items: stretch;
     padding: 50px 20px;
 
+
 }
 
 img {
     height: 250px;
+     
 }
 
 h2 {
@@ -15,15 +17,28 @@ h2 {
     display: flex;
     justify-content: center;
     color: rgb(221, 188, 4);
+    margin-top: 0;
+    padding: 1rem;
 }
 
 .glory-container {
-    height: 580px;
+    height: 100%;
 }
 .p-card-title {
     text-align: center;
 }
+.onecard:hover{
+    filter: drop-shadow(0 35px 25px rgba(0, 0, 0, .4));
+  transform: translateY(-20px); 
+  transform: scale(1.02);
+  transition: .3s ease-in-out;
 
-.align-items-stretch {
-    
 }
+.imgwidth{
+     height: 250px;
+    width: 270px;
+    padding: 20px;
+    margin: 5px;
+}
+
+
