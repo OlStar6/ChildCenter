@@ -36,14 +36,14 @@ export const routes: Routes = [
             {
                 path: 'settings',
                 component: Settings,
-                //canActivate: [authGuard],
+                canActivate: [authGuard],
                 children: [
                     { path: '', redirectTo: 'changePsw', pathMatch: 'full' },
                     { path: 'changePsw', component: Changepsw },
                     {
                         path: 'statistic',
-                        canActivate: [RoleGuard],
-                        data: { role: 'admin' },
+                      //  canActivate: [RoleGuard],
+                      // data: { role: 'admin' },
                         component: Statistic,
                     },
 

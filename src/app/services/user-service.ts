@@ -16,7 +16,7 @@ currentUser$ = this.currentUserSubject.asObservable;
   user:IUser;
   role:Roles;
   private currentUser: IUser | null = null;
-  private currentUserRole: Roles | null;
+  private currentUserRole?: Roles;
   newPsw: string;
   oldPsw:string;
   login:string;
@@ -37,17 +37,53 @@ currentUser$ = this.currentUserSubject.asObservable;
     return this.userStorage.find((user) => login === user.login) || null;
 
   }
- setRole(role: IUser): void {
+
+setRole(user: IUser): void {
+  this.currentUserSubject.next(user);
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  console.log('user', user)
+}
+getCurrentUser(): IUser | null {
+  if (!this.currentUserSubject.value) {
+    const user = localStorage.getItem(LOCAL_STORAGE_NAME);
+    if (user) {
+      this.currentUserSubject.next(JSON.parse(user));
+    }
+    console.log('user',user)
+  }
+  return this.currentUserSubject.value;
+}
+
+
+
+
+    setRoleasToken(role:Roles): void {
+    this.role = role;
+    console.log('role', role)
+  }
+  getRole(): Roles | undefined {
+    return this.getCurrentUser()?.role;
+     } 
+
+  isAdmin():boolean {
+   return this.role === 'admin';
+   }
+  
+  setToStoreRole(role:Roles) {
+    window.localStorage.setItem('role', role);
+  }
+
+ /*setRole(role: IUser): void {
      this.user = role;
   }
   setToRole(role: Roles) {
     window.localStorage.setItem('role', role)
-  }
+  }*/
     /*this.currentUserSubject.next(user);
       localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ user }));  //добавляем в localStorage
       console.log('role', user)
   }*/
-getCurrentRole(): IUser | null{
+/*getCurrentRole(): IUser | null{
   if (!this.currentUserSubject.value) {
     const role = localStorage.getItem(LOCAL_STORAGE_NAME);
     if(role) {
@@ -95,12 +131,12 @@ clearUser(): void{
     
   }
 
-
+*/
 
   setUser(user: IUser): void {
     this.currentUser = user;
-    sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login }));  //добавляем в sessionStorage
-      console.log('login', user)
+    sessionStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({ login: user.login, role: user.role }));  //добавляем в sessionStorage
+      console.log('user, login, role', user)
   }
   /*setUserLocal(user: IUser): void {
     this.currentUser = user;
@@ -152,6 +188,7 @@ clearUser(): void{
   setToStore(token: string) {
     window.localStorage.setItem('usertoken', token)
   }
+
  /* getFromStore() {
     window.localStorage.getItem('usertoken');
   }
@@ -168,7 +205,7 @@ clearUser(): void{
     this.token = null;
     window.localStorage.removeItem('usertoken');
    window.sessionStorage.removeItem('userlogin');
-   this.clearUser();
+
   }
 
     

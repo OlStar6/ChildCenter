@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+/*import { Pipe, PipeTransform } from '@angular/core';
 import { UserService } from '../../services/user-service';
 
 @Pipe({
@@ -12,4 +12,4 @@ constructor(private userService:UserService) {}
     return this.userService.hasRole(requiredRole);
   }
 
-}
+}*/

@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { StatisticService } from '../../../services/statistic-service';
 import { UserService } from '../../../services/user-service';
-import { RolePipePipe } from '../../pipe/role-pipe-pipe';
+
 
 @Component({
   selector: 'app-statistic',
-  standalone: true,
+  //standalone: true,
   imports: [CommonModule, TableModule],
   
   templateUrl: './statistic.html',
@@ -33,16 +33,21 @@ export class Statistic implements OnInit{
   }
 
   ngOnInit(): void {
-    this.statisticService.getUserStatistic().subscribe((data) => {
+    if (this.isAdmin()) {
+      this.loadStatistic();
+    }
+     
+  }
+  private loadStatistic():void{
+this.statisticService.getUserStatistic().subscribe((data) => {
        if (Array.isArray(data)) 
       this.users = data;
     this.usersStore=[...data];
     console.log('data', data)
     });
-
- 
   }
 isAdmin():boolean {
+  
  return this.userService.isAdmin();
   }
 

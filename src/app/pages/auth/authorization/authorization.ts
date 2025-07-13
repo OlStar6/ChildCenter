@@ -41,17 +41,19 @@ private toastService: ToastService
     const user: IUser = {
       login: this.login,
       psw: this.psw,
-    }
+       }
     this.http.post<{ access_token: string, id: string, role: Roles }>('http://localhost:3002/users/' + user.login, user).subscribe((data) => {
       user.id = data.id;
       this.userService.setUser(user); //добавляем в sessionStorage
       const token: string = data.access_token;
-      const role: Roles = user.role
+      const role: Roles = data.role;
       this.userService.setToken(token);
       this.userService.setToStore(token);
-      this.userService.setToRole(role);
+       this.userService.setRoleasToken(role);
+      this.userService.setToStoreRole(role);
       this.toastService.show('success', 'Успешная авторизация');
       this.router.navigate(['enters']);
+      console.log('role', role)
     },
     () => {
         this.toastService.show('error', 'Пользователь не найден в базе');
@@ -61,7 +63,7 @@ private toastService: ToastService
     if(!response.role){
     throw new Error('нет роли');
   }
-  this.userService.setToRole('admin');
+  this.userService.setRole(user);
   })
 
   }

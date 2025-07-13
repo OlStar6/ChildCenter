@@ -9,17 +9,18 @@ import { Roles } from '../../models/interfaces';
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, 
+    private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
     const requiredRole = route.data['role'] as Roles;
   const userRole = this.userService.getRole();
   
-  if (!requiredRole || userRole === requiredRole) {
+  if ( userRole === requiredRole) {
     return true;
   }
   
-  return this.router.parseUrl(userRole ? '/access-denied' : '/glory');
+  return this.router.parseUrl(userRole ? '/statistic' : '/glory');
 }
 }
 

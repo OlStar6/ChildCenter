@@ -9,7 +9,7 @@ import { UserService } from './user-service';
 })
 export class StatisticService {
   constructor(private http: HttpClient,
-    private userService: UserService
+    
   ) { }
   getUserStatistic(): Observable<ICustomStatisticUser[]> {
     return this.getUserStatistic1().pipe(
