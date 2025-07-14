@@ -6,6 +6,9 @@
         @if (showAside) {
         <div class="aside"><app-aside></app-aside></div>
         }
+         @if (showAsideCopy) {
+        <div class="aside"><app-aside-copy></app-aside-copy></div>
+        }
         <div class="flex-grow-1 overflow-auto">
             <router-outlet></router-outlet>
         </div>

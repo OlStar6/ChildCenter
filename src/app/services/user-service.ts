@@ -203,8 +203,9 @@ clearUser(): void{
   removeUser(): void {
     this.currentUser = null;
     this.token = null;
+    this.role = null;
     window.localStorage.removeItem('usertoken');
-   window.sessionStorage.removeItem('userlogin');
+   window.sessionStorage.removeItem('currentUser');
 
   }
 
@@ -234,16 +235,17 @@ clearUser(): void{
     localStorage.removeItem(LOCAL_STORAGE_NAME);
     this.router.navigate(['/enters']);
   }
-  // Получить текущую роль
+ 
   
  
  changePassword(oldPsw:Changepsw, newPsw:Changepsw): Observable<ChangePswResponse> {
    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${localStorage.getItem('usertoken')}`
     });
+    console.log('token', headers)
     return this.http.put<ChangePswResponse>(
-      'http://localhost:3002/users/'+ this.user.login,
+      'http://localhost:3002/users/change-password',
       {oldPsw, newPsw},
       {headers}
     );

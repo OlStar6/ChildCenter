@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
     return true;
   }
   
-  return this.router.parseUrl(userRole ? '/statistic' : '/glory');
+  return this.router.parseUrl(userRole ? 'enters' : 'glory');
 }
 }
 

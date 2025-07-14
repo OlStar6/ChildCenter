@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { StatisticService } from '../../../services/statistic-service';
 import { UserService } from '../../../services/user-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,13 +29,17 @@ export class Statistic implements OnInit{
   constructor(
     private statisticService: StatisticService,
     private userService:UserService,
+    private router:Router
     
   ) {
   }
 
   ngOnInit(): void {
-    if (this.isAdmin()) {
+   if (this.isAdmin()) {
       this.loadStatistic();
+    }
+    else {
+      this.router.navigate(['enters'])
     }
      
   }

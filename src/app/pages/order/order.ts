@@ -163,20 +163,25 @@ this.dataSubscription = this.orderService.orderData$.subscribe(data=> {
     this.enterService.postOrder(postObj).subscribe(
       () => {
         console.log("заказ", postObj)
-     this.sessionService.deleteSessionId(this.sessionId);
-     
+     this.sessionService.deleteSessionId(this.sessionId).subscribe(()=>{
+      this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
+      },
+    )
+    },
+       ()=>{
+   this.toastService.show('error', 'Ошибка');
+    }
+     );
+    
 
    //.subscribe(()=>{
     // this.orderService.clearOrderData();
-      this.toastService.show('success', 'Поздравляем! Вы успешно забронировали запись! Если Ваши планы изменятся, позвоните, пожалуйста, по телефону:123-456. Спасибо!');
-      },
+      
     
   //  )
  //   },
-      ()=>{
-   this.toastService.show('error', 'Ошибка');
-    }
-    );
+     
+    
 
   }
 ngOnDestroy(): void {

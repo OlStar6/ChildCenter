@@ -2,11 +2,10 @@ import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalE
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
-import { MessageService } from 'primeng/api';
-import { ErrorInterceptorsService } from './pages/interceptors/error-interceptor';
+import { RestInterceptorsService } from './pages/interceptors/rest-interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -31,7 +30,6 @@ export const appConfig: ApplicationConfig = {
       
     }),
     provideHttpClient(),
-    
-MessageService
-  ]
+   
+     ]
 };

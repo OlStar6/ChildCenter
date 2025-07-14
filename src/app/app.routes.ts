@@ -27,7 +27,7 @@ export const routes: Routes = [
         component: Layout,
         children: [
             { path: '', component: Entertainment, data: { showAside: true } },
-            { path: 'enter/:id', component: ItemEnter, data: { showAside: true } },
+            { path: 'enter/:id', component: ItemEnter, data: { showAsideCopy: true } },
             { path: 'enter', redirectTo: '', pathMatch: 'full' },
             { path: 'order/:id', canActivate: [authGuard], component: Order },
             { path: 'glory', component: Glory },
@@ -42,8 +42,8 @@ export const routes: Routes = [
                     { path: 'changePsw', component: Changepsw },
                     {
                         path: 'statistic',
-                      //  canActivate: [RoleGuard],
-                      // data: { role: 'admin' },
+                       // canActivate: [RoleGuard],
+                       //data: { role: 'admin' },
                         component: Statistic,
                     },
 

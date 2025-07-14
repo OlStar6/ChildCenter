@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { IUser } from '../../../models/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ToastService } from '../../../services/toast';
 
 
 
@@ -38,7 +39,8 @@ export class Changepsw implements OnInit {
 
 
   constructor(private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastService: ToastService, 
   
   ) { }
   ngOnInit(): void {
@@ -72,27 +74,23 @@ console.log('uyt')
 this.isLoading = true;
     const { oldPsw, newPsw } = this.passwordForm.value;;
    this.userService.changePassword(oldPsw, newPsw)
-.subscribe({
-       next: () => {
-                  this.successMessage = 'Пароль успешно изменен!';
+.subscribe(
+     () => {
+      this.toastService.show('success', 'Пароль успешно изменен!');
          this.passwordForm.reset();
-        }})
- /*   .subscribe({
-       next: () => {
-          this.successMessage = 'Пароль успешно изменен!';
-         this.passwordForm.reset();
-        },*/
-     /* error: (err) => {
-         this.errorMessage = err;
-      },
-     complete: () => {
-        this.isLoading = false;
+        },
+       ()=>{
+   this.toastService.show('error', 'Ошибка, обратитесь к администратору по телефону 123-123');})
+       
       }
-        })*/
+    
+     
+    }
+    
    
     
-  }
-}
+  
+
 
 
 

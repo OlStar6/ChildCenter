@@ -35,7 +35,7 @@
             [(ngModel)]="repeatChangePsw" >
   </div>
   <div class="mt-3 d-flex justify-content-between align-items-center flex-wrap">
-    <p-button label="Сохранить" 
+    <p-button label="Сохранить" [disabled]="!passwordForm.valid"
       (onClick)="onChangePsw($event)"></p-button>
       </div>
   
@@ -43,10 +43,3 @@
 
 </div>
 
-<!-- <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="successMessage" class="alert alert-success">
-    {{ successMessage }}
-  </div>-->

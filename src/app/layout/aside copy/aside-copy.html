@@ -1,0 +1,19 @@
+<div class="container">
+ 
+    <div class="aside m-3">
+      <div class="group">
+              <div class="groupbutton">
+          <div class="my-6">
+            <p-button label="Авторизация" [disabled]="isAuth()"  (click)='initAuth($event)'></p-button>
+          </div>
+          <div class="my-6">
+            <p-button label="Регистрация" [disabled]="isAuth()" (click)='initReg($event)'></p-button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+   
+ 
